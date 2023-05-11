@@ -11,7 +11,7 @@ node?:React.ReactNode
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ({ className,isLoading,label,node,...props }, ref) => {
-    const base_style = twMerge("p-2 w-full rounded-lg border hover:border-purple-500 hover:text-purple-500",className)
+    const base_style = twMerge("p-2 w-full flex items-center justify-center rounded-lg border hover:border-purple-500 hover:text-purple-500",className)
         return (
             <button
                 {...props}

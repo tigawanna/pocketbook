@@ -74,9 +74,6 @@ export function UserSignUpForm({ className, ...props }: UserAuthFormProps) {
                 <div className="m-2 p-2 h-2"></div>
             </div>
 
-
-
-
             {error.message !== "" && <ErrorOutput error={error} />}
 
             <div className="w-full p-5 m-2 flex flex-col items-center justify-center">

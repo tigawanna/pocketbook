@@ -1,6 +1,6 @@
 import { pb } from "./pb/config";
 
-type TUser = typeof pb.authStore.model
+export type TUser = typeof pb.authStore.model
 
 
 export interface IUserSignUpFormFields{

@@ -1,12 +1,19 @@
 import { create } from 'zustand'
+import { pb } from '../pb/config'
+import { TUser } from '../types'
 
-interface BearState {
-    bears: number
-    increase: (by: number) => void
+
+
+
+interface IUserStore {
+    user?:TUser
+    updateUser:(new_user?:TUser)=>void
 }
 
 
-export const useUserStore = create<BearState>()((set) => ({
-    bears: 0,
-    increase: (by) => set((state) => ({ bears: state.bears + by })),
+export const useUserStore = create<IUserStore>()((set) => ({
+user:undefined,
+updateUser:(new_user)=>{
+    set((state)=>({user:new_user}))
+}
 }))
