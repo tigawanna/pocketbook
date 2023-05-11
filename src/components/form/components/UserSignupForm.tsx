@@ -75,8 +75,7 @@ export function UserSignUpForm({ className, ...props }: UserAuthFormProps) {
             </div>
 
 
-            <Button node={<div className="m-2 h-2 flex items-center justify-center">
-                <Icons.gitHub className="mr-2 h-5 w-5" /> Github</div>} />
+
 
             {error.message !== "" && <ErrorOutput error={error} />}
 
