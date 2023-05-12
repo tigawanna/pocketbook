@@ -76,7 +76,6 @@ export interface PBUserRecord {
     emailVisibility: boolean
     github_login: string
     id: string
-    refreshtoken: string
     updated: string
     username: string
     verified: boolean

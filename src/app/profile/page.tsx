@@ -1,3 +1,4 @@
+import { ProfileForm } from "@/components/form/ProfileForm";
 import { ErrorOutput } from "@/components/wrappers/ErrorOutput";
 import { getDevprofile } from "@/state/pb/api/profile";
 
@@ -23,7 +24,7 @@ return (
     <h1 className="text-2xl font-bold first-letter:txet-4xl first-letter:text-purple-500 first-letter:uppercase">
         profile
     </h1>
-
+    <ProfileForm/>
 </main>
 );
 }

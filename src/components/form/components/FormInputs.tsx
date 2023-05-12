@@ -16,14 +16,10 @@ interface FormInputsProps<T> {
   ) => void;
 }
 
-export function TheFormInputs<T>({
-  inputs,
-  handleChange,
-  values,
-}: FormInputsProps<T>) {
-  if (inputs.length < 1) return null;
+export function TheFormInputs<T>({inputs,handleChange,values}: FormInputsProps<T>) {
 
-  return (
+if (inputs.length < 1) return null;
+return (
     <div>
       {inputs.map((inpt) => {
         return (
