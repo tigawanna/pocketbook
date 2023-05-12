@@ -1,9 +1,9 @@
 import PocketBase from 'pocketbase'
 import { IUserSignUpFormFields } from '../types';
+import { pb_url } from '../consts';
 
 
-export const pb_url = process.env.NEXT_PUBLIC_PB_URL
-export const pb_api_url = pb_url + `/api`
+
 
 export const pb = new PocketBase(pb_url)
 
