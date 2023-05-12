@@ -7,19 +7,26 @@ import { TheFormInputs } from "./FormInputs"
 import Link from "next/link"
 import { Icons } from "@/components/wrappers/icons"
 import { ErrorOutput } from "@/components/wrappers/ErrorOutput"
-import { createUser } from "@/state/pb/config"
+import { createUser, oauthLogin } from "@/state/pb/config"
 import { useMutation } from "@/state/pb/hooks/useMutation"
 import { Button } from "./Button"
+import { useUserStore } from "@/state/zustand/user"
+import { useRouter } from "next/navigation"
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 type FetcherReturn = Awaited<ReturnType<typeof createUser>>
+type OauthFetcherReturn = Awaited<ReturnType<typeof oauthLogin>>
 
 interface ISignupuser {
     user: IUserSignUpFormFields
 }
+interface IOauthLoginUser {
+    provider: "google" | "github"
+}
 
 export function UserSignUpForm({ className, ...props }: UserAuthFormProps) {
- 
+    const router = useRouter()
+    const { updateUser } = useUserStore()
     const inputs = [
         { id: "name", type: "text", placeholder: "name", label: "Name" },
         { id: "username", type: "text", placeholder: "username", label: "Username" },
@@ -42,10 +49,16 @@ export function UserSignUpForm({ className, ...props }: UserAuthFormProps) {
         }
     })
     const { trigger, isMutating, data } = useMutation<ISignupuser, FetcherReturn>({fetcher:createUser, key: "user" })
-    const [isLoading, setIsLoading] = React.useState<boolean>(isMutating)
+    const oauth_mutation = useMutation<IOauthLoginUser, OauthFetcherReturn>({ fetcher: oauthLogin, key: "user" })
+
     async function onSubmit(event: React.SyntheticEvent) {
         event.preventDefault()
-        trigger({user:input}).catch(err => {
+        trigger({user:input})
+            .then((res) => {
+                updateUser(res?.record)
+                router.refresh()
+            })
+        .catch(err => {
             setError({ name: "main", message: err })
         })
      }
@@ -57,7 +70,7 @@ export function UserSignUpForm({ className, ...props }: UserAuthFormProps) {
             <form onSubmit={onSubmit}>
                 <div className="flex flex-col  gap-5">
                     <TheFormInputs<IUserSignUpFormFields> handleChange={handleChange} inputs={inputs} values={input}/>
-                    <Button  isLoading={isLoading} type="submit" label="Signup with email" />
+                    <Button  isLoading={isMutating} type="submit" label="Signup with email" />
                 </div>
             </form>
 
@@ -73,6 +86,18 @@ export function UserSignUpForm({ className, ...props }: UserAuthFormProps) {
                 </div>
                 <div className="m-2 p-2 h-2"></div>
             </div>
+
+            <Button
+                onClick={() => { oauth_mutation.trigger({ provider: "github" }) }}
+                type="button"
+                isLoading={oauth_mutation.isMutating}
+                node={
+                    <div className="m-2 h-2 flex items-center justify-center">
+                        <Icons.gitHub className="mr-2 h-5 w-5" />{" "}
+                        Github
+                    </div>
+                }
+            />
 
             {error.message !== "" && <ErrorOutput error={error} />}
 
