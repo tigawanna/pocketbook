@@ -3,6 +3,7 @@
 import { PBUserRecord } from "@/state/user";
 import { EditableInput } from "./components/EditableInput";
 import { useFormHook } from "./useFormHook";
+import { ImageInput } from "./components/ImageInput";
 
 interface ProfileFormProps {
 
@@ -28,7 +29,7 @@ interface ProfileFormProps {
 // }
 
 type TProfileFormInput = Omit<PBUserRecord,
-"collectionId"|"collectionName"|"updated"|"emailVisibility"|"expand"|"verified"|"">
+"collectionId"|"collectionName"|"updated"|"emailVisibility"|"expand"|"verified"|"github_avatar"|"github_login"|"id">
 export function ProfileForm({}:ProfileFormProps){
 
 const {input,setInput,handleChange} = useFormHook<TProfileFormInput>({
@@ -40,26 +41,24 @@ const {input,setInput,handleChange} = useFormHook<TProfileFormInput>({
       created:'',
       username:"",
       displayname:"",
-      github_login:"",
-      id:"",
+      
 }
 })
 
 const inputs = Object.entries(input)
 
+function updateImage(image:string){
+   setInput({...input,avatar:image})
+}
 
 
 return (
  <div className='w-full h-full flex items-center justify-center'>
-      <form className="w-full h-full flex flex-col  items-center justify-center gap-1">
-      {inputs.map(([key,value]) => {
-         return(
-            <EditableInput key={key} id={key} value={value} editing={true} onChange={handleChange}/>
-         )
-      })
-
-      }
-   </form>
+      <form className="w-full h-full flex flex-col p-5 gap-1">
+         <div className="w-[30%]  rounded flex flex-wrap ">
+            <ImageInput label="Avatar" image={input.avatar} updateImage={updateImage}/>
+         </div>
+      </form>
     
  </div>
 );

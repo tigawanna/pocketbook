@@ -75,6 +75,7 @@ export interface PBUserRecord {
     email: string
     emailVisibility: boolean
     github_login: string
+    github_avatar: string
     id: string
     updated: string
     username: string
