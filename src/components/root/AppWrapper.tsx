@@ -3,6 +3,7 @@
 import { usePbAuthListener } from "@/state/pb/hooks/usePbAuthListener";
 import { Sidebar } from "./Sidebar";
 
+
 interface AppWrapperProps {
     children: React.ReactNode
 }

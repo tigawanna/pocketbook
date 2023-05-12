@@ -7,8 +7,8 @@ interface ErrorOutputProps {
 
 export function ErrorOutput({error}:ErrorOutputProps){
 return (
- <div className='w-full h-full flex items-center justify-center bg-red-900 text-red-200'>
-    <p className="text-sm">{error.message}</p>
+ <div className='w-full h-full flex items-center justify-center'>
+    <p className="text-center p-5 w-[90%] md:w-[70%] bg-red-200 text-red-900 rounded-lg">{error.message}</p>
  </div>
 );
 }

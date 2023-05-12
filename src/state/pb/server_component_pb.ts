@@ -1,20 +1,19 @@
+import { cookies, headers } from 'next/headers';
+
 import PocketBase from 'pocketbase'
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
 import { pb_url } from '../consts';
 
-
-export async function route_handlers_pb(req:NextRequest, res:NextResponse) {
-    
-    const cookie = req.cookies.get('pb_auth')?.value;
-    const response = NextResponse.next();
-
+export async function server_component_pb() {
+    // const cookie = req.cookies.get('pb_auth')?.value;
+    const cookie = await cookies().get('pb_auth')?.value
+    // const response = NextResponse.next();
     const pb = new PocketBase(pb_url)
     // load the auth store data from the request cookie string
     pb.authStore.loadFromCookie(cookie || '');
     // send back the default 'pb_auth' cookie to the client with the latest store state
     pb.authStore.onChange(() => {
-        response.headers.set('set-cookie', pb.authStore.exportToCookie());
+        // response.headers.set('set-cookie', pb.authStore.exportToCookie());
+        headers().set('set-cookie', pb.authStore.exportToCookie());
     });
     try {
         // get an up-to-date auth store state by verifying and refreshing the loaded auth model (if any)
@@ -24,10 +23,5 @@ export async function route_handlers_pb(req:NextRequest, res:NextResponse) {
         pb.authStore.clear();
     }
 
-    return pb
+    return {pb,cookies,headers}
 }
-
-
-
-
-
