@@ -123,7 +123,16 @@ return (
     </div>
 
     <Button
-    onClick={()=>{ oauth_mutation.trigger({provider:"github"})}}
+    onClick={()=>{ oauth_mutation.trigger({provider:"github"})
+    .then((res)=>{
+      console.log("full resonse ",res)
+      updateUser(res?.record)
+      router.refresh()
+    })
+    .catch(err => {
+          setError({ name: "main", message: err })
+      })
+  }}
       type="button"
       isLoading={oauth_mutation.isMutating}
       node={

@@ -7,7 +7,7 @@ interface pageProps {
 
 export default async function page({}:pageProps){
 const dev = await getDevprofile()
-console.log("developre  ==== ",dev.message)
+
 
 if (dev instanceof Error){
 return(
@@ -16,6 +16,7 @@ return(
     </div>
 )
 }
+
 return (
  <main className='w-full h-full min-h-screen flex flex-col items-center justify-center'>
 

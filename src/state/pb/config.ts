@@ -1,6 +1,7 @@
 import PocketBase from 'pocketbase'
-import { IUserSignUpFormFields } from '../types';
+import { IUserSignUpFormFields, TUser } from '../types';
 import { pb_url } from '../consts';
+import { GithubOauthResponse } from '../user';
 
 
 
@@ -26,7 +27,7 @@ interface ILoginUser {
 
 export async function loginUser({ user, password }: ILoginUser) {
 try {
-    const authData = await pb.collection('devs').authWithPassword(user,password);
+    const authData = await pb.collection('devs').authWithPassword<TUser>(user,password);
     return authData
 } catch (error) {
     throw error
@@ -39,8 +40,16 @@ interface IOuthLogin {
 
 export async function oauthLogin({provider}:IOuthLogin) {
     try {
-        const authData = await pb.collection('devs').authWithOAuth2({ provider});
-        return authData
+        const authData = await pb.collection('devs').authWithOAuth2<GithubOauthResponse>({ provider});
+        const dev = authData.record.record
+        const data = {
+            access_token:authData.record.meta.accessToken,
+            github_login:authData.record.meta.rawUser.login,
+            github_avatar:authData.record.meta.rawUser.avatar_url,
+            
+        }
+        const new_dev = await pb.collection('devs').update(dev.id,data);
+        return new_dev
     } catch (error) {
         throw error
     }
