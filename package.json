@@ -15,6 +15,7 @@
     "autoprefixer": "10.4.14",
     "class-variance-authority": "^0.6.0",
     "clsx": "^1.2.1",
+    "dayjs": "^1.11.7",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.1",
     "lucide-react": "^0.215.0",

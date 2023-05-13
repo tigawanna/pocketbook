@@ -2,17 +2,17 @@
 
 import { PBUserRecord } from "@/state/user";
 import { useFormHook } from "./useFormHook";
-import { ImageInput } from "./components/ImageInput";
+
 import { TheInput } from "./components/TheInput";
 import { TheTextArea } from "./components/TheTextArea";
 import { useMutation } from "@/state/pb/hooks/useMutation";
-
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "@/state/zustand/user";
 import { Button } from "./components/Button";
 import { updateUserProfile, IUpdateUserProfile } from "@/state/pb/api/profile/profile";
 import { ErrorOutput } from "../wrappers/ErrorOutput";
-import { getPBImageUrl } from "@/state/pb/config";
+
 
 interface ProfileFormProps {
   user: PBUserRecord;
@@ -47,9 +47,7 @@ export function ProfileForm({ user }: ProfileFormProps) {
     },
   });
 
-  function updateImage(image: string) {
-    setInput({ ...input, avatar: image });
-  }
+
   const { trigger, isMutating } = useMutation<IUpdateUserProfile, FetcherReturn>({
     fetcher: updateUserProfile,
     key: "user",
@@ -68,22 +66,36 @@ export function ProfileForm({ user }: ProfileFormProps) {
         setError({ name: "main", message: err });
       });
   }
-  const profile_url =
-    getPBImageUrl(user, "avatar") !== "" ? getPBImageUrl(user, "avatar") : user.github_avatar;
+
   return (
-    <div className="w-full h-full flex items-center justify-center">
+    <div className="w-full h-full flex items-center justify-center p-5">
       <form
         onSubmit={onSubmit}
-        className="w-[90%] md:w-[60%] h-full flex flex-col items-center justify-center p-5 gap-5 rounded-lg
+        className="w-[90%] lg:w-[60%] h-full flex flex-col items-center justify-center p-5 gap-5 rounded-lg
        border shadow-lg shadow-accent-foreground">
-        <div className="w-[90%] h-full rounded flex flex-col md:flex-row items-center justify-center gap-5">
-          <div
-            className="md:w-[40%] w-[90%] p-2 h-full flex items-center justify-center 
-            hover:border hover:border-accent-foreground rounded-2xl">
-            <ImageInput label="Avatar" image={profile_url} updateImage={updateImage} />
-          </div>
+        <div className="w-[90%] h-full rounded flex flex-col lg:flex-row items-center justify-center gap-5">
+   
+            {user.avatar !=="" &&
+            <div
+            className="lg:w-[50%] w-[90%] p-2 h-full flex items-center justify-center rounded-2xl">
+                 <Image
+                    src={user.avatar}
+                    alt="user image"
+                    height={250}
+                    width={250}
+                    className="rounded-lg h-auto w-fit aspect-square object-cover flex items-center justify-center" />
+                 </div>
+               }
+ 
 
-          <div className="flex md:min-w-[40%] w-[90%] flex-col gap-1">
+          <div className="flex  w-[90%] flex-col gap-1">
+                 <TheInput
+                    label="image url"
+                    type="url"
+                    id="avatar"
+                    onChange={handleChange}
+                    value={input.avatar}
+                 />
             <TheInput
               label="email"
               type="email"

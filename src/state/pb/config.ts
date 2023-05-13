@@ -47,7 +47,7 @@ export async function updateUser(authData: GithubOauthResponse) {
    const data = {
       access_token: authData.meta?.accessToken,
       github_login: authData.meta?.rawUser?.login,
-      github_avatar:authData.meta?.rawUser?.avatar_url,
+      avatar:authData.meta?.rawUser?.avatar_url,
       username: authData.meta?.rawUser?.login,
       bio: authData.meta?.rawUser?.bio,
       emailVisibility:true

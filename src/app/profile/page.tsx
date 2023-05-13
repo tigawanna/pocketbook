@@ -1,5 +1,6 @@
 
 import { ProfileForm } from "@/my-ui/form/ProfileForm";
+import { ProfileUserInfo } from "@/my-ui/profile/ProfileUserInfo";
 import { ErrorOutput } from "@/my-ui/wrappers/ErrorOutput";
 import { getDevprofile } from "@/state/pb/api/profile/server-only";
 
@@ -22,10 +23,7 @@ return(
 
 return (
  <main className='w-full h-full min-h-screen flex flex-col items-center justify-center'>
-
-    <h1 className="text-2xl font-bold first-letter:txet-4xl first-letter:text-purple-500 first-letter:uppercase">
-        profile
-    </h1>
+    <ProfileUserInfo user={dev}/>
     <ProfileForm user={dev}/>
 </main>
 );
