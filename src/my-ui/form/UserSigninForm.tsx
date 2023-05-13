@@ -5,13 +5,13 @@ import * as React from "react"
 import Link from "next/link"
 import { loginUser,  oauthLogin } from "@/state/pb/config"
 import { useMutation } from "@/state/pb/hooks/useMutation"
-import { Icons } from "@/components/wrappers/icons"
 
-import { ErrorOutput } from "@/components/wrappers/ErrorOutput"
 import { useRouter } from "next/navigation"
 import { useUserStore } from "@/state/zustand/user"
 import { Button } from "./components/Button"
 import { useFormHook } from "./useFormHook"
+import { ErrorOutput } from "../wrappers/ErrorOutput"
+import { Icons } from "../wrappers/icons"
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 

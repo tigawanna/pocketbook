@@ -1,7 +1,6 @@
 "use client"
 
 import { PBUserRecord } from "@/state/user";
-import { EditableInput } from "./components/EditableInput";
 import { useFormHook } from "./useFormHook";
 import { ImageInput } from "./components/ImageInput";
 

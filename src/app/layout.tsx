@@ -1,4 +1,5 @@
-import { AppWrapper } from '@/components/root/AppWrapper'
+
+import { AppWrapper } from '@/my-ui/root/AppWrapper'
 import './globals.css'
 import { Inter } from 'next/font/google'
 

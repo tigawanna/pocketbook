@@ -1,5 +1,6 @@
-import { ProfileForm } from "@/components/form/ProfileForm";
-import { ErrorOutput } from "@/components/wrappers/ErrorOutput";
+
+import { ProfileForm } from "@/my-ui/form/ProfileForm";
+import { ErrorOutput } from "@/my-ui/wrappers/ErrorOutput";
 import { getDevprofile } from "@/state/pb/api/profile";
 
 interface pageProps {

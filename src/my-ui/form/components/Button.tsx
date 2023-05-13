@@ -1,4 +1,5 @@
-import { Icons } from "@/components/wrappers/icons";
+
+import { Icons } from "@/my-ui/wrappers/icons";
 import { forwardRef } from "react";
 import { twMerge } from 'tailwind-merge'
 interface ButtonProps extends React.ButtonHTMLAttributes < HTMLButtonElement > {

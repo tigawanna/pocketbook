@@ -1,6 +1,7 @@
 import { useUserStore } from "@/state/zustand/user";
 import { pb } from "../config";
 import { useEffect } from "react";
+import { PBUserRecord } from "@/state/user";
 
 export function usePbAuthListener() {
     const { updateUser } = useUserStore()
@@ -8,8 +9,7 @@ export function usePbAuthListener() {
         pb.authStore.loadFromCookie(document?.cookie ?? "");
        const authChange = pb.authStore.onChange(() => {
             document.cookie = pb.authStore.exportToCookie({ httpOnly: false });
-            console.log("updated user  === ", pb.authStore.model)
-            updateUser(pb.authStore.model)
+            updateUser(pb.authStore.model as unknown as PBUserRecord)
         })
         return () => {
             //  call to clean up the listener
