@@ -9,27 +9,11 @@ interface ProfileFormProps {
 
 }
 
-// export interface PBUserRecord {
-//    access_token: string
-//    avatar: string
-//    bio: string
-//    collectionId: string
-//    collectionName: string
-//    created: string
-//    displayname: string
-//    email: string
-//    emailVisibility: boolean
-//    github_login: string
-//    id: string
-//    refreshtoken: string
-//    updated: string
-//    username: string
-//    verified: boolean
-//    expand: Expand
-// }
 
 type TProfileFormInput = Omit<PBUserRecord,
 "collectionId"|"collectionName"|"updated"|"emailVisibility"|"expand"|"verified"|"github_avatar"|"github_login"|"id">
+
+
 export function ProfileForm({}:ProfileFormProps){
 
 const {input,setInput,handleChange} = useFormHook<TProfileFormInput>({
