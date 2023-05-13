@@ -1,13 +1,10 @@
 import { create } from 'zustand'
-import { pb } from '../pb/config'
-import { TUser } from '../types'
-
-
+import { PBUserRecord } from '../user'
 
 
 interface IUserStore {
-    user?:TUser
-    updateUser:(new_user?:TUser)=>void
+    user?:PBUserRecord
+    updateUser:(new_user?:PBUserRecord)=>void
 }
 
 

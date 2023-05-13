@@ -79,7 +79,14 @@ export interface PBUserRecord {
     updated: string
     username: string
     verified: boolean
-    expand: Expand
+    expand: PBUserRecordExpand;
 }
 
-export interface Expand { }
+export interface PBUserRecordExpand { }
+
+
+export type TUserSignUpFormFields =
+    Pick<PBUserRecord, "email" | "emailVisibility" | "username" | "avatar" | "github_login"> & {
+        password: string;
+        confirmPassword: string;
+    }

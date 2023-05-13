@@ -6,7 +6,7 @@ interface ErrorOutputProps {
 }
 
 export function ErrorOutput({error}:ErrorOutputProps){
-    console.log("error === ",error)
+
 return (
  <div className='w-full h-full flex items-center justify-center'>
     <pre className="text-center p-5 w-[90%] md:w-[70%] bg-red-200 text-red-900 rounded-lg">

@@ -66,7 +66,7 @@ return (
     })
 }}
 node={<LogOutIcon size={20} className="mx-5 h-5 w-5" />}
-isLoading={isMutating}
+    isLoading={isMutating}
 />
  </div>
 );

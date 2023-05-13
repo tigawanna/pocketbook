@@ -22,6 +22,7 @@ export async function route_handlers_pb(req:NextRequest, res:NextResponse) {
     } catch (_) {
         // clear the auth store on failed refresh
         pb.authStore.clear();
+        
     }
 
     return pb
