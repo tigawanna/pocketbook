@@ -31,15 +31,15 @@ return (
 
       <div className="w-full h-full flex flex-col items-cente justify-center ">
         <h1> @{user.username}</h1>
-        <h2 className="flex gap-2 items-center">
+         {user.email!==""&&<h2 className="flex gap-2 items-center">
           <Mail className="h-4 w-4" />
           {user.email}
-        </h2>
-        <h2 className="flex gap-2  items-center">
+        </h2>}
+          {user.github_login !=="" &&<h2 className="flex gap-2  items-center">
           <Icons.gitHub size={5} className="h-4 w-4" />
           {user.github_login}
-        </h2>
-        <h2>{relativeDate(user.created)}</h2>
+        </h2>}
+        <h2>joined: {relativeDate(user.created)}</h2>
         <p className="border-t my-1 py-2">bio: {user.bio}</p>
       </div>
           <DialodWrapper>

@@ -24,7 +24,6 @@ return(
 return (
  <main className='w-full h-full min-h-screen flex flex-col items-center'>
     <ProfileUserInfo user={dev}/>
-
 </main>
 );
 }
