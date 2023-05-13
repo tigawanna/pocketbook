@@ -2,7 +2,6 @@
 
 import { PBUserRecord } from "@/state/user";
 import { useFormHook } from "./useFormHook";
-
 import { TheInput } from "./components/TheInput";
 import { TheTextArea } from "./components/TheTextArea";
 import { useMutation } from "@/state/pb/hooks/useMutation";
@@ -36,7 +35,7 @@ export function ProfileForm({ user }: ProfileFormProps) {
   const router = useRouter();
   const { updateUser } = useUserStore();
 
-  const { input, setInput, handleChange, setError, error } = useFormHook<TProfileFormInput>({
+  const { input,  handleChange, setError, error } = useFormHook<TProfileFormInput>({
     initialValues: {
       avatar: user.avatar,
       email: user.email,
@@ -69,11 +68,12 @@ export function ProfileForm({ user }: ProfileFormProps) {
 
   return (
     <div className="w-full h-full flex items-center justify-center p-5">
+
       <form
         onSubmit={onSubmit}
-        className="w-[90%] lg:w-[60%] h-full flex flex-col items-center justify-center p-5 gap-5 rounded-lg
-       border shadow-lg shadow-accent-foreground">
-        <div className="w-[90%] h-full rounded flex flex-col lg:flex-row items-center justify-center gap-5">
+        className="w-full h-full flex flex-col items-center justify-center gap-5">
+          <h1 className="text-2xl font-bold">Update Profile</h1>
+        <div className="w-[90%] h-full rounded flex flex-col  items-center justify-center gap-5">
    
             {user.avatar !=="" &&
             <div

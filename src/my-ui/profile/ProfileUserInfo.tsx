@@ -1,22 +1,22 @@
-"use client";
+
 
 import { PBUserRecord } from "@/state/user";
 import { relativeDate } from "@/state/utils/date";
-import { Edit2Icon, Mail } from "lucide-react";
+import {  Mail } from "lucide-react";
 import Image from "next/image";
 import { Icons } from "../wrappers/icons";
-import { useState } from "react";
+import { DialodWrapper } from "../dialog/DialodWrapper";
+import { ProfileForm } from "../form/ProfileForm";
 
 interface ProfileUserInfoProps {
   user: PBUserRecord;
 }
 
 export function ProfileUserInfo({ user }: ProfileUserInfoProps) {
-  const [open, setOpen] = useState(false);
-
-  return (
+return (
     <div className="w-full flex items-center justify-center bg-secondary p-2 gap-5 
         border border-secondary-foreground shadow shadow-accent-foreground">
+
       <div className="md:w-[45%] w-[90%] p-2 h-full flex items-center justify-center rounded-2xl">
         {user.avatar !== "" && (
           <Image
@@ -42,6 +42,9 @@ export function ProfileUserInfo({ user }: ProfileUserInfoProps) {
         <h2>{relativeDate(user.created)}</h2>
         <p className="border-t my-1 py-2">bio: {user.bio}</p>
       </div>
+          <DialodWrapper>
+            <ProfileForm user={user}/>
+          </DialodWrapper>
     </div>
   );
 }
