@@ -13,7 +13,7 @@ interface SideBarProps {
 export function Sidebar({}:SideBarProps){
 
 return (
- <div className='w-full h-full flex flex-col items-center justify-center bg-slate-600'>
+    <div className='w-full h-full flex flex-col items-center justify-center bg-secondary'>
     <div className='w-full h-[20%] flex flex-col items-center justify-center  text-2xl font-bold shadow-md'>
         APP
     </div>
@@ -58,7 +58,7 @@ const router = useRouter()
 const { updateUser } = useUserStore()
 const { isMutating, trigger } = useMutation({ fetcher: logoutUser, key: 'user' })
 return (
- <div className='w-full h-[20%] flex items-center justify-center bg-slate-700'>
+ <div className='w-full h-[20%] flex items-center justify-center  '>
 <Button type="button" className="border-0" onClick={()=>{
     trigger({}).then(()=>{
         updateUser(undefined)

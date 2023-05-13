@@ -71,7 +71,6 @@ export interface PBUserRecord {
     collectionId: string
     collectionName: string
     created: string
-    displayname: string
     email: string
     emailVisibility: boolean
     github_login: string

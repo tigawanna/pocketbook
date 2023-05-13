@@ -37,7 +37,7 @@ return (
     height={250}
     width={250}
     onClick={()=>ref.current?.click()}
-    className="rounded-lg h-auto w-full aspect-square "/>}
+    className="rounded-lg h-auto w-fit aspect-square object-cover"/>}
     {!preview&&<ImagePlus className="w-8 h-8" onClick={() => ref.current?.click()} />}
     <input id="file" className="hidden" ref={ref} type="file" onChange={handleChange} />
     <label htmlFor="file" className=""></label>  
