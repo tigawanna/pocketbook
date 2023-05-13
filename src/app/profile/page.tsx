@@ -1,7 +1,8 @@
 
 import { ProfileForm } from "@/my-ui/form/ProfileForm";
 import { ErrorOutput } from "@/my-ui/wrappers/ErrorOutput";
-import { getDevprofile } from "@/state/pb/api/profile";
+import { getDevprofile } from "@/state/pb/api/profile/server-only";
+
 
 interface pageProps {
 
@@ -25,7 +26,7 @@ return (
     <h1 className="text-2xl font-bold first-letter:txet-4xl first-letter:text-purple-500 first-letter:uppercase">
         profile
     </h1>
-    <ProfileForm/>
+    <ProfileForm user={dev}/>
 </main>
 );
 }

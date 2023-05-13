@@ -30,7 +30,7 @@ if(event.target.files?.[0]){
 
 }
 return (
- <div className='w-full h-full flex flex-col items-center justify-center'>
+ <div className='w-full h-full flex flex-col items-center justify-center '>
 {preview && <Image 
     src={preview}
     alt="preview"
