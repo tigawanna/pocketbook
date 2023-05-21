@@ -1,11 +1,11 @@
 "use client"
 
 import * as React from "react"
-import { IUserSignUpFormFields } from "@/state/types"
+
 import Link from "next/link"
 
 import { createUser, oauthLogin } from "@/state/pb/config"
-import { useMutation } from "@/state/pb/hooks/useMutation"
+import { useMutation } from "@/state/hooks/useMutation"
 import { useUserStore } from "@/state/zustand/user"
 import { useRouter } from "next/navigation"
 import { Button } from "./components/Button"
@@ -13,13 +13,14 @@ import { TheFormInputs } from "./components/FormInputs"
 import { useFormHook } from "./useFormHook"
 import { ErrorOutput } from "../wrappers/ErrorOutput"
 import { Icons } from "../wrappers/icons"
+import { TUserSignUpFormFields } from "@/state/user"
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 type FetcherReturn = Awaited<ReturnType<typeof createUser>>
 type OauthFetcherReturn = Awaited<ReturnType<typeof oauthLogin>>
 
 interface ISignupuser {
-    user: IUserSignUpFormFields
+    user: TUserSignUpFormFields
 }
 interface IOauthLoginUser {
     provider: "google" | "github"
@@ -28,24 +29,34 @@ interface IOauthLoginUser {
 export function UserSignUpForm({ className, ...props }: UserAuthFormProps) {
     const router = useRouter()
     const { updateUser } = useUserStore()
-    const inputs = [
-        { id: "name", type: "text", placeholder: "name", label: "Name" },
+    
+    interface FormInputs{
+        id:keyof TUserSignUpFormFields;
+        type: string;
+        placeholder: string;
+        label: string;
+        optional?: boolean;
+
+    }
+    const inputs_config: FormInputs[] = [
         { id: "username", type: "text", placeholder: "username", label: "Username" },
         { id: "email", type: "email", placeholder: "email", label: "Email" },
-        { id: "github_username", type: "text", placeholder: "github_username", label: "Github Username", optional: true },
+        { id: "github_login", type: "text", placeholder: "github_username", label: "Github Username", optional: true },
         { id: "password", type: "password", placeholder: "password", label: "Password" },
         { id: "confirmPassword", type: "password", placeholder: "confirmPassword", label: "Confirm Password" },
     ]
 
     const {
-        error,handleChange,input,setError,setInput } = useFormHook<IUserSignUpFormFields>({
+        error, handleChange, input, setError, setInput } = useFormHook<TUserSignUpFormFields>({
         initialValues:{
             confirmPassword:"",
             email:'',
-             name:"",
+            avatar:'',
+            github_login:'',
+            emailVisibility:true,
              password:"",
              username:"",
-             github_username:""
+     
 
         }
     })
@@ -70,7 +81,10 @@ export function UserSignUpForm({ className, ...props }: UserAuthFormProps) {
             <h1 className="text-3xl font-bold pb-5 ">Create an account</h1>
             <form onSubmit={onSubmit}>
                 <div className="flex flex-col  gap-5">
-                    <TheFormInputs<IUserSignUpFormFields> handleChange={handleChange} inputs={inputs} values={input}/>
+                    <TheFormInputs<TUserSignUpFormFields> 
+                    handleChange={handleChange} 
+                    inputs_config={inputs_config} 
+                    values={input}/>
                     <Button  isLoading={isMutating} type="submit" label="Signup with email" />
                 </div>
             </form>

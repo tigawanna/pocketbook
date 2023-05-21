@@ -1,6 +1,6 @@
 "use client"
 
-import { usePbAuthListener } from "@/state/pb/hooks/usePbAuthListener";
+import { usePbAuthListener } from "@/state/hooks/usePbAuthListener";
 import { Sidebar } from "./Sidebar";
 
 

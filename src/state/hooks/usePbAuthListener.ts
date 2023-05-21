@@ -1,5 +1,5 @@
 import { useUserStore } from "@/state/zustand/user";
-import { pb } from "../config";
+import { pb } from "../pb/config";
 import { useEffect } from "react";
 import { PBUserRecord } from "@/state/user";
 

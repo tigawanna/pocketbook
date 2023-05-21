@@ -1,36 +1,35 @@
-import { HTMLInputTypeAttribute } from "react";
 
-export interface IFormInputs {
-  id: string;
-  type: HTMLInputTypeAttribute;
+export interface IFormInputs<T>{
+  id: keyof T;
+  type: string;
   placeholder: string;
   label: string;
   optional?: boolean;
 }
 
 interface FormInputsProps<T> {
-  inputs: IFormInputs[];
+  inputs_config: IFormInputs<T>[];
   values: T;
   handleChange: (
     event: React.ChangeEvent<HTMLInputElement>
   ) => void;
 }
 
-export function TheFormInputs<T>({inputs,handleChange,values}: FormInputsProps<T>) {
+export function TheFormInputs<T>({inputs_config,handleChange,values}: FormInputsProps<T>) {
 
-if (inputs.length < 1) return null;
+if (inputs_config.length < 1) return null;
 return (
     <div>
-      {inputs.map((inpt) => {
+      {inputs_config.map((inpt) => {
         return (
           <div
-            key={inpt.id}
+            key={inpt.id as string}
             className="flex flex-col gap-1">
-            <label className="" htmlFor={inpt.id}>
+            <label className="" htmlFor={inpt.id as string}>
               {inpt.label}
             </label>
             <input
-              id={inpt.id}
+              id={inpt.id as string}
               // @ts-ignore
               value={values[inpt.id]}
               required={!inpt.optional}

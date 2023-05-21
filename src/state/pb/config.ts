@@ -75,7 +75,7 @@ export async function oauthLogin({
   }
 }
 
-interface ISignupuser {
+export interface ISignupuser {
   user: TUserSignUpFormFields;
 }
 
