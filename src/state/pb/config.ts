@@ -108,3 +108,15 @@ export function getPBImageUrl(record: Pick<Record,"id" | "collectionId" | "colle
     queryParams
   );
 }
+
+
+export const makeImageUrl = (
+  coll_name: string,
+  record_id: string,
+  media_name: string
+) => {
+  if (media_name) {
+    return `${pb_url}/api/files/${coll_name}/${record_id}/${media_name}`;
+  }
+  return;
+};

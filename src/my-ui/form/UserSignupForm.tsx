@@ -74,12 +74,13 @@ export function UserSignUpForm({ className, ...props }: UserAuthFormProps) {
             setError({ name: "main", message: err })
         })
      }
-
+    const is_error = error.message !== ""
 
     return (
-        <div className="w-[90%] md:w-[70%] border shadow rounded-lg p-10" {...props}>
+        <div className="w-[90%] md:w-[70%] border shadow rounded-lg p-5" {...props}>
             <h1 className="text-3xl font-bold pb-5 ">Create an account</h1>
-            <form onSubmit={onSubmit}>
+            <form onSubmit={onSubmit} 
+            style={{borderRadius:'10px',border:is_error?"1px solid red":""}}>
                 <div className="flex flex-col  gap-5">
                     <TheFormInputs<TUserSignUpFormFields> 
                     handleChange={handleChange} 
@@ -94,7 +95,7 @@ export function UserSignUpForm({ className, ...props }: UserAuthFormProps) {
                 <div className="absolute inset-0 flex items-center">
                     <span className="w-full border-t" />
                 </div>
-                <div className="relative flex justify-center text-xs uppercase">
+                <div className="relative flex justify-center text-xs ">
                     <span className="bg-background px-2 text-muted-foreground">
                         Or continue with
                     </span>
@@ -114,9 +115,9 @@ export function UserSignUpForm({ className, ...props }: UserAuthFormProps) {
                 }
             />
 
-            {error.message !== "" && <ErrorOutput error={error} />}
+            {is_error && <ErrorOutput error={error} />}
 
-            <div className="w-full p-5 m-2 flex flex-col items-center justify-center">
+            <div className="w-full p-5 m-2 flex flex-col items-center justify-center text-xs">
                 <div className="">already have an account ?</div>
                  <Link href='../auth'
                     className=" underline underline-offset-4">

@@ -9,6 +9,7 @@ const nextConfig = {
       "tigawanna-pocketbase.fly.dev",
       "images.unsplash.com",
       "avatars.githubusercontent.com",
+      "picsum.photos",
     ],
   },
 };

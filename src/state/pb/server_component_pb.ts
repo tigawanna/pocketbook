@@ -2,6 +2,7 @@ import { cookies, headers } from 'next/headers';
 
 import PocketBase from 'pocketbase'
 import { pb_url, pb_user_collection } from '../consts';
+import { PBUserRecord } from '../user';
 
 export async function server_component_pb() {
     // const cookie = req.cookies.get('pb_auth')?.value;
@@ -24,4 +25,17 @@ export async function server_component_pb() {
     }
 
     return {pb,cookies,headers}
+}
+
+
+export async function getPBCookieUser() {
+    try {
+        const { cookies } = await server_component_pb()
+        const user_string = cookies().get("pb_auth")?.value ?? "{}"
+        const user = JSON.parse(user_string).model as PBUserRecord
+        return user
+    } catch (error) {
+        throw error
+    }
+
 }

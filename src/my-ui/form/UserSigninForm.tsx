@@ -59,20 +59,21 @@ const { error, handleChange, input ,setError } = useFormHook<ILoginUser>({
             setError({name:"main",message:err})
         })
     }
-
+  const is_error = error.message !== ""
 return (
   <div
-    className="w-[90%] md:w-[70%] border shadow rounded-lg p-5"
+    className="w-[95%] md:w-[70%] border shadow rounded-lg p-5"
     {...props}>
     <h1 className="text-3xl font-bold p-5 ">
       Login
     </h1>
     <form
       onSubmit={onSubmit}
-      className="flex flex-col gap-10">
-      <div className="flex flex-col gap-2">
-        <div className="flex flex-col gap-2">
-          <label className="" htmlFor="email">
+      style={{ borderRadius: '10px', border: is_error ? "1px solid red" : "" }}
+      className="w-full flex flex-col gap-10">
+      <div className="w-full flex flex-col gap-2">
+        <div className="w-full flex flex-col gap-1">
+          <label className="text-sm" htmlFor="email">
             Email
           </label>
           <input
@@ -88,9 +89,9 @@ return (
             disabled={isMutating}
           />
         </div>
-        <div className="flex flex-col gap-2">
-          <label className="" htmlFor="password">
-            Email
+        <div className="w-full flex flex-col gap-1">
+          <label className="text-sm" htmlFor="password">
+            Password
           </label>
           <input
             id="password"
@@ -116,9 +117,9 @@ return (
       <div className="absolute inset-0 flex items-center">
         <span className="w-full border-t" />
       </div>
-      <div className="relative flex justify-center text-xs uppercase">
+      <div className="relative flex justify-center text-xs ">
         <span className="bg-background px-2 text-muted-foreground">
-          Or continue with
+          or continue with
         </span>
       </div>
       <div className="m-2 p-2 h-2"></div>
@@ -144,8 +145,9 @@ return (
         </div>
       }
     />
+    {is_error && <ErrorOutput error={error} />}
 
-    <div className="w-full p-2 m-2 flex flex-wrap items-center justify-center gap-1">
+    <div className="w-full p-2 m-2 text-xs flex flex-wrap items-center justify-center gap-1">
       <div className="">
         New here? lets create an account first
       </div>
@@ -156,7 +158,7 @@ return (
       </Link>
     </div>
     
-    {error.message !== "" && <ErrorOutput error={error} />}
+
     </div>
 );
 }

@@ -1,20 +1,26 @@
 "use client"
 
 import { usePbAuthListener } from "@/state/hooks/usePbAuthListener";
-import { Sidebar } from "./Sidebar";
+import { Sidebar } from "./navigation/Sidebar";
+import { PBUserRecord } from "@/state/user";
+import { Toolbar } from "./navigation/Toolbar";
 
 
 interface AppWrapperProps {
     children: React.ReactNode
+    user: PBUserRecord
 }
 
-export function AppWrapper({ children }: AppWrapperProps) {
+export function AppWrapper({ children,user }: AppWrapperProps) {
     usePbAuthListener()
 
     return (
-        <div className='w-full h-screen flex items-center justify-center'>
-            <div className='w-[150px] h-full flex flex-col items-center justify-center'>
-                <Sidebar />
+        <div className='w-full h-screen flex flex-col md:flex-row  items-center justify-center'>
+            <div className='w-full md:hidden h-14 flex items-center justify-start bg-secondary'>
+            <Toolbar user={user}/>
+            </div>
+            <div className='md:w-[250px] hidden h-full md:flex flex-col items-center justify-center bg-secondary'>
+                <Sidebar user={user}/>
             </div>
             <div className="w-full h-screen overflow-y-scroll">
                 {children}
