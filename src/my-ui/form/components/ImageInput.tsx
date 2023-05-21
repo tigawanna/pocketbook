@@ -24,7 +24,7 @@ useEffect(() => {
         updateImage(objectUrl)
         // free memory when ever this component is unmounted
         return () => URL.revokeObjectURL(objectUrl)
-    }, [file])
+    }, [file, updateImage])
 
 function handleChange(event:React.ChangeEvent<HTMLInputElement>){
 if(event.target.files?.[0]){
