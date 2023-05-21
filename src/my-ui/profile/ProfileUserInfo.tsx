@@ -7,12 +7,21 @@ import Image from "next/image";
 import { Icons } from "../wrappers/icons";
 import { DialodWrapper } from "../dialog/DialodWrapper";
 import { ProfileForm } from "../form/ProfileForm";
+import { ErrorOutput } from "../wrappers/ErrorOutput";
 
 interface ProfileUserInfoProps {
-  user: PBUserRecord;
+data: PBUserRecord|Error;
 }
 
-export function ProfileUserInfo({ user }: ProfileUserInfoProps) {
+export function ProfileUserInfo({ data }: ProfileUserInfoProps) {
+  if (data instanceof Error) {
+    return (
+      <div className="min-h-screen h-full w-full flex items-center justify-center">
+        <ErrorOutput error={data} />
+      </div>
+    )
+  }
+const user = data;
 return (
     <div className="w-full flex items-center justify-center bg-secondary p-2 gap-5 
         border border-secondary-foreground shadow shadow-accent-foreground">

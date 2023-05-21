@@ -13,17 +13,11 @@ export default async function page({}:pageProps){
 const dev = await getDevprofile()
 
 
-if (dev instanceof Error){
-return(
-    <div className="min-h-screen h-full w-full flex items-center justify-center">
-        <ErrorOutput error={dev} />
-    </div>
-)
-}
+
 
 return (
  <main className='w-full h-full min-h-screen flex flex-col items-center'>
-    <ProfileUserInfo user={dev}/>
+    <ProfileUserInfo data={dev}/>
 </main>
 );
 }

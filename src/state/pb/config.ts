@@ -1,5 +1,5 @@
 import PocketBase, {FileQueryParams,Record} from "pocketbase";
-import { pb_url } from "../consts";
+import { pb_url, pb_user_collection } from "../consts";
 import {GithubOauthResponse,PBUserRecord,TUserSignUpFormFields,} from "../user";
 
 
@@ -21,7 +21,7 @@ interface ILoginUser {
 
 export async function loginUser({user,password}: ILoginUser) {
   try {
-    const authData = await pb.collection("devs").authWithPassword<PBUserRecord>(user,password);
+    const authData = await pb.collection(pb_user_collection).authWithPassword<PBUserRecord>(user,password);
     return authData;
   } catch (error) {
     throw error;
@@ -34,7 +34,7 @@ interface IOuthLogin {
 
 export async function triggerOuathLogin({provider}: IOuthLogin) {
   try {
-    const authData = await pb.collection("devs").authWithOAuth2<GithubOauthResponse>({provider});
+    const authData = await pb.collection(pb_user_collection).authWithOAuth2<GithubOauthResponse>({provider});
     console.log("authdata from github  == ",authData);
     return authData;
   } catch (error) {
@@ -52,7 +52,7 @@ export async function updateUser(authData: GithubOauthResponse) {
       bio: authData.meta?.rawUser?.bio,
       emailVisibility:true
     };
-    const new_dev = await pb.collection("devs").update(dev.id, data);
+    const new_dev = await pb.collection(pb_user_collection).update(dev.id, data);
 
     // console.log("new dev === ", new_dev);
     return new_dev;
@@ -83,7 +83,7 @@ export async function createUser({
   user,
 }: ISignupuser) {
   try {
-    const authData = await pb.collection("devs").create(user);
+    const authData = await pb.collection(pb_user_collection).create(user);
     return authData;
   } catch (error) {
     throw error;
