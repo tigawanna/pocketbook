@@ -24,7 +24,7 @@ export async function server_component_pb() {
         pb.authStore.clear();
     }
 
-    return {pb,cookies,headers}
+    return { pb ,cookies,headers}
 }
 
 

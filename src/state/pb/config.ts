@@ -4,6 +4,7 @@ import {GithubOauthResponse,PBUserRecord,TUserSignUpFormFields,} from "../user";
 
 
 export const pb = new PocketBase(pb_url);
+export type PB = typeof pb;
 
 export async function getUser() {
   try {
