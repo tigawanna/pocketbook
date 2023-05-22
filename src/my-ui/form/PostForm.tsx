@@ -10,7 +10,8 @@ import { ErrorOutput } from "../wrappers/ErrorOutput";
 import { ImageInput } from "./components/ImageInput";
 import { FormTextArea } from "./components/FormTextArea";
 import { ScrollArea } from "../../../components/ui/scroll-area";
-
+import { Close } from "@radix-ui/react-dialog"
+import { X } from "lucide-react";
 
 
 
@@ -94,27 +95,31 @@ return (
 
         <form
             onSubmit={handleSubmit}
-            className="w-[90%] md:w-[80%] h-full border-2 shadow-xl rounded-xl p-3 gap-2 m-5
-            flex flex-col items-center justify-center bg-white dark:bg-black dark:text-white ">
-       
-            <div className="w-[95%]  text-xl font-bold text-center p-2">
-                {label}
-            </div>
+            className="w-full  h-fit min-h-[40%] border-2 shadow-xl rounded-xl p-3 gap-3 m-5
+            flex flex-col items-center justify-start bg-primary overflow-y-scroll scroll-bar">
+
+            <div className="w-full flex justify-end rounded-sm">
+                <Close >
+                    <X className="h-5 w-5 focus:text-accent-foreground" />
+                    <span className="sr-only">Close</span>
+                </Close>
+                </div>
+
 
             {/* location */}
             {/* property location */}
   
-
+            
             <FormTextArea<PostMutationInput>
                 error={error}
                 onChange={handleChange}
                 input={input}
+                placeholder="What's on your mind"
                 prop="body"
-                label="What on your mind"
-                className="rounded-lg"
+                className="rounded-lg scroll-bar bg-primary w-full outline-0 p-2 min-h-[150px] h-fit"
             />
             {/* image input section  */}
-            <div className="relative h-[40%] w-full">
+            {/* <div className="relative h-[40%] w-full"> */}
                     <ImageInput
 
                         image={input.media as string}
@@ -131,14 +136,15 @@ return (
                         }
 
                     />
-            </div>
+            {/* </div> */}
     
 
 
-            <Button 
+            <Button
+            className="w-[50%] px-2 hover:text-accent hover:border-accent hover:brightness-105 rounded-full" 
             isLoading={mutation.isPending} 
             disabled={disable_submit||mutation.isPending}
-            label="save changes" type="submit"/>
+            label="post" type="submit"/>
 
             {error.message !== "" && <ErrorOutput error={error} />}
         </form>

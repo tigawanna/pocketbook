@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import { Icons } from "@/my-ui/wrappers/icons";
 import { forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
@@ -11,7 +12,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, isLoading, label, node, ...props }, ref) => {
     const base_style = twMerge(
-      "p-2 w-full flex items-center justify-center rounded-lg border hover:border-purple-500 hover:text-purple-500",
+      "p-2 w-full flex items-center justify-center rounded border hover:border-accent-foreground hover:text-accent-foreground",
       className
     );
     // console.log("is loading in button === ",isLoading)
@@ -20,7 +21,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
         className={
           isLoading
-            ? twMerge("cursor-not-allowed brightness-50 text-purple-600", base_style)
+            ? twMerge("cursor-not-allowed brightness-50 text-accent-foreground", base_style)
             : base_style
         }
         disabled={isLoading}>

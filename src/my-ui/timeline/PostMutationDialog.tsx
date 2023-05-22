@@ -21,16 +21,18 @@ export function PostMutationDialog({ label, custom_post }:PostMutationDialogProp
       <DialogTrigger asChild>
         <Button variant="outline">{label}</Button>
       </DialogTrigger>
-      <DialogContent className="h-[90vh] w-full">
+
+      <DialogContent className="h-full w-full ">
+        
         {/* <DialogHeader>
           <DialogTitle>Edit profile</DialogTitle>
           <DialogDescription>
             Make changes to your profile here. Click save when you are done.
           </DialogDescription>
         </DialogHeader> */}
-        <ScrollArea className="h-full w-full">
+        {/* <ScrollArea className="h-[90vh] w-full"> */}
         <PostMutattionForm label={label} custom_post={custom_post}/>
-        </ScrollArea>
+        {/* </ScrollArea> */}
         <DialogFooter>
           {/* <Button type="submit">Save changes</Button> */}
         </DialogFooter>
