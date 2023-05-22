@@ -10,6 +10,7 @@ export function usePbAuthListener() {
        const authChange = pb.authStore.onChange(() => {
             document.cookie = pb.authStore.exportToCookie({ httpOnly: false });
             updateUser(pb.authStore.model as unknown as PBUserRecord)
+            // console.log('client authstore changed ',pb.authStore)
         })
         return () => {
             //  call to clean up the listener

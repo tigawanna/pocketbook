@@ -7,6 +7,7 @@ import { useUserStore } from "@/state/zustand/user";
 import { useCountdown } from "@/state/hooks/useCountdown";
 import { PBUserRecord } from "@/state/user";
 import Image from "next/image";
+import { logoutOnServer } from "@/state/pb/api/profile/profile";
 
 export interface SystemIconsProps {
   user?: PBUserRecord;
@@ -37,8 +38,9 @@ export function Systemicons({ user }: SystemIconsProps) {
             className="border-0"
             onClick={() => {
               start();
-              trigger({}).then(() => {
+              trigger({}).then(async() => {
                 updateUser(undefined);
+                // await logoutOnServer();
                 router.refresh();
               });
             }}

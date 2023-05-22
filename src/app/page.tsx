@@ -5,7 +5,7 @@ import { server_component_pb } from "@/state/pb/server_component_pb"
 export default async function Home() {
   
   const {pb} = await server_component_pb()
-
+  console.log("pb in server component", pb.authStore.model)
   return (
     <main className='w-full h-full flex flex-col items-center justify-center'>
       <h1 

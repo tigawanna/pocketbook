@@ -5,11 +5,9 @@ import { useFormHook } from "./useFormHook";
 import { useMutation } from "@tanstack/react-query";
 import { PostMutationInput, createNewPost, updatePost } from "@/state/pb/api/posts/posts";
 import { Button } from "./components/Button";
-import { checkIfEmpty } from "@/state/utils/checkIfObjectHasemptyField";
 import { ErrorOutput } from "../wrappers/ErrorOutput";
 import { ImageInput } from "./components/ImageInput";
 import { FormTextArea } from "./components/FormTextArea";
-import { ScrollArea } from "../../../components/ui/scroll-area";
 import { Close } from "@radix-ui/react-dialog"
 import { X } from "lucide-react";
 

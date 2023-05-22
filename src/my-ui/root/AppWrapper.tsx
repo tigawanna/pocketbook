@@ -16,7 +16,7 @@ interface AppWrapperProps {
 export function AppWrapper({ children,user }: AppWrapperProps) {
     const [queryClient] = React.useState(() => new QueryClient())
     usePbAuthListener()
-
+    // console.log("document.cookie  ==== ",document.cookie)
     return (
         <QueryClientProvider client={queryClient}>
         <div className='w-full h-screen flex flex-col md:flex-row  items-center justify-center'>

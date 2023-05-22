@@ -3,6 +3,7 @@ import { pb_url, pb_user_collection } from "../consts";
 import {GithubOauthResponse,PBUserRecord,TUserSignUpFormFields,} from "../user";
 
 
+
 export const pb = new PocketBase(pb_url);
 export type PB = typeof pb;
 
@@ -93,7 +94,8 @@ export async function createUser({
 
 export async function logoutUser() {
   try {
-    await pb.authStore.clear();
+    pb.authStore.clear();
+    pb.authStore.loadFromCookie(document.cookie)
   } catch (error) {
     throw error;
   }

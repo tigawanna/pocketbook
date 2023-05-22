@@ -34,7 +34,8 @@ const {data,error} = useInfiniteQuery({
     defaultPageParam:{
         created:currentdate,
         id:""
-    }
+    },
+    enabled:false
 })
 console.log("infinite data  ==== ",data)
     console.log("infinite errror  ==== ", error)

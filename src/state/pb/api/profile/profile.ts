@@ -20,3 +20,26 @@ export async function updateUserProfile({id,input}:IUpdateUserProfile){
         return new Error(error)
     }
 }
+
+
+
+export async function logoutOnServer(){
+    try {
+        const headersList = {
+            "Accept": "*/*",
+         
+        }
+
+        const response = await fetch("http://localhost:3000/auth/api", {
+            method: "POST",
+            headers: headersList
+        });
+        const data  = await response.json();
+        console.log("data . jsoon  ==== ",data)
+     return data
+
+    } catch (error) {
+        console.error(error);
+    }
+
+}

@@ -13,10 +13,10 @@ export default function Error({error,reset,}:ErrorPageprops ) {
     }, [error]);
 
     return (
-        <div className='h-full min-h-screen flex items-center justify-center bg-red-300 text-red-950'>
+        <div className='h-full min-h-screen flex items-center justify-center bg-red-900 text-red-950'>
             <h2 className='text-2xl '>Something went wrong!</h2>
             <button
-            className='bg-red-500 text-red-200 px-4 py-2 rounded-md' 
+            className='bg-red-900 text-red-200 px-4 py-2 rounded-md' 
               onClick={
                     // Attempt to recover by trying to re-render the segment
                     () => reset()
@@ -24,6 +24,9 @@ export default function Error({error,reset,}:ErrorPageprops ) {
             >
                 Try again
             </button>
+            <div>
+                {JSON.stringify(error)}
+            </div>
         </div>
     );
 }

@@ -1,0 +1,30 @@
+[
+  {
+    "_id": "babfb42c-618e-4a43-b8c7-41ae9fcd43a9",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:3000/auth/api",
+    "url": "http://localhost:3000/auth/api",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-05-22T06:53:35.502Z",
+    "modified": "2023-05-22T06:53:35.502Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "f2ac3a87-4ee9-4623-9f7e-68e746ca5847",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:3000/auth/api",
+    "url": "http://localhost:3000/auth/api",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2023-05-22T06:53:51.258Z",
+    "modified": "2023-05-22T06:53:51.258Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  }
+]
