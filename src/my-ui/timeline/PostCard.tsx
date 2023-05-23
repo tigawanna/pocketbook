@@ -83,7 +83,7 @@ export const PostReactionsCard = ({ user, item }: PostReactionsCardProps) => {
       invalidates: ["posts"],
   });
   const router = useRouter();
-  console.log("item before reaction  ==== ", item);
+  // console.log("item before reaction  ==== ", item);
   return (
     <div className="w-full p-1  ">
       <div className="w-full flex items-center justify-between">

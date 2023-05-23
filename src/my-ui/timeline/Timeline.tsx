@@ -13,6 +13,7 @@ import React, { useEffect } from "react";
 import { PostsCard } from "./PostCard";
 import { ScrollArea } from "../../../components/ui/scroll-area";
 import { useInView } from "react-intersection-observer";
+import { pb } from "@/state/pb/config";
 
 interface TimelineProps {
   user?: PBUserRecord;
@@ -28,7 +29,7 @@ export function Timeline({ user, posts }: TimelineProps) {
   const customPostsQuery = useInfiniteQuery({
     queryKey: key,
     queryFn: ({ queryKey, pageParam }) =>
-      getPbPaginatedPosts(
+      getPbPaginatedPosts(pb,
         { depth: 0, post_id: "", profile: "general", user_id:user?.id??"", key: queryKey[0] },
         pageParam
       ),

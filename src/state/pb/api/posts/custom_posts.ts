@@ -1,7 +1,7 @@
 import { pb_api_url, pb_url } from "@/state/consts";
 import dayjs from "dayjs";
 import { CustomPostType } from "./types";
-import { pb } from "../../config";
+import { PB } from "../../config";
 
 // interface QueryVariables {
 //     user_id?: string;
@@ -92,6 +92,7 @@ interface Pagination_params {
 
 
 export async function getPbPaginatedPosts(
+    pb:PB,
     query_vars: QueryVariables,
     pagination_params?: Partial<Pagination_params>
     ){

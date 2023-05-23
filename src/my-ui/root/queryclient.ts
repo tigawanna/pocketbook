@@ -1,4 +1,5 @@
 import { MutationCache, QueryClient } from "@tanstack/react-query";
+import { cache } from "react";
 
 
 export const appQueryClient: QueryClient = new QueryClient({
@@ -22,3 +23,6 @@ export const appQueryClient: QueryClient = new QueryClient({
         },
     },
 });
+
+
+export const getQueryClient = cache(() => appQueryClient)
