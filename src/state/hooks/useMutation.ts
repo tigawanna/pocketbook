@@ -2,6 +2,8 @@
 
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { useNotificationStore } from "../zustand/store";
+
 
 interface IUseMutation<V,R>{
   fetcher: (vars:V) => Promise<R>
@@ -16,9 +18,12 @@ interface IUseMutation<V,R>{
 
 export function useMutationWrapper<V,R>({fetcher,setError,refresh,key}:IUseMutation<V,R>){
   const router = useRouter()
+  const{updateNotification} = useNotificationStore()
   return useMutation({
     mutationFn:fetcher,
     onSuccess(data, variables, context) {
+      setError&&setError({ name: "", message: "" })
+     updateNotification({ type: "success", message:"success" })
      refresh && router.refresh()
     },
     onError(error, variables, context) {

@@ -4,19 +4,21 @@ import { PostMutattionForm } from "../form/PostForm";
 import { PBUserRecord } from "@/state/user";
 import Link from "next/link";
 import { Close } from "@radix-ui/react-dialog"
+import { useState } from "react";
 
 interface PostMutationDialogProps{
   label:React.ReactNode
+ 
   user?:PBUserRecord;
   custom_post?: CustomPostType
 }
 
 
 
-export function PostMutationDialog({ label, custom_post,user }:PostMutationDialogProps) {
-  
+export function PostMutationDialog({ label, custom_post,user}:PostMutationDialogProps) {
+const [open,setOpen]= useState<boolean|undefined>(undefined)
   return (
-    <Dialog >
+    <Dialog open={open}>
       <DialogTrigger asChild>
        {label}
       </DialogTrigger>
@@ -30,7 +32,7 @@ export function PostMutationDialog({ label, custom_post,user }:PostMutationDialo
           </DialogDescription>
         </DialogHeader> */}
         {/* <ScrollArea className="h-[90vh] w-full"> */}
-        {user?<PostMutattionForm  custom_post={custom_post} user={user}/>:
+        {user?<PostMutattionForm  custom_post={custom_post} user={user} setOpen={setOpen}/>:
         <div className="h-full w-full flex flex-col items-center justify-center gap-5 ">
           <div className="text-center font-bold text-2xl border-b ">
             Login to continue

@@ -16,7 +16,7 @@ export interface LocalState {
     clearNotification: () => void;
 }
 
-export const useStroreValues = create<LocalState>()(
+export const useNotificationStore = create<LocalState>()(
     devtools((set, get) => ({
         localValues: get()?.localValues ?? {
             notifocation: null,

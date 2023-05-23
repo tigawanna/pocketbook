@@ -6,6 +6,7 @@ import { PBUserRecord } from "@/state/user";
 import { Toolbar } from "./navigation/Toolbar";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import React from "react";
+import { Notification } from "./Notification";
 
 
 interface AppWrapperProps {
@@ -29,7 +30,9 @@ export function AppWrapper({ children,user }: AppWrapperProps) {
             <div className="w-full h-screen overflow-y-scroll">
                 {children}
             </div>
-  
+                <div className="w-full fixed bottom-3 flex items-center justify-center">
+                    <Notification />
+                </div>
             </div>
 
         </QueryClientProvider>

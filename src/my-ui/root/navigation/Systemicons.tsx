@@ -15,7 +15,7 @@ export function Systemicons({ user }: SystemIconsProps) {
 
 
   const { mutate,isPending } = useMutationWrapper({ fetcher: logoutUser,refresh:true});
-  const { countdownValue, start } = useCountdown();
+  const { countdownValue, start } = useCountdown(3);
 
   return (
     <div className="w-full h-[30%] flex items-center justify-center  ">

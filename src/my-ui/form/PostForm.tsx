@@ -2,7 +2,6 @@
 
 import { CustomPostType } from "@/state/pb/api/posts/types";
 import { useFormHook } from "./useFormHook";
-import { useMutation } from "@tanstack/react-query";
 import { PostMutationInput, createNewPost, updatePost } from "@/state/pb/api/posts/posts";
 import { Button } from "./components/Button";
 import { ErrorOutput } from "../wrappers/ErrorOutput";
@@ -11,6 +10,8 @@ import { FormTextArea } from "./components/FormTextArea";
 import { Close } from "@radix-ui/react-dialog"
 import { X } from "lucide-react";
 import { PBUserRecord } from "@/state/user";
+import { useMutationWrapper } from "@/state/hooks/useMutation";
+import { SetStateAction } from "react";
 
 
 
@@ -18,14 +19,16 @@ import { PBUserRecord } from "@/state/user";
 
 interface PostMutattionFormProps {
     user:PBUserRecord
+    setOpen: React.Dispatch<SetStateAction<boolean|undefined>>
     depth?:number;
     parent?:string
     custom_post?:CustomPostType
+
 }
 
 
 
-export function PostMutattionForm({user,custom_post,depth=0,parent}:PostMutattionFormProps){
+export function PostMutattionForm({user,custom_post,depth=0,parent,setOpen}:PostMutattionFormProps){
 
 const{error,handleChange,input,setInput,setError} = useFormHook<PostMutationInput>({
 initialValues:{
@@ -43,8 +46,8 @@ initialValues:{
 
 
 
-    const mutation = useMutation({ mutationFn:createNewPost})
-    const update_mutation = useMutation({ mutationFn:updatePost})
+    const mutation = useMutationWrapper({ fetcher:createNewPost,refresh:true})
+    const update_mutation = useMutationWrapper({fetcher:updatePost,refresh:true})
 
     const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -71,12 +74,8 @@ initialValues:{
             update_mutation.mutate(
                 { id: custom_post.post_id as string, data:formdata },
                 { onSuccess(data, variables, context) {
-                    console.log("post added ==== ", data)
-                    setError({ name: "", message: "" })
-                },onError(error, variables, context) {
-                    console.log("post error  ==== ", error)
-                    setError({message:error.message, name: "main"})
-                },
+                    setOpen(false)
+                }
                 
                 }
             )
@@ -87,12 +86,8 @@ initialValues:{
                 { data: formdata },
                 {
                     onSuccess(data, variables, context) {
-                        console.log("post added ==== ",data)
-                        setError({ name: "", message: "" })
-                    }, onError(error, variables, context) {
-                        console.log("post error  ==== ",error)
-                        setError({ message: error.message, name: "main" })
-                    },
+                        setOpen(false)
+                    }
 
                 }
             )
@@ -101,7 +96,7 @@ initialValues:{
     };
 
 const disable_submit = (input.body === "" &&  !input.media)
-console.log("disaled ?? ",disable_submit)
+
 return (
  <div className='w-full h-full flex flex-col  items-center justify-center gap-4'>
 

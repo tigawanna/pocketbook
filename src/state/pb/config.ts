@@ -24,6 +24,7 @@ interface ILoginUser {
 export async function loginUser({user,password}: ILoginUser) {
   try {
     const authData = await pb.collection(pb_user_collection).authWithPassword<PBUserRecord>(user,password);
+    // pb.authStore.exportToCookie({ httpOnly: false });
     return authData;
   } catch (error) {
     throw error;
@@ -37,7 +38,8 @@ interface IOuthLogin {
 export async function triggerOuathLogin({provider}: IOuthLogin) {
   try {
     const authData = await pb.collection(pb_user_collection).authWithOAuth2<GithubOauthResponse>({provider});
-    console.log("authdata from github  == ",authData);
+    pb.authStore.exportToCookie({ httpOnly: false });
+    // console.log("authdata from github  == ",authData);
     return authData;
   } catch (error) {
     throw error;
@@ -85,8 +87,9 @@ export async function createUser({
   user,
 }: ISignupuser) {
   try {
-    const authData = await pb.collection(pb_user_collection).create(user);
-    return authData;
+    await pb.collection(pb_user_collection).create(user);
+    const logged_in_user = await loginUser({user:user.email,password:user.password})
+    return logged_in_user;
   } catch (error) {
     throw error;
   }

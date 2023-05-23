@@ -10,11 +10,12 @@ import { ScrollArea } from "../../../components/ui/scroll-area"
 
 interface DialodWrapperProps {
 children: React.ReactNode
+open?:boolean
 }
 
-export function DialodWrapper({children}:DialodWrapperProps){
+export function DialodWrapper({children,open}:DialodWrapperProps){
 return (
-    <Dialog >
+    <Dialog open={open}>
         <DialogTrigger><Edit className="h-5 w-5 "/></DialogTrigger>
         <DialogContent className="">
             {/* <DialogHeader>
