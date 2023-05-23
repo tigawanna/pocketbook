@@ -3,7 +3,7 @@ export interface IFormInputs<T>{
   id: keyof T;
   type: string;
   placeholder: string;
-  label: string;
+  label: React.HTMLInputTypeAttribute | undefined;
   optional?: boolean;
 }
 
@@ -24,8 +24,8 @@ return (
         return (
           <div
             key={inpt.id as string}
-            className="flex flex-col gap-1">
-            <label className="" htmlFor={inpt.id as string}>
+            className="flex flex-col gap-2 p-2">
+            <label className="text-sm" htmlFor={inpt.id as string}>
               {inpt.label}
             </label>
             <input

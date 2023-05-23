@@ -1,22 +1,20 @@
 import { logoutUser } from "@/state/pb/config";
-import { useMutation } from "@/state/hooks/useMutation";
 import { LogOutIcon } from "lucide-react";
 import { Button } from "../../form/components/Button";
-import { useRouter } from "next/navigation";
-import { useUserStore } from "@/state/zustand/user";
 import { useCountdown } from "@/state/hooks/useCountdown";
 import { PBUserRecord } from "@/state/user";
 import Image from "next/image";
-import { logoutOnServer } from "@/state/pb/api/profile/profile";
+import { useMutationWrapper } from "@/state/hooks/useMutation";
+
 
 export interface SystemIconsProps {
   user?: PBUserRecord;
 }
 
 export function Systemicons({ user }: SystemIconsProps) {
-  const router = useRouter();
-  const { updateUser } = useUserStore();
-  const { isMutating, trigger } = useMutation({ fetcher: logoutUser, key: "user" });
+
+
+  const { mutate,isPending } = useMutationWrapper({ fetcher: logoutUser,refresh:true});
   const { countdownValue, start } = useCountdown();
 
   return (
@@ -38,14 +36,10 @@ export function Systemicons({ user }: SystemIconsProps) {
             className="border-0"
             onClick={() => {
               start();
-              trigger({}).then(async() => {
-                updateUser(undefined);
-                // await logoutOnServer();
-                router.refresh();
-              });
+              mutate({})
             }}
             node={<LogOutIcon size={20} className="mx-5 h-5 w-5" />}
-            isLoading={isMutating || countdownValue > 1}
+            isLoading={isPending || countdownValue > 1}
           />
         </div>
 

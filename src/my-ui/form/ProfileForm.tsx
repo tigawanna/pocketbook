@@ -4,13 +4,12 @@ import { PBUserRecord } from "@/state/user";
 import { useFormHook } from "./useFormHook";
 import { TheInput } from "./components/TheInput";
 import { TheTextArea } from "./components/TheTextArea";
-import { useMutation } from "@/state/hooks/useMutation";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useUserStore } from "@/state/zustand/user";
 import { Button } from "./components/Button";
 import { updateUserProfile, IUpdateUserProfile } from "@/state/pb/api/profile/profile";
 import { ErrorOutput } from "../wrappers/ErrorOutput";
+import { useMutationWrapper } from "@/state/hooks/useMutation";
 
 
 interface ProfileFormProps {
@@ -33,7 +32,7 @@ type FetcherReturn = Awaited<ReturnType<typeof updateUserProfile>>;
 
 export function ProfileForm({ user }: ProfileFormProps) {
   const router = useRouter();
-  const { updateUser } = useUserStore();
+
 
   const { input,  handleChange, setError, error } = useFormHook<TProfileFormInput>({
     initialValues: {
@@ -47,23 +46,15 @@ export function ProfileForm({ user }: ProfileFormProps) {
   });
 
 
-  const { trigger, isMutating } = useMutation<IUpdateUserProfile, FetcherReturn>({
+  const { isPending,mutate } = useMutationWrapper({
     fetcher: updateUserProfile,
-    key: "user",
+    setError,
+    refresh: true
   });
 
   async function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
-    trigger({ id: user.id, input })
-      .then((res) => {
-        if (res && !(res instanceof Error)) {
-          updateUser(res);
-        }
-        router.refresh();
-      })
-      .catch((err) => {
-        setError({ name: "main", message: err });
-      });
+    mutate({ id: user.id, input })
   }
 
   return (
@@ -120,7 +111,7 @@ export function ProfileForm({ user }: ProfileFormProps) {
         <div className="w-[90%] rounded flex items-center justify-center gap-5">
           <TheTextArea label="bio" id="bio" onChange={handleChange} value={input.bio} />
         </div>
-        <Button isLoading={isMutating} type="submit" label="save changes" />
+        <Button isLoading={isPending} type="submit" label="save changes" />
       </form>
       {error.message !== "" && <ErrorOutput error={error} />}
     </div>

@@ -96,9 +96,7 @@ export async function getPbPaginatedPosts(
     pagination_params?: Partial<Pagination_params>
     ){
 const postsUrl = new URL(`${pb_api_url}/${query_vars.key}`);
-console.log(" query vars === ", query_vars);
-console.log(" pagination params === ", pagination_params);
-console.log("postsUrl === ", postsUrl);
+
 
 const { user_id, depth, post_id, profile } = query_vars;
 
@@ -108,6 +106,7 @@ const { user_id, depth, post_id, profile } = query_vars;
                 id: query_vars.post_id,
                 user: user_id,
                 limit:5,
+                
             }
         }
         return {
@@ -117,12 +116,12 @@ const { user_id, depth, post_id, profile } = query_vars;
             parent: post_id ?? "original",
             limit:5,
             user: user_id,
-            cteated:pagination_params?.created ?? (currentdate as string)
+            created:pagination_params?.created ?? (currentdate as string)
         }
     }
 
     try {
-       const posts = await pb.send<CustomPostType[]>(postsUrl.toString(),{
+       const posts = await pb.send<CustomPostType[]>('/custom_posts',{
         params:get_pb_params(query_vars.get_one_post),
         headers:{
             Accept: "*/*",
@@ -133,6 +132,7 @@ const { user_id, depth, post_id, profile } = query_vars;
         console.log("paginated posts === ",posts)
         return posts
     } catch (error) {
+        console.log("error getting paginated posts ==== ",error)
         throw error
     }
 }

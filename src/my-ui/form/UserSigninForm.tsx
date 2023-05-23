@@ -4,14 +4,12 @@ import * as React from "react"
 
 import Link from "next/link"
 import { loginUser,  oauthLogin } from "@/state/pb/config"
-import { useMutation } from "@/state/hooks/useMutation"
-
 import { useRouter } from "next/navigation"
-import { useUserStore } from "@/state/zustand/user"
 import { Button } from "./components/Button"
 import { useFormHook } from "./useFormHook"
 import { ErrorOutput } from "../wrappers/ErrorOutput"
 import { Icons } from "../wrappers/icons"
+import { useMutationWrapper } from "@/state/hooks/useMutation"
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 
@@ -30,13 +28,12 @@ type OauthFetcherReturn = Awaited<ReturnType<typeof oauthLogin>>
 export function UserSigninForm({ className, ...props }: UserAuthFormProps) {
 
 const router = useRouter()
-const{updateUser}= useUserStore()
 
 
 
 
-const { trigger,isMutating,data } = useMutation<ILoginUser,FetcherReturn>({fetcher:loginUser,key:"user"})
-const oauth_mutation = useMutation<IOauthLoginUser,OauthFetcherReturn>({fetcher:oauthLogin,key:"user"})
+
+
 
 const { error, handleChange, input ,setError } = useFormHook<ILoginUser>({
         initialValues: {
@@ -45,20 +42,14 @@ const { error, handleChange, input ,setError } = useFormHook<ILoginUser>({
         },
 
 })
-
+const { mutate, isPending } = useMutationWrapper({ fetcher: loginUser, setError, refresh: true })
+ const oauth_mutation = useMutationWrapper({ fetcher: oauthLogin, setError, refresh: true })
 // console.log("login data  === ",data)
 
     async function onSubmit(event: React.SyntheticEvent) {
         event.preventDefault()
-        trigger({user:input.user, password: input.password})
-        .then((res)=>{
-          updateUser(res?.record)
-          router.refresh()
-        })
-        .catch(err=>{
-            setError({name:"main",message:err})
-        })
-    }
+        mutate({user:input.user, password: input.password})
+  }
   const is_error = error.message !== ""
 return (
   <div
@@ -86,7 +77,7 @@ return (
             className="p-2 w-full rounded-lg active:border-purple-500 active:border"
             autoCorrect="off"
             value={input.user}
-            disabled={isMutating}
+         
           />
         </div>
         <div className="w-full flex flex-col gap-1">
@@ -100,13 +91,13 @@ return (
             type="password"
             autoCorrect="off"
             className="p-2 w-full rounded-lg active:bg-red-600"
-            disabled={isMutating}
+           
             onChange={handleChange}
           />
         </div>
       </div>
       <Button
-        isLoading={isMutating}
+        isLoading={isPending}
         type="submit"
         label="Login"
       />
@@ -126,18 +117,9 @@ return (
     </div>
 
     <Button
-    onClick={()=>{ oauth_mutation.trigger({provider:"github"})
-    .then((res)=>{
-      console.log("full resonse ",res)
-      updateUser(res?.record)
-      router.refresh()
-    })
-    .catch(err => {
-          setError({ name: "main", message: err })
-      })
-  }}
+    onClick={()=>{ oauth_mutation.mutate({provider:"github"})}}
       type="button"
-      isLoading={oauth_mutation.isMutating}
+      isLoading={oauth_mutation.isPending}
       node={
         <div className="m-2 h-2 flex items-center justify-center">
           <Icons.gitHub className="mr-2 h-5 w-5" />{" "}

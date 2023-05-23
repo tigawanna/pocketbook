@@ -1,3 +1,4 @@
+" use client"
 import { CustomPostType } from "@/state/pb/api/posts/types";
 import { makeImageUrl, pb } from "@/state/pb/config";
 import { PBUserRecord } from "@/state/user";
@@ -15,7 +16,7 @@ interface PostCardProps {
 export const PostsCard = ({ item, user }: PostCardProps) => {
 const post_img_url = makeImageUrl("posts", item?.post_id, item?.post_media)
 return (
-        <div className="w-full h-full p-2 flex flex-col">
+        <div className="w-full h-full p-2 flex flex-col border">
        
             <div className="w-full flex justify-start items-center gap-[1px] ">
             <div

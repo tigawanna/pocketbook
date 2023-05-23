@@ -5,19 +5,18 @@ import * as React from "react"
 import Link from "next/link"
 
 import { createUser, oauthLogin } from "@/state/pb/config"
-import { useMutation } from "@/state/hooks/useMutation"
-import { useUserStore } from "@/state/zustand/user"
+
 import { useRouter } from "next/navigation"
 import { Button } from "./components/Button"
-import { TheFormInputs } from "./components/FormInputs"
+import { IFormInputs, TheFormInputs } from "./components/FormInputs"
 import { useFormHook } from "./useFormHook"
 import { ErrorOutput } from "../wrappers/ErrorOutput"
 import { Icons } from "../wrappers/icons"
 import { TUserSignUpFormFields } from "@/state/user"
+import { useMutationWrapper } from "@/state/hooks/useMutation"
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
-type FetcherReturn = Awaited<ReturnType<typeof createUser>>
-type OauthFetcherReturn = Awaited<ReturnType<typeof oauthLogin>>
+
 
 interface ISignupuser {
     user: TUserSignUpFormFields
@@ -28,7 +27,7 @@ interface IOauthLoginUser {
 
 export function UserSignUpForm({ className, ...props }: UserAuthFormProps) {
     const router = useRouter()
-    const { updateUser } = useUserStore()
+ 
     
     interface FormInputs{
         id:keyof TUserSignUpFormFields;
@@ -38,55 +37,52 @@ export function UserSignUpForm({ className, ...props }: UserAuthFormProps) {
         optional?: boolean;
 
     }
-    const inputs_config: FormInputs[] = [
+    const inputs_config: IFormInputs<TUserSignUpFormFields>[] = [
         { id: "username", type: "text", placeholder: "username", label: "Username" },
         { id: "email", type: "email", placeholder: "email", label: "Email" },
         { id: "github_login", type: "text", placeholder: "github_username", label: "Github Username", optional: true },
         { id: "password", type: "password", placeholder: "password", label: "Password" },
-        { id: "confirmPassword", type: "password", placeholder: "confirmPassword", label: "Confirm Password" },
+        { id: "passwordConfirm", type: "password", placeholder: "confirm password", label: "Confirm Password" },
     ]
 
     const {
-        error, handleChange, input, setError, setInput } = useFormHook<TUserSignUpFormFields>({
+        error, handleChange, input, setError } = useFormHook<TUserSignUpFormFields>({
         initialValues:{
-            confirmPassword:"",
+            passwordConfirm:"",
             email:'',
             avatar:'',
             github_login:'',
             emailVisibility:true,
              password:"",
              username:"",
-     
-
-        }
+     }
     })
-    const { trigger, isMutating, data } = useMutation<ISignupuser, FetcherReturn>({fetcher:createUser, key: "user" })
-    const oauth_mutation = useMutation<IOauthLoginUser, OauthFetcherReturn>({ fetcher: oauthLogin, key: "user" })
+
+    
+    // const { mutate,isPending, data } = useMutation({mutationFn:createUser })
+    const { mutate,isPending } = useMutationWrapper({fetcher:createUser,setError,refresh:true})
+    const oauth_mutation = useMutationWrapper({ fetcher: oauthLogin, setError, refresh: true })
 
     async function onSubmit(event: React.SyntheticEvent) {
         event.preventDefault()
-        trigger({user:input})
-            .then((res) => {
-                updateUser(res?.record)
-                router.refresh()
-            })
-        .catch(err => {
-            setError({ name: "main", message: err })
-        })
+        mutate({user:input})
+
      }
     const is_error = error.message !== ""
 
     return (
         <div className="w-[90%] md:w-[70%] border shadow rounded-lg p-5" {...props}>
             <h1 className="text-3xl font-bold pb-5 ">Create an account</h1>
-            <form onSubmit={onSubmit} 
+            {is_error && <ErrorOutput error={error} />}
+            <form onSubmit={onSubmit}
+            className="p-3" 
             style={{borderRadius:'10px',border:is_error?"1px solid red":""}}>
-                <div className="flex flex-col  gap-5">
+                <div className="flex flex-col  gap-5 p-2">
                     <TheFormInputs<TUserSignUpFormFields> 
                     handleChange={handleChange} 
                     inputs_config={inputs_config} 
                     values={input}/>
-                    <Button  isLoading={isMutating} type="submit" label="Signup with email" />
+                    <Button  isLoading={isPending} type="submit" label="Signup with email" />
                 </div>
             </form>
 
@@ -104,9 +100,9 @@ export function UserSignUpForm({ className, ...props }: UserAuthFormProps) {
             </div>
 
             <Button
-                onClick={() => { oauth_mutation.trigger({ provider: "github" }) }}
+                onClick={() => { oauth_mutation.mutate({ provider: "github" }) }}
                 type="button"
-                isLoading={oauth_mutation.isMutating}
+                isLoading={oauth_mutation.isPending}
                 node={
                     <div className="m-2 h-2 flex items-center justify-center">
                         <Icons.gitHub className="mr-2 h-5 w-5" />{" "}
@@ -115,7 +111,7 @@ export function UserSignUpForm({ className, ...props }: UserAuthFormProps) {
                 }
             />
 
-            {is_error && <ErrorOutput error={error} />}
+     
 
             <div className="w-full p-5 m-2 flex flex-col items-center justify-center text-xs">
                 <div className="">already have an account ?</div>

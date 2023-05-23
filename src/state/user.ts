@@ -87,5 +87,5 @@ export interface PBUserRecordExpand { }
 export type TUserSignUpFormFields =
     Pick<PBUserRecord, "email" | "emailVisibility" | "username" | "avatar" | "github_login"> & {
         password: string;
-        confirmPassword: string;
+        passwordConfirm: string;
     }
