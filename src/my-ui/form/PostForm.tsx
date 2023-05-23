@@ -10,26 +10,31 @@ import { ImageInput } from "./components/ImageInput";
 import { FormTextArea } from "./components/FormTextArea";
 import { Close } from "@radix-ui/react-dialog"
 import { X } from "lucide-react";
+import { PBUserRecord } from "@/state/user";
 
 
 
 
 
 interface PostMutattionFormProps {
-label:string
-custom_post?:CustomPostType
+    user:PBUserRecord
+    depth?:number;
+    parent?:string
+    custom_post?:CustomPostType
 }
 
 
 
-export function PostMutattionForm({label,custom_post}:PostMutattionFormProps){
+export function PostMutattionForm({user,custom_post,depth=0,parent}:PostMutattionFormProps){
 
 const{error,handleChange,input,setInput,setError} = useFormHook<PostMutationInput>({
 initialValues:{
  body:'',
- media:"",
+ media:null,
  title:"",
- user:"",
+ user:user?.id,
+ depth,
+ parent
 }
  }) 
 
@@ -43,15 +48,23 @@ initialValues:{
 
     const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // console.log("input before save", input)
-        const formdata = new FormData(e.currentTarget);
-            for (const key in input) {
-            if (input[key as keyof typeof input] !== "") {
-                // @ts-expect-error
-                formdata.append(key, input[key]);
-            }
-        }
 
+        console.log("input  ==== ",input)
+       
+       const formdata = new FormData();
+       if (input?.media) {
+            formdata.append("media", input.media);
+        }
+        if (input.body !== "") {
+            formdata.append("body", input.body as string);
+        }
+        if (input.parent&&input.parent !== "") {
+            formdata.append("parent", input.parent as string);
+        }
+        if (input.depth&&input.depth>0){
+            formdata.append("depth", input.depth.toString());
+        }
+        formdata.append("user", input.user);
 
 
         if(custom_post&&custom_post.post_id){
@@ -87,7 +100,8 @@ initialValues:{
     
     };
 
-const disable_submit = (input.body === "" || (input.media === "" || !input.media))
+const disable_submit = (input.body === "" &&  !input.media)
+console.log("disaled ?? ",disable_submit)
 return (
  <div className='w-full h-full flex flex-col  items-center justify-center gap-4'>
 
@@ -114,7 +128,7 @@ return (
                 input={input}
                 placeholder="What's on your mind"
                 prop="body"
-                className="rounded-lg scroll-bar bg-primary w-full outline-0 p-2 min-h-[150px] h-fit"
+                className="rounded-lg scroll-bar bg-primary w-full outline-0 p-2 min-h-[100px] h-fit scrollbar-none "
             />
             {/* image input section  */}
             {/* <div className="relative h-[40%] w-full"> */}
@@ -126,7 +140,7 @@ return (
                             setInput((prev) => {
                                 return {
                                     ...prev,
-                                    media: image
+                                    media:image
                                 }
                             })
                         }

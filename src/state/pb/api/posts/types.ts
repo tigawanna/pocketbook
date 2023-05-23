@@ -74,6 +74,8 @@ export interface IPostRecord {
     title: string;
     updated: string;
     user: string;
+    depth?: number;
+    parent?: string;
     expand: {};
 }
 

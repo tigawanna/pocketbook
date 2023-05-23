@@ -11,7 +11,8 @@ export async function server_component_pb() {
         const pb_model = JSON.parse(pb_cookie);
         pb.authStore.save(pb_model.token, pb_model)
     }
-    return { pb ,cookies,headers}
+
+    return { pb,cookies,headers}
 }
 
 

@@ -22,7 +22,7 @@ export async function getPosts({pb,page}:GetPostsParams) {
     }
 }
 
-export type PostMutationInput = Pick<IPostRecord, "body" | "media" | "title" | "user">
+export type PostMutationInput = Pick<IPostRecord, "body" | "media" | "title" | "user"|"depth"|"parent">
 interface CreateUserProps {
     data: PostMutationInput | FormData
 }

@@ -1,6 +1,7 @@
 
 import { Timeline } from "@/my-ui/timeline/Timeline"
 import { server_component_pb } from "@/state/pb/server_component_pb"
+import { PBUserRecord } from "@/state/user"
 
 export default async function Home() {
   
@@ -12,7 +13,7 @@ export default async function Home() {
       className="text-2xl font-bold first-letter:txet-4xl first-letter:text-purple-500 first-letter:uppercase">
         main page
       </h1>
-      <Timeline/>
+      <Timeline user={pb.authStore.model?.model as unknown as PBUserRecord}/>
     </main>
   )
 }

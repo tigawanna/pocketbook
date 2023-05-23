@@ -10,7 +10,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, isLoading, label, node, ...props }, ref) => {
+  ({ className, isLoading, label,disabled, node, ...props }, ref) => {
     const base_style = twMerge(
       "p-2 w-full flex items-center justify-center rounded border hover:border-accent-foreground hover:text-accent-foreground",
       className
@@ -20,11 +20,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         {...props}
         className={
-          isLoading
+          disabled
             ? twMerge("cursor-not-allowed brightness-50 text-accent-foreground", base_style)
             : base_style
         }
-        disabled={isLoading}>
+      
+        >
         {isLoading ? (
           <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
         ) : (

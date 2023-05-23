@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 interface ImageInputProps {
 image:string|null;
 alt_image:string;
-updateImage: (image: string) => void
+updateImage: (image:File) => void
 }
 
 export function ImageInput({image,alt_image,updateImage}:ImageInputProps){
@@ -22,7 +22,7 @@ useEffect(() => {
         if(!file) return;
         const objectUrl = URL.createObjectURL(file!)
         setPreview(objectUrl)
-        updateImage(objectUrl)
+        updateImage(file)
         // free memory when ever this component is unmounted
         return () => URL.revokeObjectURL(objectUrl)
     }, [file])
