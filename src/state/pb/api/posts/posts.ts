@@ -46,3 +46,37 @@ export async function updatePost({ id,data }: UpdateUserProps) {
         throw error
     }
 }
+
+export interface ICreatePostReaction {
+    post_id:string,
+    user_id:string,
+}
+export async function createReactionToPost({ post_id,user_id }: ICreatePostReaction) {
+    const newReaction = {
+        post: post_id,
+        user:user_id,
+        liked: "yes"
+    };
+    try {
+        const response = await pb.collection("reactions").create(newReaction);
+        return response
+    } catch (err: any) {
+        throw err;
+    }
+}
+
+export interface IUpdatePostReaction{
+    reaction_id:string;
+    is_liked:"yes"|"no";
+}
+export async function updateReactionToPost({reaction_id,is_liked}:IUpdatePostReaction){
+    const updatevars = { liked: is_liked === "yes" ? "no" : "yes" };
+    try {
+        const response = await pb.collection("reactions").update(reaction_id, updatevars);
+        return response
+    } catch (err: any) {
+        throw err;
+    }
+}
+
+

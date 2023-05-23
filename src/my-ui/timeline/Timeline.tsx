@@ -22,14 +22,14 @@ interface TimelineProps {
 export function Timeline({ user, posts }: TimelineProps) {
   const { ref, inView } = useInView();
   // console.log("user in tineline  ==== ",user)
-  const key = ["custom_posts"];
+  const key = ["posts"];
   const currentdate = dayjs(new Date()).format("YYYY-MM-DDTHH:mm:ssZ[Z]");
 
   const customPostsQuery = useInfiniteQuery({
     queryKey: key,
     queryFn: ({ queryKey, pageParam }) =>
       getPbPaginatedPosts(
-        { depth: 0, post_id: "", profile: "general", user_id: "", key: queryKey[0] },
+        { depth: 0, post_id: "", profile: "general", user_id:user?.id??"", key: queryKey[0] },
         pageParam
       ),
     getNextPageParam: (lastPage, allPages) => {
@@ -63,9 +63,9 @@ export function Timeline({ user, posts }: TimelineProps) {
         {data &&
           data.pages.map((group, i) => (
             <React.Fragment key={i}>
-              <div className="h-full w-full flex flex-col gap-2 p-2">
+              <div className="h-full w-full flex flex-col gap-3 p-3">
                 {group.map((post) => (
-                  <PostsCard key={post.post_id} item={post} />
+                  <PostsCard key={post.post_id} item={post} user={user} />
                 ))}
               </div>
             </React.Fragment>
@@ -75,7 +75,7 @@ export function Timeline({ user, posts }: TimelineProps) {
       <div className="fixed bottom-5 right-10">
         <PostMutationDialog
           user={user}
-          label={<Plus className="h-16 w-16 p-1 rounded-full border bg-secondary" />}
+          icon={<Plus className="h-16 w-16 p-1 rounded-full border bg-secondary" />}
         />
       </div>
       <button

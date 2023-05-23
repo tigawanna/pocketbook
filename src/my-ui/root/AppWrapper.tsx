@@ -4,9 +4,10 @@ import { usePbAuthListener } from "@/state/hooks/usePbAuthListener";
 import { Sidebar } from "./navigation/Sidebar";
 import { PBUserRecord } from "@/state/user";
 import { Toolbar } from "./navigation/Toolbar";
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import {  QueryClientProvider } from '@tanstack/react-query'
 import React from "react";
 import { Notification } from "./Notification";
+import { appQueryClient } from "./queryclient";
 
 
 interface AppWrapperProps {
@@ -15,7 +16,8 @@ interface AppWrapperProps {
 }
 
 export function AppWrapper({ children,user }: AppWrapperProps) {
-    const [queryClient] = React.useState(() => new QueryClient())
+
+    const [queryClient] = React.useState(() => appQueryClient)
     usePbAuthListener()
     // console.log("document.cookie  ==== ",document.cookie)
     return (

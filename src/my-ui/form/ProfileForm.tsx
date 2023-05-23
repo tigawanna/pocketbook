@@ -49,7 +49,8 @@ export function ProfileForm({ user }: ProfileFormProps) {
   const { isPending,mutate } = useMutationWrapper({
     fetcher: updateUserProfile,
     setError,
-    refresh: true
+    refresh: true,
+    success_message:"profile updated"
   });
 
   async function onSubmit(event: React.SyntheticEvent) {
@@ -64,8 +65,8 @@ export function ProfileForm({ user }: ProfileFormProps) {
         onSubmit={onSubmit}
         className="w-full h-full flex flex-col items-center justify-center gap-5">
           <h1 className="text-2xl font-bold">Update Profile</h1>
+        {error.message !== "" && <ErrorOutput error={error} />}
         <div className="w-[90%] h-full rounded flex flex-col  items-center justify-center gap-5">
-   
             {user.avatar !=="" &&
             <div
             className="lg:w-[50%] w-[90%] p-2 h-full flex items-center justify-center rounded-2xl">
@@ -113,7 +114,7 @@ export function ProfileForm({ user }: ProfileFormProps) {
         </div>
         <Button isLoading={isPending} type="submit" label="save changes" />
       </form>
-      {error.message !== "" && <ErrorOutput error={error} />}
+
     </div>
   );
 }
