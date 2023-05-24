@@ -2,7 +2,8 @@ import { pb_api_url, pb_url } from "@/state/consts";
 import dayjs from "dayjs";
 import { CustomPostType } from "./types";
 import { PB } from "../../config";
-
+import kleur from 'kleur';
+import { logError, logNormal, logSuccess } from "@/state/utils/color_logs";
 // interface QueryVariables {
 //     user_id?: string;
 //     key: string;
@@ -76,7 +77,7 @@ export async function getPaginatedPosts(
 
 interface QueryVariables {
     user_id?: string;
-    key: "custom_one_post"|"custom_posts";
+    key: "custom_one_post"|"custom_posts"|"custom_replies";
     post_id?: string; //can also be the parent query param
     depth?: number;
     profile?: string;
@@ -94,7 +95,9 @@ export async function getPbPaginatedPosts(
     query_vars: QueryVariables,
     pagination_params?: Partial<Pagination_params>
     ){
-    const { user_id, depth, post_id, profile,key } = query_vars;
+    logNormal("getPbPaginatedPosts query_vars  ==== ", query_vars);
+    logNormal("getPbPaginatedPosts pagination params === ", pagination_params);
+        const { user_id, depth, post_id, profile,key } = query_vars;
 
     function get_pb_params(is_one_post?:boolean){
         if (is_one_post) {
@@ -124,10 +127,11 @@ export async function getPbPaginatedPosts(
             "Authorization": `Bearer ${pb.authStore.token}`
         }
         })
-        console.log("paginated posts === ",posts)
+        logSuccess(kleur.red("paginated posts === "),posts)
         return posts
     } catch (error) {
-        console.log("error getting paginated posts ==== ",error)
+        logError("error getting paginated posts ==== ",error)
         throw error
     }
 }
+

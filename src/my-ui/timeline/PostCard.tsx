@@ -19,18 +19,28 @@ interface PostCardProps {
 export const PostsCard = ({ item, user }: PostCardProps) => {
   const post_img_url = makeImageUrl("posts", item?.post_id, item?.post_media);
   const {push}=useRouter()
+  const post_params = ` post_description=${item?.post_body}
+  &post_author=${item?.creator_name}&depth=${parseInt(item?.post_depth)+1}`
   return (
     <div
       onClick={(e) => {
         e.stopPropagation()
-        push(`/post/${item?.post_id}`)
+       push(`/post/${item?.post_id}?${post_params}`)
       }}
     
     className="w-full h-full p-5 flex flex-col 
     border shadow-secondary-foreground shadow rounded-md">
 
       <div className="w-full flex justify-start items-center gap-[1px] ">
-        <div
+        <Link
+        href={
+          {
+            pathname: `/profile/${item?.creator_id}`,
+            query: {
+              id: item?.creator_id
+            }
+          }
+        }
         onClick={(e) => {
           e.stopPropagation()
           push(`/profile/${item?.creator_id}`) 
@@ -53,7 +63,7 @@ export const PostsCard = ({ item, user }: PostCardProps) => {
           <div className="flex items-center text-blue-700 justifycenter text-md font-bold px-2">
             {item?.creator_name}
           </div>
-        </div>
+        </Link>
       </div>
 
      

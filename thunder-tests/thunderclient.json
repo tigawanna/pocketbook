@@ -81,22 +81,23 @@
     "_id": "acc28f1c-d419-4186-a07c-281afcb7bf87",
     "colId": "e77ffc50-da3c-456d-b06c-47039c46d466",
     "containerId": "",
-    "name": "get_custom_posts Copy",
-    "url": "http://192.168.0.118:8080/custom_one_post?id=47au8a0kki8l4ub&limit=5&user&created=YYYYescape%202023-05-23T06%3A35%3A12%2B03%3A00Z",
+    "name": "get_one_custom_post",
+    "url": "http://192.168.0.118:8080/custom_one_post?parent=0t48yuvz30zthba&limit=5&user&created=YYYYescape%202023-05-23T06%3A35%3A12%2B03%3A00Z",
     "method": "GET",
     "sortNum": 30000,
     "created": "2023-05-24T02:57:54.556Z",
-    "modified": "2023-05-24T03:20:19.413Z",
+    "modified": "2023-05-24T11:40:04.139Z",
     "headers": [],
     "params": [
       {
         "name": "id",
         "value": "47au8a0kki8l4ub",
+        "isDisabled": true,
         "isPath": false
       },
       {
         "name": "depth",
-        "value": "0",
+        "value": "1",
         "isDisabled": true,
         "isPath": false
       },
@@ -108,8 +109,7 @@
       },
       {
         "name": "parent",
-        "value": "",
-        "isDisabled": true,
+        "value": "0t48yuvz30zthba",
         "isPath": false
       },
       {
@@ -125,6 +125,56 @@
       {
         "name": "created",
         "value": "YYYYescape%202023-05-23T06%3A35%3A12%2B03%3A00Z",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "c00c634c-5587-4763-b4f4-8b9644f0eabe",
+    "colId": "e77ffc50-da3c-456d-b06c-47039c46d466",
+    "containerId": "",
+    "name": "get_custom_posts Copy",
+    "url": "http://192.168.0.118:8080/custom_replies?id&depth=1&profile=general&limit=5&user&created=YYYYescape%202023-05-23T06%3A35%3A12%2B03%3A00Z&parent=0t48yuvz30zthba",
+    "method": "GET",
+    "sortNum": 25000,
+    "created": "2023-05-24T12:17:07.931Z",
+    "modified": "2023-05-24T12:18:57.015Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "id",
+        "value": "",
+        "isPath": false
+      },
+      {
+        "name": "depth",
+        "value": "1",
+        "isPath": false
+      },
+      {
+        "name": "profile",
+        "value": "general",
+        "isPath": false
+      },
+      {
+        "name": "limit",
+        "value": "5",
+        "isPath": false
+      },
+      {
+        "name": "user",
+        "value": "",
+        "isPath": false
+      },
+      {
+        "name": "created",
+        "value": "YYYYescape%202023-05-23T06%3A35%3A12%2B03%3A00Z",
+        "isPath": false
+      },
+      {
+        "name": "parent",
+        "value": "0t48yuvz30zthba",
         "isPath": false
       }
     ],

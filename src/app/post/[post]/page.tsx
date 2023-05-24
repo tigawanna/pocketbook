@@ -1,6 +1,8 @@
 
 
 import { getServerQueryClient } from "@/my-ui/root/server_query_client";
+import { SidePanel } from "@/my-ui/timeline/SidePanel";
+import { Timeline } from "@/my-ui/timeline/Timeline";
 import { getPbPaginatedPosts } from "@/state/pb/api/posts/custom_posts";
 import { server_component_pb } from "@/state/pb/server_component_pb";
 import { PBUserRecord } from "@/state/user";
@@ -21,26 +23,36 @@ type PageProps = {
 };
 
 
-export async function generateMetadata({ params: { post }, searchParams }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
     return {
         title: `${searchParams.post_author}`,
         description: `${searchParams.post_description}`,
-
     };
 }
 
 
 export default async function OnePostPage(props:PageProps){
     const { pb } = await server_component_pb()
-    const onePostdehydratedState = await prefetchOnePost(pb, props)   
-    const dehydratedState = await prefetchInfinitePosts(pb,props)   
- 
+    // const onePostdehydratedState = await prefetchOnePost(pb, props)   
+    const {posts_key,infinitePostsHydratedState} = await prefetchInfinitePosts(pb,props)  
+     console.log("prefetched queries  === ",infinitePostsHydratedState)
+    // console.log("post  page props ",props)
 
 return (
  <main className='w-full h-full min-h-screen flex flex-col items-center'>
-        <HydrationBoundary state={dehydratedState}>
-             one client
-        </HydrationBoundary>
+        <div className="w-full md:w-[90%] flex items-center justify-center">
+            <HydrationBoundary state={infinitePostsHydratedState}>
+                <Timeline
+                    user={pb.authStore.model?.model as unknown as PBUserRecord}
+                    post_id={props.params.post}
+                    main_key={posts_key[0]}
+                    extra_keys={posts_key.slice(1,)}
+                />
+            </HydrationBoundary>
+            <div className="hidden lg:flex h-full w-[50%]">
+                <SidePanel />
+            </div>
+        </div>
 </main>
 );
 }
@@ -55,7 +67,8 @@ async function prefetchOnePost(pb: Client, page_props:PageProps) {
         queryKey: key,
         queryFn: ({ queryKey }) =>
             getPbPaginatedPosts(pb,
-                { post_id, user_id: user?.id ?? "",get_one_post:true, key: queryKey[0] },
+                { post_id, user_id: user?.id ?? "",get_one_post:true, key: queryKey[0],
+                    depth:parseInt(depth) },
                 {
                     created: currentdate,
                     id: "",
@@ -63,7 +76,11 @@ async function prefetchOnePost(pb: Client, page_props:PageProps) {
             ),
 
     })
-    return dehydrate(queryClient)
+    
+    return {
+        one_post_key:key,
+        onePostdeHydratedState:dehydrate(queryClient)
+    }
 }
 
 async function prefetchInfinitePosts(pb:Client,page_props:PageProps){
@@ -72,12 +89,15 @@ async function prefetchInfinitePosts(pb:Client,page_props:PageProps){
     const queryClient = getServerQueryClient()
     const user = pb.authStore.model?.model as PBUserRecord
 
-    const key = ["custom_posts",post_id] as const;
+    const key = ["custom_replies",post_id] as const;
     await queryClient.prefetchInfiniteQuery({
         queryKey: key,
         queryFn: ({ queryKey, pageParam }) =>
             getPbPaginatedPosts(pb,
-                {  post_id, user_id: user?.id ?? "", key: queryKey[0] },
+                { 
+                post_id,user_id: user?.id ?? "",
+                depth:parseInt(depth),
+                key: queryKey[0],profile:"general" },
                 pageParam
             ),
         defaultPageParam: {
@@ -85,5 +105,9 @@ async function prefetchInfinitePosts(pb:Client,page_props:PageProps){
             id: "",
         },
     })
-   return dehydrate(queryClient)
+    return {
+        posts_key: key,
+        infinitePostsHydratedState: dehydrate(queryClient)
+    }
+//    return dehydrate(queryClient)
 }

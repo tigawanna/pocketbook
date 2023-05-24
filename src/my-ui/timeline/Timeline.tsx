@@ -3,7 +3,6 @@
 "use client";
 
 import { getPbPaginatedPosts } from "@/state/pb/api/posts/custom_posts";
-import { CustomPostType } from "@/state/pb/api/posts/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { PostMutationDialog } from "./PostMutationDialog";
@@ -17,22 +16,24 @@ import { pb } from "@/state/pb/config";
 
 interface TimelineProps {
   user?: PBUserRecord;
-  main_key:"custom_posts"|"custom_one_post";
-  extra_keys?:string[]
+  profile?:"general"
+  main_key:"custom_posts"|"custom_one_post"|"custom_replies";
+  extra_keys?:string[];
+  post_id?:string;
 }
 
-export function Timeline({ user,main_key,extra_keys }: TimelineProps) {
+export function Timeline({ user,main_key,extra_keys,profile,post_id }: TimelineProps) {
   const { ref, inView } = useInView();
   const key = extra_keys?[main_key,...extra_keys]:[main_key];
   
-  console.log("key in tineline  ==== ",key)
+  // console.log("key in tineline  ==== ",key)
   const currentdate = dayjs(new Date()).format("YYYY-MM-DDTHH:mm:ssZ[Z]");
 
   const customPostsQuery = useInfiniteQuery({
     queryKey:key,
     queryFn: ({ queryKey, pageParam }) =>
       getPbPaginatedPosts(pb,
-        { depth: 0, post_id: "", profile: "general", user_id:user?.id??"", key:main_key },
+        { depth: 0, post_id, profile,user_id:user?.id??"", key:main_key },
         pageParam
       ),
     getNextPageParam: (lastPage, allPages) => {

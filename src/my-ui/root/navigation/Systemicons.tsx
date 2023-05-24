@@ -14,7 +14,7 @@ export interface SystemIconsProps {
 export function Systemicons({ user }: SystemIconsProps) {
 
 
-  const { mutate,isPending } = useMutationWrapper({ fetcher: logoutUser,refresh:true});
+  const { mutate,isPending } = useMutationWrapper({ fetcher: logoutUser,refresh:true,success_message:"Logged out succefully" });
   const { countdownValue, start } = useCountdown(3);
 
   return (

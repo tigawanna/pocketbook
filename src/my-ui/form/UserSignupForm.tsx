@@ -60,8 +60,8 @@ export function UserSignUpForm({ className, ...props }: UserAuthFormProps) {
 
     
     // const { mutate,isPending, data } = useMutation({mutationFn:createUser })
-    const { mutate,isPending } = useMutationWrapper({fetcher:createUser,setError,refresh:true})
-    const oauth_mutation = useMutationWrapper({ fetcher: oauthLogin, setError, refresh: true })
+    const { mutate,isPending } = useMutationWrapper({fetcher:createUser,setError,refresh:true,success_message:"welcom"})
+    const oauth_mutation = useMutationWrapper({ fetcher: oauthLogin, setError, refresh: true,success_message:"welcome" })
 
     async function onSubmit(event: React.SyntheticEvent) {
         event.preventDefault()

@@ -28,7 +28,7 @@ type PageProps = {
 
 export default async function page({params,searchParams}:PageProps){
 const { pb } = await server_component_pb()
-console.log("dev ==== ",params)
+
 const user_id = params.dev
 const dev = await getDevprofile(pb,user_id)
 
