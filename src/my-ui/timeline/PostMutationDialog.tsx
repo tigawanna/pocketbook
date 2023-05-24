@@ -26,8 +26,6 @@ const [open,setOpen]= useState<boolean|undefined>(undefined)
       </DialogTrigger>
 
       <DialogContent className="h-fit w-full ">
-        
-
         {user?<PostMutattionForm
         depth={depth}
         parent={parent}

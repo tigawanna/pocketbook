@@ -18,7 +18,8 @@ interface PostCardProps {
 export const PostsCard = ({ item, user }: PostCardProps) => {
   const post_img_url = makeImageUrl("posts", item?.post_id, item?.post_media);
   return (
-    <div className="w-full h-full p-2 flex flex-col border shadow-secondary-foreground">
+    <div className="w-full h-full p-5 flex flex-col 
+    border shadow-secondary-foreground shadow rounded-md">
       <div className="w-full flex justify-start items-center gap-[1px] ">
         <div
           className="w-fit px-1 flex justify-start itemscenter gap-[1px]
@@ -41,22 +42,24 @@ export const PostsCard = ({ item, user }: PostCardProps) => {
         </div>
       </div>
 
-      <div className="w-full  flex items-center justify-start p-2 ">{item?.post_body}</div>
-      <div className="w-full  flex items-center justify-center ">
+     
+      <div className="w-[90%]  flex items-center justify-start p-2 pl-14">{item?.post_body}</div>
+      <div className="w-[90%} flex items-center justify-center p-2 pl-14">
         {post_img_url ? (
           <Image
             src={post_img_url}
-            alt="creator name"
-            height={50}
-            width={50}
-            className=" w-fit max-h-80 min-h-[200px] rounded-lg"
+            alt={item.creator_name+"'s post"}
+            height={150}
+            width={150}
+            className=" w-full h-auto rounded-lg"
             // alt='../../assets/placeholder.svg'
             loading="lazy"
           />
         ) : null}
       </div>
+   
 
-      <div className="w-full  flex">
+      <div className="w-full  flex p-2">
         <PostReactionsCard user={user} item={item} />
       </div>
     </div>
