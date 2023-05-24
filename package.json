@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-      "upgrade-deps": "npm install -g npm-check-updates && ncu -u && npm install"
+    "upgrade-deps": "npm install -g npm-check-updates && ncu -u && npm install"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.0.3",

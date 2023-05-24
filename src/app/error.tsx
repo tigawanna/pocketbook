@@ -13,7 +13,7 @@ export default function Error({error,reset,}:ErrorPageprops ) {
     }, [error]);
 
     return (
-        <div className='h-full min-h-screen flex items-center justify-center bg-red-900 text-red-950'>
+        <div className='h-full min-h-screen flex items-center justify-center gap-3 '>
             <h2 className='text-2xl '>Something went wrong!</h2>
             <button
             className='bg-red-900 text-red-200 px-4 py-2 rounded-md' 

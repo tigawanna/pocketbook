@@ -42,8 +42,8 @@ const { error, handleChange, input ,setError } = useFormHook<ILoginUser>({
         },
 
 })
-const { mutate, isPending } = useMutationWrapper({ fetcher: loginUser, setError, refresh: true })
- const oauth_mutation = useMutationWrapper({ fetcher: oauthLogin, setError, refresh: true })
+const { mutate, isPending } = useMutationWrapper({ fetcher: loginUser, setError, refresh: true,success_message:"welcom" })
+ const oauth_mutation = useMutationWrapper({ fetcher: oauthLogin, setError, refresh: true,success_message:"welcome" })
 // console.log("login data  === ",data)
 
     async function onSubmit(event: React.SyntheticEvent) {
@@ -61,7 +61,7 @@ return (
     <form
       onSubmit={onSubmit}
       style={{ borderRadius: '10px', border: is_error ? "1px solid red" : "" }}
-      className="w-full flex flex-col gap-10">
+      className="w-full flex flex-col gap-10 p-5">
       <div className="w-full flex flex-col gap-2">
         <div className="w-full flex flex-col gap-1">
           <label className="text-sm" htmlFor="email">

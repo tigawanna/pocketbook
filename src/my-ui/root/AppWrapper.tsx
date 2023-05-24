@@ -29,7 +29,7 @@ export function AppWrapper({ children,user }: AppWrapperProps) {
             <div className='md:w-[250px] hidden h-full md:flex flex-col items-center justify-center bg-secondary'>
                 <Sidebar user={user}/>
             </div>
-            <div className="w-full h-screen overflow-y-scroll">
+            <div className="w-full h-screen overflow-y-scroll scroll-bar">
                 {children}
             </div>
                 <div className="w-full fixed bottom-3 flex items-center justify-center">
