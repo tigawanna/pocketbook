@@ -8,8 +8,9 @@ export async function server_component_pb() {
     const pb = new PocketBase(pb_url)
 
     if (pb_cookie) {
-        const pb_model = JSON.parse(pb_cookie);
-        pb.authStore.save(pb_model.token, pb_model)
+        const pb_model = JSON.parse(pb_cookie).model;
+       pb.authStore.save(pb_model.token, pb_model)
+        
     }
 
     return { pb,cookies,headers}

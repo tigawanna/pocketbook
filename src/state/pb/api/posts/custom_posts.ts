@@ -76,7 +76,7 @@ export async function getPaginatedPosts(
 
 interface QueryVariables {
     user_id?: string;
-    key: string;
+    key: "custom_one_post"|"custom_posts";
     post_id?: string; //can also be the parent query param
     depth?: number;
     profile?: string;
@@ -84,11 +84,9 @@ interface QueryVariables {
 }
 
 interface Pagination_params {
-  
         created: string;
         id: string;
-
-}
+    }
 
 
 export async function getPbPaginatedPosts(
@@ -96,10 +94,7 @@ export async function getPbPaginatedPosts(
     query_vars: QueryVariables,
     pagination_params?: Partial<Pagination_params>
     ){
-const postsUrl = new URL(`${pb_api_url}/${query_vars.key}`);
-
-
-const { user_id, depth, post_id, profile } = query_vars;
+    const { user_id, depth, post_id, profile,key } = query_vars;
 
     function get_pb_params(is_one_post?:boolean){
         if (is_one_post) {
@@ -107,7 +102,6 @@ const { user_id, depth, post_id, profile } = query_vars;
                 id: query_vars.post_id,
                 user: user_id,
                 limit:5,
-                
             }
         }
         return {
@@ -122,7 +116,7 @@ const { user_id, depth, post_id, profile } = query_vars;
     }
 
     try {
-       const posts = await pb.send<CustomPostType[]>('/custom_posts',{
+       const posts = await pb.send<CustomPostType[]>(key,{
         params:get_pb_params(query_vars.get_one_post),
         headers:{
             Accept: "*/*",

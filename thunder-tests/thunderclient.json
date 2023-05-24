@@ -18,11 +18,11 @@
     "colId": "e77ffc50-da3c-456d-b06c-47039c46d466",
     "containerId": "",
     "name": "get_custom_posts",
-    "url": "http://192.168.0.118:8080/custom_posts?id=&depth=0&profile=general&parent=&limit=5&user=&cteated=YYYYescape%202023-05-23T06%3A35%3A12%2B03%3A00Z",
+    "url": "http://192.168.0.118:8080/custom_posts?id&depth=0&profile=general&parent&limit=5&user&created=YYYYescape%202023-05-23T06%3A35%3A12%2B03%3A00Z",
     "method": "GET",
     "sortNum": 20000,
     "created": "2023-05-23T03:42:25.313Z",
-    "modified": "2023-05-23T03:42:25.313Z",
+    "modified": "2023-05-24T02:58:32.623Z",
     "headers": [],
     "params": [
       {
@@ -56,7 +56,7 @@
         "isPath": false
       },
       {
-        "name": "cteated",
+        "name": "created",
         "value": "YYYYescape%202023-05-23T06%3A35%3A12%2B03%3A00Z",
         "isPath": false
       }
@@ -75,6 +75,59 @@
     "modified": "2023-05-23T03:43:27.760Z",
     "headers": [],
     "params": [],
+    "tests": []
+  },
+  {
+    "_id": "acc28f1c-d419-4186-a07c-281afcb7bf87",
+    "colId": "e77ffc50-da3c-456d-b06c-47039c46d466",
+    "containerId": "",
+    "name": "get_custom_posts Copy",
+    "url": "http://192.168.0.118:8080/custom_one_post?id=47au8a0kki8l4ub&limit=5&user&created=YYYYescape%202023-05-23T06%3A35%3A12%2B03%3A00Z",
+    "method": "GET",
+    "sortNum": 30000,
+    "created": "2023-05-24T02:57:54.556Z",
+    "modified": "2023-05-24T03:20:19.413Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "id",
+        "value": "47au8a0kki8l4ub",
+        "isPath": false
+      },
+      {
+        "name": "depth",
+        "value": "0",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "profile",
+        "value": "general",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "parent",
+        "value": "",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "limit",
+        "value": "5",
+        "isPath": false
+      },
+      {
+        "name": "user",
+        "value": "",
+        "isPath": false
+      },
+      {
+        "name": "created",
+        "value": "YYYYescape%202023-05-23T06%3A35%3A12%2B03%3A00Z",
+        "isPath": false
+      }
+    ],
     "tests": []
   }
 ]

@@ -8,7 +8,8 @@ import { Heart, MessageSquare } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { PostMutationDialog } from "./PostMutationDialog";
-import { useRouter } from "next/navigation";
+import { useRouter,useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 interface PostCardProps {
   item: CustomPostType;
@@ -17,12 +18,25 @@ interface PostCardProps {
 
 export const PostsCard = ({ item, user }: PostCardProps) => {
   const post_img_url = makeImageUrl("posts", item?.post_id, item?.post_media);
+  const {push}=useRouter()
   return (
-    <div className="w-full h-full p-5 flex flex-col 
+    <div
+      onClick={(e) => {
+        e.stopPropagation()
+        push(`/post/${item?.post_id}`)
+      }}
+    
+    className="w-full h-full p-5 flex flex-col 
     border shadow-secondary-foreground shadow rounded-md">
+
       <div className="w-full flex justify-start items-center gap-[1px] ">
         <div
-          className="w-fit px-1 flex justify-start itemscenter gap-[1px]
+        onClick={(e) => {
+          e.stopPropagation()
+          push(`/profile/${item?.creator_id}`) 
+        }}
+
+        className="w-fit px-1 flex justify-start itemscenter gap-[1px]
                  cursor-pointer hover:bg-purple-100 rounded-full">
           <div className=" h-8 w-8 md:w-10 md:h-10 ">
             {item?.creator_image ? (

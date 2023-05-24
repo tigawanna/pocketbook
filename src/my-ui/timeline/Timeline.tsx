@@ -23,7 +23,7 @@ interface TimelineProps {
 export function Timeline({ user, posts }: TimelineProps) {
   const { ref, inView } = useInView();
   // console.log("user in tineline  ==== ",user)
-  const key = ["posts"];
+  const key = ["custom_posts"] as const;
   const currentdate = dayjs(new Date()).format("YYYY-MM-DDTHH:mm:ssZ[Z]");
 
   const customPostsQuery = useInfiniteQuery({

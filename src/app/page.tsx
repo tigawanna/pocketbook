@@ -6,15 +6,17 @@ import { server_component_pb } from "@/state/pb/server_component_pb"
 import { PBUserRecord } from "@/state/user"
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 import dayjs from "dayjs"
+
+
 export default async function Home() {
   
   const {pb} = await server_component_pb()
   const queryClient = getServerQueryClient()
   const currentdate = dayjs(new Date()).format("YYYY-MM-DDTHH:mm:ssZ[Z]");
-  
-  const user = pb.authStore.model?.model as PBUserRecord
+  const user = pb.authStore.model as unknown as PBUserRecord
+  const key = ["custom_posts"] as const;
   await queryClient.prefetchInfiniteQuery({
-    queryKey: ["posts"],
+    queryKey:key,
     queryFn: ({ queryKey, pageParam }) =>
       getPbPaginatedPosts(pb,
         { depth: 0, post_id: "", profile: "general", user_id: user?.id ?? "", key: queryKey[0] },
