@@ -17,20 +17,22 @@ import { pb } from "@/state/pb/config";
 
 interface TimelineProps {
   user?: PBUserRecord;
-  posts?: CustomPostType[];
+  main_key:"custom_posts"|"custom_one_post";
+  extra_keys?:string[]
 }
 
-export function Timeline({ user, posts }: TimelineProps) {
+export function Timeline({ user,main_key,extra_keys }: TimelineProps) {
   const { ref, inView } = useInView();
-  // console.log("user in tineline  ==== ",user)
-  const key = ["custom_posts"] as const;
+  const key = extra_keys?[main_key,...extra_keys]:[main_key];
+  
+  console.log("key in tineline  ==== ",key)
   const currentdate = dayjs(new Date()).format("YYYY-MM-DDTHH:mm:ssZ[Z]");
 
   const customPostsQuery = useInfiniteQuery({
-    queryKey: key,
+    queryKey:key,
     queryFn: ({ queryKey, pageParam }) =>
       getPbPaginatedPosts(pb,
-        { depth: 0, post_id: "", profile: "general", user_id:user?.id??"", key: queryKey[0] },
+        { depth: 0, post_id: "", profile: "general", user_id:user?.id??"", key:main_key },
         pageParam
       ),
     getNextPageParam: (lastPage, allPages) => {

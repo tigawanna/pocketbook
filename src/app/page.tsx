@@ -11,6 +11,7 @@ import dayjs from "dayjs"
 export default async function Home() {
   
   const {pb} = await server_component_pb()
+
   const queryClient = getServerQueryClient()
   const currentdate = dayjs(new Date()).format("YYYY-MM-DDTHH:mm:ssZ[Z]");
   const user = pb.authStore.model as unknown as PBUserRecord
@@ -19,7 +20,7 @@ export default async function Home() {
     queryKey:key,
     queryFn: ({ queryKey, pageParam }) =>
       getPbPaginatedPosts(pb,
-        { depth: 0, post_id: "", profile: "general", user_id: user?.id ?? "", key: queryKey[0] },
+        { depth: 0, post_id: "", profile:user.id, user_id: user?.id ?? "", key: queryKey[0] },
         pageParam
       ),
     defaultPageParam: {
@@ -33,7 +34,7 @@ export default async function Home() {
   return (
     <main className='w-full h-full flex  items-center justify-center p-2 gap-1'>
       <HydrationBoundary state={dehydratedState}>
-      <Timeline user={pb.authStore.model?.model as unknown as PBUserRecord}/>
+      <Timeline user={pb.authStore.model?.model as unknown as PBUserRecord} main_key={key[0]}/>
       </HydrationBoundary>
       <div className="hidden lg:flex h-full w-[50%]">
       <SidePanel/>

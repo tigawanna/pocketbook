@@ -9,6 +9,6 @@ export async function getDevprofile(pb:Client,dev_id:string) {
         });
         return record
     } catch (error: any) {
-        return new Error(error)
+     throw error
     }
 } 
