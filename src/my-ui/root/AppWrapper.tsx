@@ -9,6 +9,7 @@ import React from "react";
 import { Notification } from "./Notification";
 import { appQueryClient } from "./queryclient";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { ThemeProvider } from 'next-themes'
 
 interface AppWrapperProps {
     children: React.ReactNode
@@ -21,6 +22,7 @@ export function AppWrapper({ children,user }: AppWrapperProps) {
     usePbAuthListener()
     // console.log("document.cookie  ==== ",document.cookie)
     return (
+        <ThemeProvider attribute="class" defaultTheme="system">
         <QueryClientProvider client={queryClient}>
         <div className='w-full h-screen flex flex-col md:flex-row  items-center justify-center'>
             <div className='w-full md:hidden h-14 flex items-center justify-start bg-secondary'>
@@ -38,5 +40,6 @@ export function AppWrapper({ children,user }: AppWrapperProps) {
             </div>
             <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
+        </ThemeProvider>
     );
 }

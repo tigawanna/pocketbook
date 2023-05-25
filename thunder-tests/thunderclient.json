@@ -82,22 +82,21 @@
     "colId": "e77ffc50-da3c-456d-b06c-47039c46d466",
     "containerId": "",
     "name": "get_one_custom_post",
-    "url": "http://192.168.0.118:8080/custom_one_post?parent=0t48yuvz30zthba&limit=5&user&created=YYYYescape%202023-05-23T06%3A35%3A12%2B03%3A00Z",
+    "url": "http://192.168.0.118:8080/custom_one_post?id=47au8a0kki8l4ub&limit=5&user&created=YYYYescape%202023-05-23T06%3A35%3A12%2B03%3A00Z",
     "method": "GET",
     "sortNum": 30000,
     "created": "2023-05-24T02:57:54.556Z",
-    "modified": "2023-05-24T11:40:04.139Z",
+    "modified": "2023-05-25T02:35:14.780Z",
     "headers": [],
     "params": [
       {
         "name": "id",
         "value": "47au8a0kki8l4ub",
-        "isDisabled": true,
         "isPath": false
       },
       {
         "name": "depth",
-        "value": "1",
+        "value": "",
         "isDisabled": true,
         "isPath": false
       },
@@ -110,6 +109,7 @@
       {
         "name": "parent",
         "value": "0t48yuvz30zthba",
+        "isDisabled": true,
         "isPath": false
       },
       {

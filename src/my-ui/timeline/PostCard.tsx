@@ -1,4 +1,4 @@
-" use client";
+"use client";
 import { useMutationWrapper } from "@/state/hooks/useMutation";
 import { createReactionToPost, updateReactionToPost } from "@/state/pb/api/posts/posts";
 import { CustomPostType } from "@/state/pb/api/posts/types";
@@ -8,28 +8,32 @@ import { Heart, MessageSquare } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { PostMutationDialog } from "./PostMutationDialog";
-import { useRouter,useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { twMerge } from "tailwind-merge";
 
-interface PostCardProps {
+interface PostCardProps extends React.HTMLAttributes<HTMLDivElement> {
   item: CustomPostType;
   user?: PBUserRecord;
 }
 
-export const PostsCard = ({ item, user }: PostCardProps) => {
+export const PostsCard = ({ item, user,...props }: PostCardProps) => {
   const post_img_url = makeImageUrl("posts", item?.post_id, item?.post_media);
   const {push}=useRouter()
+
   const post_params = ` post_description=${item?.post_body}
   &post_author=${item?.creator_name}&depth=${parseInt(item?.post_depth)+1}`
+  const card_styles = twMerge(`w-full h-full p-5 flex flex-col 
+    border shadow-secondary-foreground shadow rounded-md`, props.className);
   return (
-    <div
+  
+  <div
       onClick={(e) => {
         e.stopPropagation()
        push(`/post/${item?.post_id}?${post_params}`)
       }}
-    
-    className="w-full h-full p-5 flex flex-col 
-    border shadow-secondary-foreground shadow rounded-md">
+    {...props}
+    className={card_styles}>
 
       <div className="w-full flex justify-start items-center gap-[1px] ">
         <Link
@@ -100,14 +104,15 @@ export const PostReactionsCard = ({ user, item }: PostReactionsCardProps) => {
   const newReactionMutation = useMutationWrapper({
     fetcher: createReactionToPost,
     // refresh:true,
-    success_message: "reaction added",
-    invalidates: ["posts"],
+    success_message: "added",
+    invalidates: ["custom_posts"],
   });
   const updateReactionMutation = useMutationWrapper({
     fetcher: updateReactionToPost,
     //   refresh: true,
-      success_message: "reaction updated",
-      invalidates: ["posts"],
+      success_message: "updated",
+      invalidates: ["custom_posts"],
+      refresh:false
   });
   const router = useRouter();
   // console.log("item before reaction  ==== ", item);
@@ -118,8 +123,8 @@ export const PostReactionsCard = ({ user, item }: PostReactionsCardProps) => {
           <Heart
             fill={liked ? "red" : ""}
             className={liked? "text-red-600 w-5 h-5" : "w-5 h-5"}
-            onClick={() => {
-          
+            onClick={(e) => {
+              e.stopPropagation()
               if (user) {
                 if (item?.mylike !== "virgin" && item?.reaction_id && item?.reaction_id !== "") {
                   updateReactionMutation.mutate({
@@ -145,7 +150,10 @@ export const PostReactionsCard = ({ user, item }: PostReactionsCardProps) => {
             user={user}
             label={`replying to ${item?.creator_name}`}
             icon={
-            <MessageSquare 
+            <MessageSquare
+            onClick={(e) => {
+                  e.stopPropagation()
+            }} 
             fill={item?.myreply !== "virgin" ? "blue" : ""}
                 className={item?.myreply !== "virgin" ? "text-accent-foreground w-5 h-5" : "w-5 h-5"}
             />}

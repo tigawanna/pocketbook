@@ -1,10 +1,12 @@
+"use client"
 import { logoutUser } from "@/state/pb/config";
-import { LogOutIcon } from "lucide-react";
+import { LogOutIcon, Moon, Sun } from "lucide-react";
 import { Button } from "../../form/components/Button";
 import { useCountdown } from "@/state/hooks/useCountdown";
 import { PBUserRecord } from "@/state/user";
 import Image from "next/image";
 import { useMutationWrapper } from "@/state/hooks/useMutation";
+import { useTheme } from "next-themes";
 
 
 export interface SystemIconsProps {
@@ -16,15 +18,15 @@ export function Systemicons({ user }: SystemIconsProps) {
 
   const { mutate,isPending } = useMutationWrapper({ fetcher: logoutUser,refresh:true,success_message:"Logged out succefully" });
   const { countdownValue, start } = useCountdown(3);
-
+  const { theme, setTheme } = useTheme()
   return (
-    <div className="w-full h-[30%] flex items-center justify-center  ">
+    <div className="w-full h-fit flex flex-col items-center justify-center p-3 ">
 
       {user && (
-            <div className="h-full gap-5 flex flex-col w-full items-center justify-center p-5">
+          <div className="h-full gap-3 flex flex-col w-full items-center justify-center p-5">
           <Image
             alt={user.username}
-            src={user.avatar + "goob"}
+            src={user.avatar !== "" ? user.avatar :"https://picsum.photos/200"}
             width={50} height={50}
             onError={(e) => {
               (e.target as HTMLImageElement).src = "https://picsum.photos/200";
@@ -44,6 +46,8 @@ export function Systemicons({ user }: SystemIconsProps) {
         </div>
 
       )}
+    {theme === 'light'&&<Moon className="h-10 w-10" onClick={() => setTheme('dark')}/>}
+   { theme === 'dark' &&<Sun className="h-10 w-10" onClick={() => setTheme('light')} />}
     </div>
   );
 }

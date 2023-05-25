@@ -95,12 +95,12 @@ export function PostMutattionForm({
   const disable_submit = input.body === "" && !input.media;
 
   return (
-    <div className="w-full h-full flex flex-col  items-center justify-center gap-4">
+    <div className="w-full h-full flex flex-col  items-center justify-center gap-4 ">
       {error.message !== "" && <ErrorOutput error={error} />}
       <form
         onSubmit={handleSubmit}
-        className="w-full  h-fit min-h-[40%] border-2 shadow-xl rounded-xl p-3 gap-3 m-5
-            flex flex-col items-center justify-start bg-primary overflow-y-scroll scroll-bar">
+        className="w-full  h-fit min-h-[40%] border-2 shadow-xl rounded-xl p-3 gap-3 m-5  
+            flex flex-col items-center justify-start bg-secondary overflow-y-scroll scroll-bar">
         <div className="w-full flex justify-end rounded-sm">
           <Close>
             <X className="h-5 w-5 focus:text-accent-foreground" />
@@ -117,7 +117,7 @@ export function PostMutattionForm({
           input={input}
           placeholder={label ?? "What's on your mind"}
           prop="body"
-          className="rounded-lg scroll-bar bg-primary w-full outline-0 p-2 min-h-[100px] h-fit scrollbar-none "
+          className="rounded-lg scroll-bar bg-secondary w-full outline-0 p-2 min-h-[100px] h-fit scrollbar-none "
         />
         {/* image input section  */}
         {/* <div className="relative h-[40%] w-full"> */}

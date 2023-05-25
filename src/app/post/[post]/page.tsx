@@ -1,6 +1,7 @@
 
 
 import { getServerQueryClient } from "@/my-ui/root/server_query_client";
+import { PostsCard } from "@/my-ui/timeline/PostCard";
 import { SidePanel } from "@/my-ui/timeline/SidePanel";
 import { Timeline } from "@/my-ui/timeline/Timeline";
 import { getPbPaginatedPosts } from "@/state/pb/api/posts/custom_posts";
@@ -33,23 +34,33 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
 
 export default async function OnePostPage(props:PageProps){
     const { pb } = await server_component_pb()
-    // const onePostdehydratedState = await prefetchOnePost(pb, props)   
+
+    const one_post = await fetchOnePost(pb, props)   
     const {posts_key,infinitePostsHydratedState} = await prefetchInfinitePosts(pb,props)  
-     console.log("prefetched queries  === ",infinitePostsHydratedState)
-    // console.log("post  page props ",props)
+
 
 return (
  <main className='w-full h-full min-h-screen flex flex-col items-center'>
-        <div className="w-full md:w-[90%] flex items-center justify-center">
-            <HydrationBoundary state={infinitePostsHydratedState}>
-                <Timeline
-                    user={pb.authStore.model?.model as unknown as PBUserRecord}
-                    post_id={props.params.post}
-                    main_key={posts_key[0]}
-                    extra_keys={posts_key.slice(1,)}
-                />
-            </HydrationBoundary>
-            <div className="hidden lg:flex h-full w-[50%]">
+        <div className="w-full flex items-cente justify-center">
+            <div className="w-full flex flex-col items-center justify-start gap-2 p-2">
+            <div className="w-full ">
+            <PostsCard
+            className="border-none border-b-4 border-b-accent-foreground p-2 bg-secondary" 
+            item={one_post[0]} 
+            user={pb.authStore.model?.model as PBUserRecord}/>
+                </div>
+                <HydrationBoundary state={infinitePostsHydratedState}>
+                    <Timeline
+                        user={pb.authStore.model as unknown as PBUserRecord}
+                        post_id={props.params.post}
+                        main_key={posts_key[0]}
+                        extra_keys={posts_key.slice(1,)}
+                    />
+                </HydrationBoundary>
+            </div>
+
+
+            <div className="hidden lg:flex min-h-[200px] h-full w-[50%] p-2">
                 <SidePanel />
             </div>
         </div>
@@ -57,31 +68,26 @@ return (
 );
 }
 
-async function prefetchOnePost(pb: Client, page_props:PageProps) {
+async function fetchOnePost(pb: Client, page_props:PageProps) {
     const { params: { post: post_id },searchParams:{depth} } = page_props
     const currentdate = dayjs(new Date()).format("YYYY-MM-DDTHH:mm:ssZ[Z]");
-    const queryClient = getServerQueryClient()
+
     const user = pb.authStore.model as unknown as PBUserRecord
     const key = ["custom_one_post", post_id] as const;
-    await queryClient.prefetchQuery({
-        queryKey: key,
-        queryFn: ({ queryKey }) =>
-            getPbPaginatedPosts(pb,
-                { post_id, user_id: user?.id ?? "",get_one_post:true, key: queryKey[0],
-                    depth:parseInt(depth) },
-                {
-                    created: currentdate,
-                    id: "",
-                }
-            ),
-
-    })
     
-    return {
-        one_post_key:key,
-        onePostdeHydratedState:dehydrate(queryClient)
-    }
+   return getPbPaginatedPosts(pb,
+        {
+            post_id, user_id: user?.id ?? "", get_one_post:true, key:key[0],
+            depth: parseInt(depth)
+        },
+        {
+            created: currentdate,
+            id: "",
+        }
+    )
 }
+
+
 
 async function prefetchInfinitePosts(pb:Client,page_props:PageProps){
     const { params: { post: post_id }, searchParams: { depth } } = page_props

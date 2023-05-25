@@ -76,11 +76,11 @@ export function Timeline({ user,main_key,extra_keys,profile,post_id }: TimelineP
           ))}
       </ScrollArea>
 
-      <div className="fixed bottom-10 right-12">
+      <div className="fixed bottom-16 right-[3%]">
         <PostMutationDialog
           user={user}
-          icon={<Plus className="h-12 w-12 p-1 rounded-full border 
-          bg-accent hover:shadow-sm hover:shadow-accent-foreground hover:text-accent-foreground" />}
+          icon={<Plus className="h-12 w-12 p-1 rounded-full border-2 hover:border-accent-foreground
+          hover:shadow-sm hover:shadow-accent-foreground hover:text-accent-foreground" />}
         />
       </div>
       <button

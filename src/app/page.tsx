@@ -34,7 +34,7 @@ export default async function Home() {
   return (
     <main className='w-full h-full flex  items-center justify-center p-2 gap-1'>
       <HydrationBoundary state={dehydratedState}>
-      <Timeline user={pb.authStore.model?.model as unknown as PBUserRecord} main_key={key[0]}/>
+      <Timeline user={pb.authStore.model as unknown as PBUserRecord} main_key={key[0]}/>
       </HydrationBoundary>
       <div className="hidden lg:flex h-full w-[50%]">
       <SidePanel/>
