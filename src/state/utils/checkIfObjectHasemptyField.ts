@@ -1,9 +1,9 @@
 // check if an object has an empty values
-export function checkIfEmpty<T = unknown>(obj: T, skipKeys:(keyof T)[] = []) {
+export function checkIfEmpty<T = unknown>(obj: T, skipKeys: (keyof T)[] = []) {
   for (const key in obj) {
-    const is_ignored = skipKeys.includes(key as keyof T)
+    const is_ignored = skipKeys.includes(key as keyof T);
 
-    if (typeof obj[key as keyof T] === "string" && obj[key as keyof T] === "" ) {
+    if (typeof obj[key as keyof T] === "string" && obj[key as keyof T] === "") {
       return { empty: true, value: `${key} field of type string is empty` };
     }
     if (typeof obj[key as keyof T] === "number" && obj[key as keyof T] === 0) {
@@ -13,7 +13,10 @@ export function checkIfEmpty<T = unknown>(obj: T, skipKeys:(keyof T)[] = []) {
       return { empty: true, value: `${key} field of type File is empty` };
     }
     // @ts-expect-error
-    if(Array.isArray(obj [key as keyof T]) && obj[key as keyof T].length === 0) {
+    if (
+      Array.isArray(obj[key as keyof T]) &&
+      obj[key as keyof T].length === 0
+    ) {
       return { empty: true, value: `${key} field of type File [] is empty` };
     }
   }

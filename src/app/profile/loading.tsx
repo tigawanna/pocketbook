@@ -1,14 +1,11 @@
-import { PageLoading } from "@/my-ui/shared/loaders/PageLoading";
+import { PageLoading } from "@/components/shared/loaders/PageLoading";
 
+interface loadingProps {}
 
-interface loadingProps {
-
-}
-
-export default function Loading({}:loadingProps){
-return (
- <div className='w-full h-screen flex items-center justify-center'>
-    <PageLoading/>
- </div>
-);
+export default function Loading({}: loadingProps) {
+  return (
+    <div className="w-full h-screen flex items-center justify-center">
+      <PageLoading />
+    </div>
+  );
 }

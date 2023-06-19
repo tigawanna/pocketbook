@@ -1,10 +1,7 @@
-
-export default function PostLayout({ children, }: { children: React.ReactNode }) {
-
-    return (
-        <section>
-            {children}
-        </section>
-    )
-
+export default function PostLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return <section>{children}</section>;
 }

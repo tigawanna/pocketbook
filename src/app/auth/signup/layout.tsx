@@ -1,14 +1,12 @@
 export const metadata = {
-    title: 'signup',
-    description: 'Create a new account',
-}
+  title: "signup",
+  description: "Create a new account",
+};
 
-export default function SignupLayout({ children, }: { children: React.ReactNode }) {
-
-    return (
-        <section>
-            {children}
-        </section>
-    )
-
+export default function SignupLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return <section>{children}</section>;
 }
