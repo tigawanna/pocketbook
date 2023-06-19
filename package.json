@@ -1,33 +1,50 @@
 {
-  "name": "next-app-tw",
+  "name": "pocketbook",
+  "description": "minimal social app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "upgrade-deps": "npm install -g npm-check-updates && ncu -u && npm install",
+    "shadd": "shadcn-fe-cli add",
+    "pretty": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache"
   },
   "dependencies": {
-    "@types/node": "20.1.2",
-    "@types/react": "18.2.6",
-    "@types/react-dom": "18.2.4",
-    "autoprefixer": "10.4.14",
-    "eslint": "8.40.0",
-    "eslint-config-next": "13.4.1",
-    "lucide-react": "^0.215.0",
-    "next": "13.4.1",
-    "pocketbase": "^0.14.4",
-    "postcss": "8.4.23",
+    "@radix-ui/react-dialog": "^1.0.3",
+    "@radix-ui/react-scroll-area": "^1.0.3",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@tanstack/react-query": "^5.0.0-alpha.35",
+    "class-variance-authority": "^0.6.0",
+    "clsx": "^1.2.1",
+    "dayjs": "^1.11.7",
+    "lucide-react": "^0.220.0",
+    "next": "13.4.3",
+    "pocketbase": "^0.15.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "swr": "^2.1.5",
+    "react-intersection-observer": "^9.4.3",
     "tailwind-merge": "^1.12.0",
-    "tailwindcss": "3.3.2",
-    "typescript": "5.0.4",
     "zustand": "^4.3.8"
   },
   "devDependencies": {
-    "tailwindcss-animate": "^1.0.5"
+    "@tanstack/react-query-devtools": "^5.0.0-alpha.35",
+    "@types/node": "20.2.3",
+    "@types/react": "18.2.6",
+    "@types/react-dom": "18.2.4",
+    "autoprefixer": "10.4.14",
+    "eslint": "8.41.0",
+    "eslint-config-next": "13.4.3",
+    "kleur": "^4.1.5",
+    "postcss": "8.4.23",
+    "prettier": "^2.8.8",
+    "shadcn-fe-cli": "link:C:/Users/denni/Desktop/code/workspace/shadcn-ui-fanedition/packages/cli",
+    "tailwind-scrollbar": "^3.0.4",
+    "tailwindcss": "3.3.2",
+    "tailwindcss-animate": "^1.0.5",
+    "typescript": "5.0.4"
   }
+  
 }

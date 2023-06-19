@@ -1,47 +1,60 @@
-import { IncomingMessage } from "http";
+/* eslint-disable react-hooks/exhaustive-deps */
 import { ImagePlus } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 interface ImageInputProps {
-label:string;
-image:string|null;
-updateImage: (image: string) => void
+  image: string | null;
+  alt_image: string;
+  updateImage: (image: File) => void;
 }
 
-export function ImageInput({image,label,updateImage}:ImageInputProps){
-const ref = useRef<HTMLInputElement|null>(null);
-const [file,setFile] = useState<File|null>(null);
-const [preview,setPreview] = useState<string|null>(image);
+export function ImageInput({ image, alt_image, updateImage }: ImageInputProps) {
+  const ref = useRef<HTMLInputElement | null>(null);
+  const [file, setFile] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string | null>(image);
 
-useEffect(() => {
-        // create the preview
-        if(!file) return;
-        const objectUrl = URL.createObjectURL(file!)
-        setPreview(objectUrl)
-        updateImage(objectUrl)
-        // free memory when ever this component is unmounted
-        return () => URL.revokeObjectURL(objectUrl)
-    }, [file])
+  // switch over to user.github_avatar if image url errors
 
-function handleChange(event:React.ChangeEvent<HTMLInputElement>){
-if(event.target.files?.[0]){
-    setFile(event.target.files?.[0]);
-}    
+  useEffect(() => {
+    // create the preview
+    if (!file) return;
+    const objectUrl = URL.createObjectURL(file!);
+    setPreview(objectUrl);
+    updateImage(file);
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [file]);
 
-}
-return (
- <div className='w-full h-full flex flex-col items-center justify-center'>
-{preview && <Image 
-    src={preview}
-    alt="preview"
-    height={250}
-    width={250}
-    onClick={()=>ref.current?.click()}
-    className="rounded-lg h-auto w-full aspect-square "/>}
-    {!preview&&<ImagePlus className="w-8 h-8" onClick={() => ref.current?.click()} />}
-    <input id="file" className="hidden" ref={ref} type="file" onChange={handleChange} />
-    <label htmlFor="file" className=""></label>  
- </div>
-);
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    if (event.target.files?.[0]) {
+      setFile(event.target.files?.[0]);
+    }
+  }
+  return (
+    <div className="w-full flex flex-col items-center justify-center ">
+      {preview && preview !== "" && (
+        <Image
+          src={preview}
+          alt="preview"
+          height={250}
+          width={250}
+          onClick={() => ref.current?.click()}
+          className="rounded-lg h-[200px] w-auto aspect-square object-cover flex items-center justify-center"
+        />
+      )}
+      {!preview && (
+        <div className="w-full px-2">
+          <ImagePlus className="w-5 h-5" onClick={() => ref.current?.click()} />
+        </div>
+      )}
+      <input
+        id="file"
+        className="hidden"
+        ref={ref}
+        type="file"
+        onChange={handleChange}
+      />
+    </div>
+  );
 }

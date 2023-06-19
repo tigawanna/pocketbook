@@ -1,9 +1,9 @@
-import { UserSignUpForm } from "@/components/form/components/UserSignupForm";
+import { UserSignUpForm } from "@/components/form/UserSignupForm";
 
-export default function page({}){
-return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+export default function page({}) {
+  return (
+    <main className="w-full flex min-h-screen flex-col items-center justify-between p-2">
       <UserSignUpForm />
     </main>
-);
+  );
 }

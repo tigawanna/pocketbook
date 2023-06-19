@@ -1,0 +1,80 @@
+[
+  {
+    "_id": "f2ac3a87-4ee9-4623-9f7e-68e746ca5847",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:3000/auth/api",
+    "url": "http://localhost:3000/auth/api",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2023-05-22T06:53:51.258Z",
+    "modified": "2023-05-22T06:53:51.258Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "255d36ef-0d29-410f-925a-e07f4ec19b1d",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://192.168.0.118:8080/custom_posts?id=&depth=0&profile=general&parent=&limit=5&user=&cteated=YYYYescape%202023-05-23T06%3A35%3A12%2B03%3A00Z",
+    "url": "http://192.168.0.118:8080/custom_posts?id&depth=0&profile=general&parent&limit=5&user&created=2023-05-22 23:58:51.039Z",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-05-23T03:36:48.789Z",
+    "modified": "2023-05-23T04:22:26.719Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "id",
+        "value": "",
+        "isPath": false
+      },
+      {
+        "name": "depth",
+        "value": "0",
+        "isPath": false
+      },
+      {
+        "name": "profile",
+        "value": "general",
+        "isPath": false
+      },
+      {
+        "name": "parent",
+        "value": "",
+        "isPath": false
+      },
+      {
+        "name": "limit",
+        "value": "5",
+        "isPath": false
+      },
+      {
+        "name": "user",
+        "value": "",
+        "isPath": false
+      },
+      {
+        "name": "created",
+        "value": "2023-05-22 23:58:51.039Z",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "10ddccc9-cdd1-403c-9891-26a5178fbc69",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://192.168.0.118:8080/api/collections/posts/records",
+    "url": "http://192.168.0.118:8080/api/collections/posts/records",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-05-23T03:41:12.088Z",
+    "modified": "2023-05-23T03:41:12.088Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  }
+]
