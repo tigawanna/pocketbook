@@ -1,4 +1,6 @@
+import { CookieDialog } from "@/components/dialog/CookieDialog";
 import { DialogWrapper } from "@/components/dialog/DialodWrapper";
+import { SheetWraper } from "@/components/dialog/SheetWraper";
 import { getLocalCookie, getSavedCookies } from "@/state/cookie";
 import { useState } from "react";
 
@@ -8,16 +10,13 @@ interface CookieDisclaimerProps {
 
 export function CookieDisclaimer({}:CookieDisclaimerProps){
 const consentCookie = getSavedCookies()
+const [open,setOpen]=useState(true)
 console.log("consentCookie === " , consentCookie);
 if(!consentCookie.consent?.accepted){
 return (
-    <DialogWrapper>
-<div className='fixed bottom-0 w-full h-[150px] flex 
- items-center justify-center bg-red-700 z-50 animate-in slide-in-from-bottom
- duration-1000'>
-            accept cookies or else
-        </div>
-    </DialogWrapper>
+    <CookieDialog open={open} setOpen={setOpen}>
+        <h2 className="tex-5xl font-bold">IT'S COOKIE TIME</h2>
+    </CookieDialog>
 
  )
  }

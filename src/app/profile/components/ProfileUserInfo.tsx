@@ -1,4 +1,5 @@
-import { DialogWrapper } from "@/components/dialog/DialogWrapper";
+
+import { DialogWrapper } from "@/components/dialog/DialodWrapper";
 import { ProfileForm } from "@/components/form/ProfileForm";
 import { ErrorOutput } from "@/components/wrappers/ErrorOutput";
 import { Icons } from "@/components/wrappers/icons";
