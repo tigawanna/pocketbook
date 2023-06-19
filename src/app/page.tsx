@@ -1,11 +1,13 @@
+
+import { SidePanel } from "@/components/timeline/SidePanel";
+import { Timeline } from "@/components/timeline/Timeline";
 import { getPbPaginatedPosts } from "@/state/pb/api/posts/custom_posts";
 import { server_component_pb } from "@/state/pb/server_component_pb";
 import { PBUserRecord } from "@/state/user";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { getServerQueryClient } from "./query/server_query_client";
-import { SidePanel } from "@/components/timeline/SidePanel";
-import { Timeline } from "@/components/timeline/Timeline";
+
 
 export default async function Home() {
   const { pb } = await server_component_pb();
@@ -43,7 +45,7 @@ export default async function Home() {
           main_key={key[0]}
         />
       </HydrationBoundary>
-      <div className="hidden lg:flex h-full lg:w-[50%]">
+      <div className="hidden lg:flex h-full lg:w-[50%] m-2">
         <SidePanel />
       </div>
     </main>

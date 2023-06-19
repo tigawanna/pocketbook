@@ -54,7 +54,7 @@ export default async function page({ params, searchParams }: PageProps) {
   return (
     <main className="w-full h-full min-h-screen flex flex-col items-center">
       <ProfileUserInfo data={dev} />
-      <div className="w-full md:w-[90%] flex items-center justify-center">
+      <div className="w-full md:w-[90%] flex items-start  gap-1">
         <HydrationBoundary state={dehydratedState}>
           <Timeline
             user={pb.authStore.model?.model as unknown as PBUserRecord}
@@ -62,7 +62,7 @@ export default async function page({ params, searchParams }: PageProps) {
             extra_keys={key.slice(1)}
           />
         </HydrationBoundary>
-        <div className="hidden lg:flex h-full w-[50%]">
+        <div className="hidden lg:flex h-full w-[50%] m-2 p-2">
           <SidePanel />
         </div>
       </div>

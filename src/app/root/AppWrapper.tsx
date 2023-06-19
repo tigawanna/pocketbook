@@ -10,6 +10,7 @@ import { Notification } from "./Notification";
 import { appQueryClient } from "../query/queryclient";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Theme } from "@/state/hooks/useThemeHook";
+import { CookieDisclaimer } from "./navigation/CookieDisclaimer";
 
 interface AppWrapperProps {
   children: React.ReactNode;
@@ -33,11 +34,13 @@ export function AppWrapper({ children, user, theme }: AppWrapperProps) {
         <div className="w-full h-screen overflow-y-scroll scroll-bar">
           {children}
         </div>
+        <CookieDisclaimer />
         <div className="w-full fixed bottom-3 flex items-center justify-center">
           <Notification />
         </div>
       </div>
       <ReactQueryDevtools initialIsOpen={false} />
+
     </QueryClientProvider>
   );
 }

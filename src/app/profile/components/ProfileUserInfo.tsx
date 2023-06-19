@@ -1,4 +1,4 @@
-import { DialodWrapper } from "@/components/dialog/DialodWrapper";
+import { DialogWrapper } from "@/components/dialog/DialogWrapper";
 import { ProfileForm } from "@/components/form/ProfileForm";
 import { ErrorOutput } from "@/components/wrappers/ErrorOutput";
 import { Icons } from "@/components/wrappers/icons";
@@ -54,9 +54,9 @@ export function ProfileUserInfo({ data }: ProfileUserInfoProps) {
         <h2>joined: {relativeDate(user.created)}</h2>
         <p className="border-t my-1 py-2 ">bio: {user.bio}</p>
       </div>
-      <DialodWrapper>
+      <DialogWrapper>
         <ProfileForm user={user} />
-      </DialodWrapper>
+      </DialogWrapper>
     </div>
   );
 }

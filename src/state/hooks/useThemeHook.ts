@@ -1,7 +1,7 @@
 import { MoonIcon, SunIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
-// import { useLocalStoreValues } from "./../store";
+
 export type Theme = "light" | "dark";
 export const useThemeHook = (init_theme: Theme | undefined) => {
   // const theme_cookie = jscookie.get("theme") as Theme | undefined
