@@ -1,5 +1,6 @@
 {
-  "name": "next-app-tw",
+  "name": "pocketbook",
+  "description": "minimal social app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -45,4 +46,5 @@
     "tailwindcss-animate": "^1.0.5",
     "typescript": "5.0.4"
   }
+  
 }
