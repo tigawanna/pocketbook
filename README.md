@@ -1,5 +1,7 @@
 # Pocketbook
 
+
+![Gopher reading book](https://github.com/tigawanna/next-app-tw/raw/fa6f252cfcb6bdd03c3d7c25878d32f299d8803e/public/pocketbook.jpg)
 Minimal social site built with
 
 - [Nextjs13:React framework](https://nextjs.org/)
