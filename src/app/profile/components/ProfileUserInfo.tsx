@@ -5,6 +5,7 @@ import { ErrorOutput } from "@/components/wrappers/ErrorOutput";
 import { Icons } from "@/components/wrappers/icons";
 import { PBUserRecord } from "@/state/user";
 import { relativeDate } from "@/state/utils/date";
+import { ScrollArea } from "@/shadcn/ui/scroll-area";
 import { Mail } from "lucide-react";
 import Image from "next/image";
 
@@ -55,9 +56,13 @@ export function ProfileUserInfo({ data }: ProfileUserInfoProps) {
         <h2>joined: {relativeDate(user.created)}</h2>
         <p className="border-t my-1 py-2 ">bio: {user.bio}</p>
       </div>
-      <DialogWrapper>
+      
+      <DialogWrapper >
         <ProfileForm user={user} />
       </DialogWrapper>
+    
+
+
     </div>
   );
 }

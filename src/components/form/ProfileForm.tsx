@@ -13,6 +13,7 @@ import {
 } from "@/state/pb/api/profile/profile";
 import { ErrorOutput } from "../wrappers/ErrorOutput";
 import { useMutationWrapper } from "@/state/hooks/useMutation";
+import { ScrollArea } from "@/shadcn/ui/scroll-area";
 
 interface ProfileFormProps {
   user: PBUserRecord;
@@ -61,13 +62,16 @@ export function ProfileForm({ user }: ProfileFormProps) {
 
   return (
     <div className="w-full h-full flex items-center justify-center p-5">
+      <ScrollArea className="w-full h-[80vh]">
       <form
         onSubmit={onSubmit}
-        className="w-full h-full flex flex-col items-center justify-center gap-5"
+        className="w-full h-full flex flex-col items-center justify-center gap-3 text-sm"
       >
+
+
         <h1 className="text-2xl font-bold">Update Profile</h1>
         {error.message !== "" && <ErrorOutput error={error} />}
-        <div className="w-[90%] h-full rounded flex flex-col  items-center justify-center gap-5">
+        <div className="w-[90%] h-full rounded flex flex-col  items-center justify-center gap-2">
           {user.avatar !== "" && (
             <div className="lg:w-[50%] w-[90%] p-2 h-full flex items-center justify-center rounded-2xl">
               <Image
@@ -80,7 +84,7 @@ export function ProfileForm({ user }: ProfileFormProps) {
             </div>
           )}
 
-          <div className="flex  w-[90%] flex-col gap-1">
+          <div className="flex flex-col md:flex-row gap-1">
             <TheInput
               label="image url"
               type="url"
@@ -94,20 +98,24 @@ export function ProfileForm({ user }: ProfileFormProps) {
               id="email"
               onChange={handleChange}
               value={input.email}
-            />
+              />
+              </div>
+            <div className="flex flex-col md:flex-row gap-1">
+
             <TheInput
               label="username"
               id="username"
               onChange={handleChange}
               value={input.username}
-            />
+              />
             <TheInput
               label="github_login"
               id="github_login"
               onChange={handleChange}
               value={input.github_login}
-            />
-          </div>
+              />
+              </div>
+        
         </div>
         <div className="w-[90%] rounded flex items-center justify-center gap-5">
           <TheTextArea
@@ -117,8 +125,11 @@ export function ProfileForm({ user }: ProfileFormProps) {
             value={input.bio}
           />
         </div>
-        <Button isLoading={isPending} type="submit" label="save changes" />
+        <Button 
+        className="w-[70%]"
+        isLoading={isPending} type="submit" label="save changes" />
       </form>
+        </ScrollArea>
     </div>
   );
 }

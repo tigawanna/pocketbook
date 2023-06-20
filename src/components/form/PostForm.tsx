@@ -100,7 +100,9 @@ export function PostMutattionForm({
   const disable_submit = input.body === "" && !input.media;
 
   return (
-    <div className="w-full h-full flex flex-col  items-center justify-center gap-4 ">
+    <div 
+    onClick={(e) => e.stopPropagation()}
+    className="w-full h-full flex flex-col  items-center justify-center gap-4 ">
       {error.message !== "" && <ErrorOutput error={error} />}
       <form
         onSubmit={handleSubmit}

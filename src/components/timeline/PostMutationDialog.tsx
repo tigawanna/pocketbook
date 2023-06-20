@@ -27,10 +27,12 @@ export function PostMutationDialog({
 }: PostMutationDialogProps) {
   const [open, setOpen] = useState<boolean | undefined>(undefined);
   return (
-    <Dialog open={open}>
+    <Dialog open={open} >
       <DialogTrigger asChild>{icon}</DialogTrigger>
 
-      <DialogContent className="h-fit w-full ">
+      <DialogContent 
+        onClick={(e) => e.stopPropagation()}
+          className="h-fit w-full border-none">
         {user ? (
           <PostMutattionForm
             depth={depth}

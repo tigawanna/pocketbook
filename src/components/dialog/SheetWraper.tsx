@@ -17,7 +17,6 @@ export function SheetWraper({position,trigger,content_classname,children,open,se
 return (
     <Sheet open={open} onOpenChange={setOpen} >
         <SheetTrigger >{trigger??<Menu className="h-4 w-4" />}</SheetTrigger>
-
         <SheetContent position={position} className={content_classname}>
             <SheetClose asChild>
                 <X className="h-5 w-5" onClick={()=>setOpen(!open)}/>

@@ -97,8 +97,11 @@ export function Timeline({
  
       </ScrollArea>
 
-      <div className="fixed bottom-16 right-[3%]">
+      <div 
+      onClick={(e) =>e.stopPropagation()}
+      className="fixed bottom-16 right-[3%]">
         <PostMutationDialog
+        
           user={user}
           icon={
             <Plus
