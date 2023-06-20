@@ -40,7 +40,7 @@ export function Systemicons({ user, theme }: SystemIconsProps) {
 
           <Button
             type="button"
-            className="border-0"
+            className="border-0 bg-inherit hover:border-accent-foreground"
             onClick={() => {
               start();
               mutate({});

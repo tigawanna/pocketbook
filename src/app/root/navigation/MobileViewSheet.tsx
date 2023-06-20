@@ -12,6 +12,7 @@ import { RouteLinks } from "./RouteLinks";
 import { PBUserRecord } from "@/state/user";
 import { Systemicons } from "./Systemicons";
 import { Theme } from "@/state/hooks/useThemeHook";
+import { Logo } from "./Logo";
 
 interface MobileViewSheetProps {
   user?: PBUserRecord;
@@ -30,18 +31,10 @@ export function MobileViewSheet({ user, theme }: MobileViewSheetProps) {
         position="left"
         size="lg"
         className="w-[80%] flex flex-col items-center text-sm 
-       shadow-secondary-foreground bg-secondary"
+       shadow-secondary-foreground bg-secondary "
       >
-        <Link
-          className="w-full  min-w-[100px] text-3xl  flex items-center justify-center
-          font-bold hover:text-accent hover:no-underline"
-          href="/"
-        >
-          App
-        </Link>
-
+        <Logo/>
         <RouteLinks mobile={true} user={user} />
-
         <Systemicons user={user} theme={theme} />
       </SheetContent>
     </Sheet>
