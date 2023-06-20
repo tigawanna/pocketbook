@@ -29,4 +29,21 @@ export function setLocalCookie(key: LocalCookieKeys, value: string) {
 }
 
 
+export function acceptCookies(){
+const consent_cookie ={
+    accepted:true,
+    consent_list:["theme","authentication"]
+}
+setLocalCookie("consent",JSON.stringify(consent_cookie))
+}
 
+export function rejectCookies(){
+    jscookie.remove("consent")
+    jscookie.remove("theme")
+    jscookie.remove("pb_auth")
+}
+
+export function canUseCookies(){
+const consent_cookie = JSON.parse(getLocalCookie("consent") ?? "{}") as ConsentCookie | undefined
+return consent_cookie?.accepted
+}

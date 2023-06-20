@@ -10,17 +10,18 @@ interface DialogWrapperProps {
   children: React.ReactNode;
   open?: boolean;
   content_classname?:string;
+  trigger?: React.ReactNode;
 }
 
-export function DialogWrapper({ children, open,content_classname }: DialogWrapperProps) {
+export function DialogWrapper({ children, open,content_classname,trigger }: DialogWrapperProps) {
   const content_class = twMerge(content_classname)
   return (
     <Dialog open={open}>
-      <DialogTrigger>
-        <Edit className="h-5 w-5 " />
+      <DialogTrigger className="border-none">
+        {trigger??<Edit className="h-5 w-5 " />}
       </DialogTrigger>
       <DialogContent className={content_class}>
-      <ScrollArea className="h-[80vh] w-full ">{children}</ScrollArea>
+      <ScrollArea className="h-full w-full ">{children}</ScrollArea>
       </DialogContent>
     </Dialog>
   );

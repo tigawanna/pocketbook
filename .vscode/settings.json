@@ -1,4 +1,7 @@
 {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "prettier.printWidth": 100
+    "prettier.printWidth": 100,
+    "conventionalCommits.scopes": [
+        "AppWrapper"
+    ]
 }

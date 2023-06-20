@@ -1,5 +1,6 @@
 import { MoonIcon, SunIcon } from "lucide-react";
 import { useEffect, useState } from "react";
+import { canUseCookies } from "../cookie";
 
 
 export type Theme = "light" | "dark";
@@ -13,7 +14,9 @@ export const useThemeHook = (init_theme: Theme | undefined) => {
     root.classList.remove(colorTheme);
     if (theme) {
       root.classList.add(theme);
-      document.cookie = "theme=" + theme;
+      if(canUseCookies()){
+        document.cookie = "theme=" + theme;
+  }
       // jscookie.set("theme",theme)
       // localStorage.setItem('theme', theme);
     }
