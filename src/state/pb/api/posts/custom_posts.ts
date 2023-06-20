@@ -94,8 +94,8 @@ export async function getPbPaginatedPosts(
   query_vars: QueryVariables,
   pagination_params?: Partial<Pagination_params>
 ) {
-  logNormal("getPbPaginatedPosts query_vars  ==== ", query_vars);
-  logNormal("getPbPaginatedPosts pagination params === ", pagination_params);
+  // logNormal("getPbPaginatedPosts query_vars  ==== ", query_vars);
+  // logNormal("getPbPaginatedPosts pagination params === ", pagination_params);
   const { user_id, depth, post_id, profile, key } = query_vars;
 
   function get_pb_params(is_one_post?: boolean) {

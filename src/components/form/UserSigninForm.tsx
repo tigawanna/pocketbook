@@ -1,10 +1,9 @@
 "use client";
 
 import * as React from "react";
-
 import Link from "next/link";
 import { loginUser, oauthLogin } from "@/state/pb/config";
-import { useRouter } from "next/navigation";
+import { useRouter,useSearchParams } from "next/navigation";
 import { Button } from "./components/Button";
 import { useFormHook } from "./useFormHook";
 import { ErrorOutput } from "../wrappers/ErrorOutput";
@@ -25,7 +24,17 @@ type FetcherReturn = Awaited<ReturnType<typeof loginUser>>;
 type OauthFetcherReturn = Awaited<ReturnType<typeof oauthLogin>>;
 
 export function UserSigninForm({ className, ...props }: UserAuthFormProps) {
+  const params = useSearchParams();
   const router = useRouter();
+  function pushBacktoInitialOrigin(){
+    if(params.get("next")){
+      console.log("next",params.get("next"))
+      router.push(params.get("next")!)
+    }else{
+      router.back()
+    }
+
+  }
 
   const { error, handleChange, input, setError } = useFormHook<ILoginUser>({
     initialValues: {
@@ -37,19 +46,24 @@ export function UserSigninForm({ className, ...props }: UserAuthFormProps) {
     fetcher: loginUser,
     setError,
     refresh: true,
-    success_message: "welcom",
+    success_message: "welcome",
   });
   const oauth_mutation = useMutationWrapper({
     fetcher: oauthLogin,
     setError,
     refresh: true,
     success_message: "welcome",
+
   });
   // console.log("login data  === ",data)
 
   async function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
-    mutate({ user: input.user, password: input.password });
+    mutate({ user: input.user, password: input.password },{
+      onSuccess(data, variables, context) {
+        pushBacktoInitialOrigin()
+      },
+    });
   }
   const is_error = error.message !== "";
   return (

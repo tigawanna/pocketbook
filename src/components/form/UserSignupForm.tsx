@@ -6,7 +6,7 @@ import Link from "next/link";
 
 import { createUser, oauthLogin } from "@/state/pb/config";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "./components/Button";
 import { IFormInputs, TheFormInputs } from "./components/FormInputs";
 import { useFormHook } from "./useFormHook";
@@ -25,7 +25,17 @@ interface IOauthLoginUser {
 }
 
 export function UserSignUpForm({ className, ...props }: UserAuthFormProps) {
+  const params = useSearchParams();
   const router = useRouter();
+  function pushBacktoInitialOrigin() {
+    if (params.get("next")) {
+      console.log("next", params.get("next"))
+      router.push(params.get("next")!)
+    } else {
+      router.back()
+    }
+
+  }
 
   interface FormInputs {
     id: keyof TUserSignUpFormFields;
@@ -92,7 +102,11 @@ export function UserSignUpForm({ className, ...props }: UserAuthFormProps) {
 
   async function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
-    mutate({ user: input });
+    mutate({ user: input },{
+      onSuccess(data, variables, context) {
+        pushBacktoInitialOrigin()
+      },
+    });
   }
   const is_error = error.message !== "";
 

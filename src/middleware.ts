@@ -28,10 +28,19 @@ export async function middleware(request: NextRequest) {
   }
 
   if (!pb.authStore.model && !request.nextUrl.pathname.startsWith("/auth")) {
-    return NextResponse.rewrite(new URL("/auth", request.url));
+    // return NextResponse.rewrite(new URL("/auth", request.url));
+    const redirect_to = new URL("/auth", request.url)
+    redirect_to.search = new URLSearchParams({ next: request.nextUrl.pathname }).toString();
+    // return NextResponse.rewrite(redirectUrl);
+
+    return NextResponse.redirect(redirect_to);
   }
   if (pb.authStore.model && request.nextUrl.pathname.startsWith("/auth")) {
-    return NextResponse.rewrite(new URL(request.nextUrl.origin));
+    // const redirectUrl = new URL("/auth", request.nextUrl.origin);
+    // redirectUrl.search = new URLSearchParams({ next: request.nextUrl.pathname }).toString();
+    // console.log("next path  === ", request.nextUrl.pathname)
+    // console.log("redirectUrl  ", redirectUrl);
+    return NextResponse.redirect(new URL(request.nextUrl.origin));
   }
   // console.log("requets  ===  ",request.nextUrl.origin,request.url)
   return response;
