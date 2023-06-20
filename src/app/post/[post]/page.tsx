@@ -2,12 +2,15 @@ import { getServerQueryClient } from "@/app/query/server_query_client";
 import { PostsCard } from "@/components/timeline/PostCard";
 import { SidePanel } from "@/components/timeline/SidePanel";
 import { Timeline } from "@/components/timeline/Timeline";
+import { ClientLink } from "@/components/wrappers/ClientLink";
 import { getPbPaginatedPosts } from "@/state/pb/api/posts/custom_posts";
 import { server_component_pb } from "@/state/pb/server_component_pb";
 import { PBUserRecord } from "@/state/user";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import dayjs from "dayjs";
+import { ArrowLeft } from "lucide-react";
 import {  Metadata } from "next";
+import Link from "next/link";
 import Client from "pocketbase";
 
 type PageProps = {
@@ -42,7 +45,15 @@ export default async function OnePostPage(props: PageProps) {
   return (
     <main className="w-full h-full min-h-screen flex flex-col items-center">
       <div className="w-full flex items-cente justify-center">
-        <div className="w-full flex flex-col items-center justify-start gap-2 p-2">
+        <div className="w-full flex flex-col items-center justify-start gap-2 p-2 sticky top-1">
+          <div className="w-full  flex gap-2 items-center ">
+            <ClientLink to={-1}>
+              <ArrowLeft className="h-7 w-7 hover:text-accent-foreground" size={10}/>
+            </ClientLink>
+
+          <h2 className="text-2xl font-bold w-full">{one_post[0].creator_name}</h2>
+
+          </div>
           <div className="w-full ">
             <PostsCard
               className="border-none border-b-4 border-b-accent-foreground p-2 bg-secondary"

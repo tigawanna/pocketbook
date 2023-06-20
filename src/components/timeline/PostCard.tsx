@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 import { Skeleton } from "@/shadcn/ui/skeleton";
+import { TimeCompponent } from "../wrappers/TimeCompponent";
 
 interface PostCardProps extends React.HTMLAttributes<HTMLDivElement> {
   item: CustomPostType;
@@ -75,6 +76,9 @@ export const PostsCard = ({ item, user, ...props }: PostCardProps) => {
             {item?.creator_name}
           </div>
         </Link>
+          <TimeCompponent 
+          className="text-xs font-thin"
+          time={item?.created_at} format="YYYY-MM-DD HH:mm ddd mmm"/>
       </div>
 
       <div className="w-[90%]  flex items-center justify-start p-2 pl-14">
@@ -93,7 +97,9 @@ export const PostsCard = ({ item, user, ...props }: PostCardProps) => {
           />
         ) : null}
       </div>
-
+        <div className="w-full">
+          
+        </div>
       <div className="w-full  flex p-2">
         <PostReactionsCard user={user} item={item} />
       </div>
