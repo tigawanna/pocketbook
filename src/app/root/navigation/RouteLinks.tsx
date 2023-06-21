@@ -23,6 +23,9 @@ export const RouteLinks = ({ mobile = false, user }: RoutesProps) => {
         if (!user && link.name === "Profile") {
           return null;
         }
+        if (user && link.name === "Auth") {
+          return null;
+        }
         return (
           <RouteLink
             key={link.name}
