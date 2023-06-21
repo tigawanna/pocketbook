@@ -1,10 +1,6 @@
 "use client";
 import { useMutationWrapper } from "@/state/hooks/useMutation";
-import {
-  createReactionToPost,
-  updateReactionToPost,
-} from "@/state/pb/api/posts/posts";
-import { CustomPostType } from "@/state/pb/api/posts/types";
+
 import { makeImageUrl, pb } from "@/state/pb/config";
 import { PBUserRecord } from "@/state/user";
 import { Heart, MessageSquare } from "lucide-react";
@@ -16,6 +12,8 @@ import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 import { Skeleton } from "@/shadcn/ui/skeleton";
 import { TimeCompponent } from "../wrappers/TimeCompponent";
+import { createReactionToPost, updateReactionToPost } from "@/state/models/posts/posts";
+import { CustomPostType } from "@/state/models/posts/types";
 
 interface PostCardProps extends React.HTMLAttributes<HTMLDivElement> {
   item: CustomPostType;

@@ -2,8 +2,9 @@ import { ProfileUserInfo } from "./components/ProfileUserInfo";
 import { getServerQueryClient } from "@/app/query/server_query_client";
 import { SidePanel } from "@/components/timeline/SidePanel";
 import { Timeline } from "@/components/timeline/Timeline";
+import { getPbPaginatedPosts } from "@/state/models/posts/custom_posts";
 
-import { getPbPaginatedPosts } from "@/state/pb/api/posts/custom_posts";
+
 import { server_component_pb } from "@/state/pb/server_component_pb";
 import { PBUserRecord } from "@/state/user";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";

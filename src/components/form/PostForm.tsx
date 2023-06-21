@@ -1,12 +1,7 @@
 "use client";
 
-import { CustomPostType } from "@/state/pb/api/posts/types";
+
 import { useFormHook } from "./useFormHook";
-import {
-  PostMutationInput,
-  createNewPost,
-  updatePost,
-} from "@/state/pb/api/posts/posts";
 import { Button } from "./components/Button";
 import { ErrorOutput } from "../wrappers/ErrorOutput";
 import { ImageInput } from "./components/ImageInput";
@@ -16,6 +11,8 @@ import { X } from "lucide-react";
 import { PBUserRecord } from "@/state/user";
 import { useMutationWrapper } from "@/state/hooks/useMutation";
 import { SetStateAction } from "react";
+import { PostMutationInput, createNewPost, updatePost } from "@/state/models/posts/posts";
+import { CustomPostType } from "@/state/models/posts/types";
 
 interface PostMutattionFormProps {
   user: PBUserRecord;

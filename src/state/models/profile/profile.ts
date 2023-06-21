@@ -1,7 +1,7 @@
-import { TProfileFormInput } from "@/my-ui/form/ProfileForm";
-import { pb } from "../../config";
 import { PBUserRecord } from "@/state/user";
 import { pb_user_collection } from "@/state/consts";
+import { pb } from "@/state/pb/config";
+import { TProfileFormInput } from "./type";
 
 export interface IUpdateUserProfile {
   id: string;

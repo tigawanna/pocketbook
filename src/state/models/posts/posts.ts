@@ -1,4 +1,5 @@
-import { PB, pb } from "../../config";
+
+import { PB, pb } from "@/state/pb/config";
 import { IPostRecord } from "./types";
 
 interface GetPostsParams {

@@ -1,24 +1,11 @@
-import { pb_api_url, pb_url } from "@/state/consts";
+import { pb_api_url } from "@/state/consts";
 import dayjs from "dayjs";
 import { CustomPostType } from "./types";
-import { PB } from "../../config";
+
 import kleur from "kleur";
 import { logError, logNormal, logSuccess } from "@/state/utils/color_logs";
-// interface QueryVariables {
-//     user_id?: string;
-//     key: string;
-//     post_id?: string; //can also be the parent query param
-//     depth?: number;
-//     profile?: string;
-//     get_one_post?: boolean;
-// }
+import { PB } from "@/state/pb/config";
 
-// interface Pagination_params {
-//     pageParam: {
-//         created: string;
-//         id: string;
-//     };
-// }
 
 const currentdate = dayjs(new Date()).format(
   "[YYYYescape] YYYY-MM-DDTHH:mm:ssZ[Z]"
@@ -94,8 +81,8 @@ export async function getPbPaginatedPosts(
   query_vars: QueryVariables,
   pagination_params?: Partial<Pagination_params>
 ) {
-  // logNormal("getPbPaginatedPosts query_vars  ==== ", query_vars);
-  // logNormal("getPbPaginatedPosts pagination params === ", pagination_params);
+  logNormal("getPbPaginatedPosts query_vars  ==== ", query_vars);
+  logNormal("getPbPaginatedPosts pagination params === ", pagination_params);
   const { user_id, depth, post_id, profile, key } = query_vars;
 
   function get_pb_params(is_one_post?: boolean) {

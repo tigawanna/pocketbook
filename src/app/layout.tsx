@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "pocketbook",
-  description: "Minimal site for your craetive output ",
+  description: "Minimal site for your creative output , built with Next.js appdir and pocketbase ",
 };
 
 export default async function RootLayout({children,}: {

@@ -1,12 +1,12 @@
 
 import { SidePanel } from "@/components/timeline/SidePanel";
 import { Timeline } from "@/components/timeline/Timeline";
-import { getPbPaginatedPosts } from "@/state/pb/api/posts/custom_posts";
 import { server_component_pb } from "@/state/pb/server_component_pb";
 import { PBUserRecord } from "@/state/user";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { getServerQueryClient } from "./query/server_query_client";
+import { getPbPaginatedPosts } from "@/state/models/posts/custom_posts";
 
 
 export default async function Home() {

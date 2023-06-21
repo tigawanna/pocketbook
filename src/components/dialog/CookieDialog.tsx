@@ -1,5 +1,5 @@
 import React from "react";
-import { AlertDialog, AlertDialogContent, AlertDialogTrigger } from "@/shadcn/ui/alert-dialog";
+import { AlertDialog, AlertDialogContent } from "@/shadcn/ui/alert-dialog";
 
 interface CookieDialogProps extends React.ComponentProps<typeof AlertDialogContent> {
   open: boolean;
@@ -14,7 +14,7 @@ export const CookieDialog = React.forwardRef<HTMLDivElement, CookieDialogProps>(
     return (
       <AlertDialog defaultOpen={true} onOpenChange={setOpen} open={open}>
         <AlertDialogContent {...props} ref={ref}
-            className="fixed bottom-0 w-full
+            className="fixed bottom-0 
             bg-primary  duration-1000 w-full
             h-fit z-50 flex justify-between"
         >

@@ -25,7 +25,7 @@ if (!open) {
             <ul className="list-disc flex flex-col gap-1 p-2">
               <li className="text-xs">
                 Disabling cookies might require you to sign in multiple times per session ,
-                We won't even remember your choice
+                We wiil not even remember your choice
               </li>
               <li className="text-xs">We do not use any third party cookies</li>
             </ul>

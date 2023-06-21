@@ -1,4 +1,3 @@
-import { CustomPostType } from "@/state/pb/api/posts/types";
 
 import { PostMutattionForm } from "../form/PostForm";
 import { PBUserRecord } from "@/state/user";
@@ -7,6 +6,7 @@ import { Close} from "@radix-ui/react-dialog";
 
 import { useState } from "react";
 import { DialogFooter, DialogTrigger, Dialog, DialogContent } from "@/shadcn/ui/dialog";
+import { CustomPostType } from "@/state/models/posts/types";
 
 interface PostMutationDialogProps {
   label?: string;

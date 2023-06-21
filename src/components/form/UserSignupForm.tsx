@@ -5,7 +5,6 @@ import * as React from "react";
 import Link from "next/link";
 
 import { createUser, oauthLogin } from "@/state/pb/config";
-
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "./components/Button";
 import { IFormInputs, TheFormInputs } from "./components/FormInputs";

@@ -7,13 +7,11 @@ import { TheTextArea } from "./components/TheTextArea";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button } from "./components/Button";
-import {
-  updateUserProfile,
-  IUpdateUserProfile,
-} from "@/state/pb/api/profile/profile";
+
 import { ErrorOutput } from "../wrappers/ErrorOutput";
 import { useMutationWrapper } from "@/state/hooks/useMutation";
 import { ScrollArea } from "@/shadcn/ui/scroll-area";
+import { updateUserProfile } from "@/state/models/profile/profile";
 
 interface ProfileFormProps {
   user: PBUserRecord;

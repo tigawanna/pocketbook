@@ -1,7 +1,7 @@
 import { PBUserRecord } from "@/state/user";
 import { MobileViewSheet } from "./MobileViewSheet";
 import { Theme } from "@/state/hooks/useThemeHook";
-import { Logo } from "./Logo";
+
 
 interface ToolbarProps {
   user: PBUserRecord;

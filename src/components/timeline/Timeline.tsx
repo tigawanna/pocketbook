@@ -2,7 +2,7 @@
 
 "use client";
 
-import { getPbPaginatedPosts } from "@/state/pb/api/posts/custom_posts";
+
 import { useInfiniteQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { PostMutationDialog } from "./PostMutationDialog";
@@ -10,11 +10,11 @@ import { Plus } from "lucide-react";
 import { PBUserRecord } from "@/state/user";
 import React, { SuspenseList, useEffect } from "react";
 import { PostsCard } from "./PostCard";
-
 import { useInView } from "react-intersection-observer";
 import { pb } from "@/state/pb/config";
 import { ScrollArea } from "@/shadcn/ui/scroll-area";
 import { ErrorOutput } from "../wrappers/ErrorOutput";
+import { getPbPaginatedPosts } from "@/state/models/posts/custom_posts";
 
 interface TimelineProps {
   user?: PBUserRecord;

@@ -1,13 +1,13 @@
 import { getServerQueryClient } from "@/app/query/server_query_client";
 import { SidePanel } from "@/components/timeline/SidePanel";
 import { Timeline } from "@/components/timeline/Timeline";
-import { getPbPaginatedPosts } from "@/state/pb/api/posts/custom_posts";
-import { getDevprofile } from "@/state/pb/api/profile/server-only";
 import { server_component_pb } from "@/state/pb/server_component_pb";
 import { PBUserRecord } from "@/state/user";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { ProfileUserInfo } from "../components/ProfileUserInfo";
+import { getPbPaginatedPosts } from "@/state/models/posts/custom_posts";
+import { getDevprofile } from "@/state/models/profile/server-only";
 
 type PageProps = {
   params: { dev: string };
