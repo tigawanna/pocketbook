@@ -27,7 +27,7 @@ export const PostsCard = ({ item, user, ...props }: PostCardProps) => {
   const post_params = ` post_description=${item?.post_body}
   &post_author=${item?.creator_name}&depth=${parseInt(item?.post_depth) + 1}`;
   const card_styles = twMerge(
-    `w-full h-full p-5 flex flex-col hover:shadow-md hover:shadow-accent-foreground
+    `w-full h-full p-5 flex flex-col hover:shadow-sm hover:shadow-accent-foreground
     border shadow-secondary-foreground shadow rounded-md`,
     props.className
   );
@@ -43,7 +43,7 @@ export const PostsCard = ({ item, user, ...props }: PostCardProps) => {
       {...props}
       className={card_styles}
     >
-      <div className="w-full flex justify-start items-center gap-[1px] ">
+      <div className="w-full flex flex-col  items-start gap-1 ">
         <Link
           href={{
             pathname: `/profile/${item?.creator_id}`,
@@ -55,8 +55,8 @@ export const PostsCard = ({ item, user, ...props }: PostCardProps) => {
             e.stopPropagation();
             push(`/profile/${item?.creator_id}`);
           }}
-          className="w-fit px-1 flex justify-start itemscenter gap-[1px]
-                 cursor-pointer hover:bg-purple-100 rounded-full"
+          className="w-fit px-1 flex justify-start items-center gap-[1px]
+                 cursor-pointer hover:bg-secondary-foreground rounded-full"
         >
           <div className=" h-8 w-8 md:w-10 md:h-10 ">
             {item?.creator_image ? (
@@ -76,7 +76,7 @@ export const PostsCard = ({ item, user, ...props }: PostCardProps) => {
         </Link>
           <TimeCompponent 
           className="text-xs font-thin"
-          time={item?.created_at} format="YYYY-MM-DD HH:mm ddd mmm"/>
+            time={item?.created_at} format="ddd, MMM D, YYYY h:mm A"/>
       </div>
 
       <div className="w-[90%]  flex items-center justify-start p-2 pl-14">

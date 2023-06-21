@@ -1,7 +1,9 @@
 import dayjs from "dayjs";
 import relativeTime from 'dayjs/plugin/relativeTime'
+import localizedFormat from 'dayjs/plugin/localizedFormat'
 import { twMerge } from "tailwind-merge";
 dayjs.extend(relativeTime)
+dayjs.extend(localizedFormat)
 
 interface TimeCompponentProps extends React.HTMLAttributes<HTMLDivElement> {
 time:string;
@@ -10,7 +12,7 @@ format?:string;
 }
 
 export function TimeCompponent({time,format,relative,...props}:TimeCompponentProps){
-const date_format = format??"YYYY-MM-DDTHH:mm:ssZ[Z]";
+const date_format = format ??"ddd, MMM D, YYYY h:mm A";
 const date_time = dayjs(time).format(date_format);
 const relative_time = dayjs().to(time);
 const display_time =  (relative||(format&&format!==""))?date_time:relative_time;
