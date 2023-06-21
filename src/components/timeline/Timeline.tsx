@@ -88,7 +88,7 @@ export function Timeline({
                 <div className="h-full w-full flex flex-col gap-3 p-3">
                 <SuspenseList revealOrder="forwards" tail="collapsed">
                 {group.map((post) => (
-                  <PostsCard key={post.post_id} item={post} user={user} />
+                  <PostsCard key={post.post_id} item={post} user={user} is_reply={false}/>
                   ))}
                   </SuspenseList>
               </div>

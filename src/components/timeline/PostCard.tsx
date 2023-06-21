@@ -18,9 +18,10 @@ import { CustomPostType } from "@/state/models/posts/types";
 interface PostCardProps extends React.HTMLAttributes<HTMLDivElement> {
   item: CustomPostType;
   user?: PBUserRecord;
+  is_reply: boolean;
 }
 
-export const PostsCard = ({ item, user, ...props }: PostCardProps) => {
+export const PostsCard = ({ item, user, is_reply, ...props }: PostCardProps) => {
   const post_img_url = makeImageUrl("posts", item?.post_id, item?.post_media);
   const { push } = useRouter();
 
@@ -76,7 +77,8 @@ export const PostsCard = ({ item, user, ...props }: PostCardProps) => {
         </Link>
           <TimeCompponent 
           className="text-xs font-thin"
-            time={item?.created_at} format="ddd, MMM D, YYYY h:mm A"/>
+          relative={is_reply}
+            time={item?.created_at} format="ddd, MMM D, YYYY h:mm A" />
       </div>
 
       <div className="w-[90%]  flex items-center justify-start p-2 pl-14">

@@ -15,12 +15,12 @@ export function TimeCompponent({time,format,relative,...props}:TimeCompponentPro
 const date_format = format ??"ddd, MMM D, YYYY h:mm A";
 const date_time = dayjs(time).format(date_format);
 const relative_time = dayjs().to(time);
-const display_time =  (relative||(format&&format!==""))?date_time:relative_time;
+const display_time =  relative?date_time:relative_time;
 // const realative_format = 
 
 return (
  <div {...props} 
-    className={twMerge("text-xs font-bold text-secondary-foreground", props.className)}>
+    className={twMerge("text-xs font-bold text-secondary-foreground p-1", props.className)}>
         {display_time}
  </div>
 );
