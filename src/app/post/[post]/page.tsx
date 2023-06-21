@@ -57,7 +57,7 @@ export default async function OnePostPage(props: PageProps) {
             <PostsCard
               className="border-none border-b-4 border-b-accent-foreground p-2 bg-secondary"
               item={one_post[0]}
-              is_reply
+              is_reply={false}
               user={pb.authStore.model?.model as PBUserRecord}
             />
           </div>
@@ -67,6 +67,7 @@ export default async function OnePostPage(props: PageProps) {
               post_id={props.params.post}
               main_key={posts_key[0]}
               extra_keys={posts_key.slice(1)}
+              is_replies={true}
             />
           </HydrationBoundary>
         </div>

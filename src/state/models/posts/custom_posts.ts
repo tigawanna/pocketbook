@@ -113,7 +113,7 @@ export async function getPbPaginatedPosts(
         Authorization: `Bearer ${pb.authStore.token}`,
       },
     });
-    logSuccess(kleur.red("paginated posts === "), posts);
+    // logSuccess(kleur.red("paginated posts === "), posts);
     return posts;
   } catch (error) {
     logError("error getting paginated posts ==== ", error);

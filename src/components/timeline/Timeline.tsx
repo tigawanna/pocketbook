@@ -22,6 +22,7 @@ interface TimelineProps {
   main_key: "custom_posts" | "custom_one_post" | "custom_replies";
   extra_keys?: string[];
   post_id?: string;
+  is_replies: boolean;
 }
 
 export function Timeline({
@@ -30,6 +31,7 @@ export function Timeline({
   extra_keys,
   profile,
   post_id,
+  is_replies,
 }: TimelineProps) {
   const { ref, inView } = useInView();
   const key = extra_keys ? [main_key, ...extra_keys] : [main_key];
@@ -88,7 +90,7 @@ export function Timeline({
                 <div className="h-full w-full flex flex-col gap-3 p-3">
                 <SuspenseList revealOrder="forwards" tail="collapsed">
                 {group.map((post) => (
-                  <PostsCard key={post.post_id} item={post} user={user} is_reply={false}/>
+                  <PostsCard key={post.post_id} item={post} user={user} is_reply={is_replies}/>
                   ))}
                   </SuspenseList>
               </div>

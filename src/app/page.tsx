@@ -43,6 +43,7 @@ export default async function Home() {
         <Timeline
           user={pb.authStore.model as unknown as PBUserRecord}
           main_key={key[0]}
+          is_replies={false}
           
         />
       </HydrationBoundary>

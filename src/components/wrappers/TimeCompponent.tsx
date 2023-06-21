@@ -15,7 +15,7 @@ export function TimeCompponent({time,format,relative,...props}:TimeCompponentPro
 const date_format = format ??"ddd, MMM D, YYYY h:mm A";
 const date_time = dayjs(time).format(date_format);
 const relative_time = dayjs().to(time);
-const display_time =  relative?date_time:relative_time;
+    const display_time = relative ? relative_time : date_time
 // const realative_format = 
 
 return (
