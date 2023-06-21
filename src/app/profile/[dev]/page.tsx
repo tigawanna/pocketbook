@@ -21,15 +21,18 @@ type PageProps = {
 };
 
 export default async function page({ params, searchParams }: PageProps) {
+ 
+  
   const { pb } = await server_component_pb();
-
   const user_id = params.dev;
+  const loggedInUser = pb.authStore.model as unknown as PBUserRecord;
   const dev = await getDevprofile(pb, user_id);
 
   const queryClient = getServerQueryClient();
   const currentdate = dayjs(new Date()).format("YYYY-MM-DDTHH:mm:ssZ[Z]");
-  const user = dev;
-  const key = ["custom_posts", user.id] as const;
+  const profile_user = dev;
+  const key = ["custom_posts", profile_user.id] as const;
+  
   await queryClient.prefetchInfiniteQuery({
     queryKey: key,
     queryFn: ({ queryKey, pageParam }) =>
@@ -38,8 +41,8 @@ export default async function page({ params, searchParams }: PageProps) {
         {
           depth: 0,
           post_id: "",
-          profile: user.id,
-          user_id: user?.id ?? "",
+          profile: profile_user.id,
+          user_id: profile_user?.id ?? "",
           key: queryKey[0],
         },
         pageParam
@@ -53,13 +56,14 @@ export default async function page({ params, searchParams }: PageProps) {
 
   return (
     <main className="w-full h-full min-h-screen flex flex-col items-center">
-      <ProfileUserInfo data={dev} />
+      <ProfileUserInfo data={dev} logged_in_user={loggedInUser}/>
       <div className="w-full md:w-[90%] flex items-start  gap-1">
         <HydrationBoundary state={dehydratedState}>
           <Timeline
-            user={pb.authStore.model?.model as unknown as PBUserRecord}
+            user={pb.authStore.model as unknown as PBUserRecord}
             main_key={key[0]}
             extra_keys={key.slice(1)}
+            is_replies={false}
           />
         </HydrationBoundary>
         <div className="hidden lg:flex h-full w-[50%] m-2 p-2">

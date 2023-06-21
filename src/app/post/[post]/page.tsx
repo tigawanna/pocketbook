@@ -58,7 +58,7 @@ export default async function OnePostPage(props: PageProps) {
               className="border-none border-b-4 border-b-accent-foreground p-2 bg-secondary"
               item={one_post[0]}
               is_reply={false}
-              user={pb.authStore.model?.model as PBUserRecord}
+              user={pb.authStore.model as unknown as PBUserRecord}
             />
           </div>
           <HydrationBoundary state={infinitePostsHydratedState}>
