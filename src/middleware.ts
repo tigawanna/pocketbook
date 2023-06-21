@@ -19,7 +19,7 @@ export async function middleware(request: NextRequest) {
       (await pb.collection(pb_user_collection).authRefresh());
   } catch (err) {
     // clear the auth store on failed refresh
-    console.log("error refreshing authstore  ", err);
+  // console.log("error refreshing authstore  ", err);
     pb.authStore.clear();
     response.headers.set(
       "set-cookie",
