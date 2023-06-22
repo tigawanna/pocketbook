@@ -8,6 +8,8 @@ import dayjs from "dayjs";
 import { ProfileUserInfo } from "../components/ProfileUserInfo";
 import { getPbPaginatedPosts } from "@/state/models/posts/custom_posts";
 import { getDevprofile } from "@/state/models/profile/server-only";
+import { Friends } from "../components/Friends";
+import { getFollowers } from "@/state/models/followers/followers";
 
 type PageProps = {
   params: { dev: string };
@@ -27,7 +29,7 @@ export default async function page({ params, searchParams }: PageProps) {
   const user_id = params.dev;
   const loggedInUser = pb.authStore.model as unknown as PBUserRecord;
   const dev = await getDevprofile(pb, user_id);
-
+ const freinds = await getFollowers(pb, user_id);
   const queryClient = getServerQueryClient();
   const currentdate = dayjs(new Date()).format("YYYY-MM-DDTHH:mm:ssZ[Z]");
   const profile_user = dev;
@@ -54,10 +56,12 @@ export default async function page({ params, searchParams }: PageProps) {
   });
   const dehydratedState = dehydrate(queryClient);
 
+console.log("freinds  == ",freinds)
   return (
     <main className="w-full h-full min-h-screen flex flex-col items-center">
       <ProfileUserInfo data={dev} logged_in_user={loggedInUser}/>
-      <div className="w-full md:w-[90%] flex items-start  gap-1">
+      <div className="w-full md:w-[90%] flex flex-col items-start  gap-1">
+         <Friends freinds={freinds} /> 
         <HydrationBoundary state={dehydratedState}>
           <Timeline
             user={pb.authStore.model as unknown as PBUserRecord}
