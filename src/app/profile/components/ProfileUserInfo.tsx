@@ -3,6 +3,7 @@ import { DialogWrapper } from "@/components/dialog/DialodWrapper";
 import { ProfileForm } from "@/components/form/ProfileForm";
 import { ErrorOutput } from "@/components/wrappers/ErrorOutput";
 import { Icons } from "@/components/wrappers/icons";
+import { Button } from "@/shadcn/ui/button";
 import { PBUserRecord } from "@/state/user";
 import { relativeDate } from "@/state/utils/date";
 import { Mail } from "lucide-react";
@@ -57,11 +58,11 @@ export function ProfileUserInfo({ data,logged_in_user }: ProfileUserInfoProps) {
         <p className="border-t my-1 py-2 ">bio: {profile_user.bio}</p>
       </div>
       {
-        (profile_user && profile_user.id===logged_in_user.id)&&(
+        (profile_user && profile_user.id===logged_in_user.id)?(
        <DialogWrapper >
             <ProfileForm user={profile_user} />
       </DialogWrapper>
-        )
+        ):<Button  className="border bg-accent hover:border-accent-foreground hover:text-accent-foreground">Follow</Button>
       }
     
 
