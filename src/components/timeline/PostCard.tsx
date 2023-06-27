@@ -28,7 +28,7 @@ export const PostsCard = ({ item, user, is_reply, ...props }: PostCardProps) => 
   const post_params = ` post_description=${item?.post_body}
   &post_author=${item?.creator_name}&depth=${parseInt(item?.post_depth) + 1}`;
   const card_styles = twMerge(
-    `w-full h-full p-5 flex flex-col hover:shadow-sm hover:shadow-accent-foreground
+    `w-full h-full p-1 flex flex-col hover:shadow-sm hover:shadow-accent-foreground
     border shadow-secondary-foreground shadow rounded-md`,
     props.className
   );
@@ -44,7 +44,7 @@ export const PostsCard = ({ item, user, is_reply, ...props }: PostCardProps) => 
       {...props}
       className={card_styles}
     >
-      <div className="w-full flex flex-col  items-start gap-1 ">
+      <div className="w-full flex flex-col  items-start gap-1 p-2">
         <Link
           href={{
             pathname: `/profile/${item?.creator_id}`,
@@ -81,17 +81,17 @@ export const PostsCard = ({ item, user, is_reply, ...props }: PostCardProps) => 
             time={item?.created_at} format="ddd, MMM D, YYYY h:mm A" />
       </div>
 
-      <div className="w-[90%]  flex items-center justify-start p-2 pl-14">
+      <div className="w-full  flex items-center justify-start p-1">
         {item?.post_body}
       </div>
-      <div className="w-[90%} flex items-center justify-center p-2 pl-14">
+      <div className="w-full flex items-center justify-center ">
         {post_img_url ? (
           <Image
             src={post_img_url}
             alt={item.creator_name + "'s post"}
             height={150}
             width={150}
-            className=" w-full h-auto rounded-lg"
+            className=" w-full h-auto rounded-sm"
             // alt='../../assets/placeholder.svg'
             loading="lazy"
           />

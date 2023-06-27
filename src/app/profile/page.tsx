@@ -16,7 +16,7 @@ interface pageProps {}
 export default async function ProfilePage({}: pageProps) {
   const { pb } = await server_component_pb();
   const loggedInUser = pb.authStore.model as unknown as PBUserRecord;
-  console.log("profil params", );
+
   const queryClient = getServerQueryClient();
   const currentdate = dayjs(new Date()).format("YYYY-MM-DDTHH:mm:ssZ[Z]");
   const user = pb.authStore.model as unknown as PBUserRecord;

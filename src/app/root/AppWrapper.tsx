@@ -8,9 +8,8 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import React from "react";
 import { Notification } from "./Notification";
 import { appQueryClient } from "../query/queryclient";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Theme } from "@/state/hooks/useThemeHook";
-import { CookieDisclaimer } from "./navigation/CookieDisclaimer";
+
 
 interface AppWrapperProps {
   children: React.ReactNode;

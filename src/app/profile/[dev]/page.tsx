@@ -10,8 +10,6 @@ import { ProfileTabs } from "../components/ProfileTabs";
 
 import { getPbPaginatedFriends, QueryVariables } from "@/state/models/friends/custom_friends";
 
-
-
 type PageProps = {
   params: { dev: string };
   searchParams: {
@@ -24,8 +22,6 @@ type PageProps = {
 };
 
 export default async function page({ params, searchParams }: PageProps) {
- 
-  
   const { pb } = await server_component_pb();
   const user_id = params.dev;
   const loggedInUser = pb.authStore.model as unknown as PBUserRecord;
@@ -34,11 +30,9 @@ export default async function page({ params, searchParams }: PageProps) {
 
   const currentdate = dayjs(new Date()).format("YYYY-MM-DDTHH:mm:ssZ[Z]");
   const profile_user = dev;
-  
+
   const profile_posts_key = ["custom_posts", profile_user.id] as const;
 
-
-  
   await queryClient.prefetchInfiniteQuery({
     queryKey: profile_posts_key,
     queryFn: ({ queryKey, pageParam }) =>
@@ -49,7 +43,7 @@ export default async function page({ params, searchParams }: PageProps) {
           post_id: "",
           profile: profile_user.id,
           user_id: profile_user?.id ?? "",
-          key:queryKey[0],
+          key: queryKey[0],
         },
         pageParam
       ),
@@ -58,8 +52,6 @@ export default async function page({ params, searchParams }: PageProps) {
       id: "",
     },
   });
-
-
 
   const follower_params: QueryVariables = {
     created: currentdate,
@@ -70,14 +62,13 @@ export default async function page({ params, searchParams }: PageProps) {
   };
   const profile_followers_key = ["followers", follower_params];
 
-await queryClient.prefetchInfiniteQuery({
-  queryKey: profile_followers_key,
+  await queryClient.prefetchInfiniteQuery({
+    queryKey: profile_followers_key,
     queryFn: ({ queryKey, pageParam }) => getPbPaginatedFriends(pb, follower_params, pageParam),
     defaultPageParam: {
       created: currentdate,
       id: "",
     },
-
   });
 
   const following_params: QueryVariables = {
@@ -96,45 +87,15 @@ await queryClient.prefetchInfiniteQuery({
       created: currentdate,
       id: "",
     },
-
   });
 
   const dehydratedState = dehydrate(queryClient);
 
-
-
-
   return (
     <main className="w-full h-full min-h-screen flex flex-col items-center gap-1">
-      <ProfileUserInfo data={dev} logged_in_user={loggedInUser}/>
+      <ProfileUserInfo data={dev} logged_in_user={loggedInUser} />
       <div className="w-full md:w-[90%] flex  items-start  gap-1">
-
-        {/* <HydrationBoundary state={timelineDehydratedState}>
-          <Timeline
-            user={pb.authStore.model as unknown as PBUserRecord}
-            main_key={profile_posts_key[0]}
-            extra_keys={profile_posts_key.slice(1)}
-            is_replies={false}
-          />
-        </HydrationBoundary> */}
-        {/* <InfiniteFriends user={dev} type={"followers"} logged_in={loggedInUser} />
-        <InfiniteFriends user={dev} type={"following"} logged_in={loggedInUser} /> */}
-        
-        {/* <HydrationBoundary state={timelineDehydratedState}>
-          <ProfileTabs 
-          pb={pb} 
-          timelineDehydratedState={timelineDehydratedState} 
-          profile_posts_key={profile_posts_key}/>
-
-        </HydrationBoundary> */}
-
-      
-        <ProfileTabs
-          dehydratedState={dehydratedState}
-          profile_posts_key={profile_posts_key} 
-          />  
-
-
+        <ProfileTabs dehydratedState={dehydratedState} profile_posts_key={profile_posts_key} />
       </div>
     </main>
   );
