@@ -4,6 +4,7 @@ import { useEffect } from "react";
 
 export function usePbAuthListener() {
   useEffect(() => {
+    // console.log("user changed  ===", pb.authStore.model);
     pb.authStore.loadFromCookie(document?.cookie ?? "");
     const authChange = pb.authStore.onChange(() => {
       if (canUseCookies()) {

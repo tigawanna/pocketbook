@@ -1,0 +1,176 @@
+{
+    "_id": "e77ffc50-da3c-456d-b06c-47039c46d466",
+    "colName": "pocketbase",
+    "created": "2023-05-23T03:41:37.324Z",
+    "sortNum": 10000,
+    "folders": [],
+    "requests": [
+        {
+            "_id": "d49fabdb-50f0-4949-9e8d-ff83418b1e25",
+            "colId": "e77ffc50-da3c-456d-b06c-47039c46d466",
+            "containerId": "",
+            "name": "get all posts",
+            "url": "http://192.168.0.118:8080/api/collections/posts/records",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-05-23T03:42:00.347Z",
+            "modified": "2023-05-23T03:42:00.347Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "58daa9aa-f1a3-41ac-97c5-32c6e410da03",
+            "colId": "e77ffc50-da3c-456d-b06c-47039c46d466",
+            "containerId": "",
+            "name": "get_custom_posts",
+            "url": "http://192.168.0.118:8080/custom_posts?id&depth=0&profile=general&parent&limit=5&user&created=YYYYescape%202023-05-23T06%3A35%3A12%2B03%3A00Z",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-05-23T03:42:25.313Z",
+            "modified": "2023-05-24T02:58:32.623Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "",
+                    "isPath": false
+                },
+                {
+                    "name": "depth",
+                    "value": "0",
+                    "isPath": false
+                },
+                {
+                    "name": "profile",
+                    "value": "general",
+                    "isPath": false
+                },
+                {
+                    "name": "parent",
+                    "value": "",
+                    "isPath": false
+                },
+                {
+                    "name": "limit",
+                    "value": "5",
+                    "isPath": false
+                },
+                {
+                    "name": "user",
+                    "value": "",
+                    "isPath": false
+                },
+                {
+                    "name": "created",
+                    "value": "YYYYescape%202023-05-23T06%3A35%3A12%2B03%3A00Z",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "acc28f1c-d419-4186-a07c-281afcb7bf87",
+            "colId": "e77ffc50-da3c-456d-b06c-47039c46d466",
+            "containerId": "",
+            "name": "get_one_custom_post",
+            "url": "http://192.168.0.118:8080/custom_one_post?id=47au8a0kki8l4ub&limit=5&user&created=YYYYescape%202023-05-23T06%3A35%3A12%2B03%3A00Z",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-05-24T02:57:54.556Z",
+            "modified": "2023-05-25T02:35:14.780Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "47au8a0kki8l4ub",
+                    "isPath": false
+                },
+                {
+                    "name": "depth",
+                    "value": "",
+                    "isDisabled": true,
+                    "isPath": false
+                },
+                {
+                    "name": "profile",
+                    "value": "general",
+                    "isDisabled": true,
+                    "isPath": false
+                },
+                {
+                    "name": "parent",
+                    "value": "0t48yuvz30zthba",
+                    "isDisabled": true,
+                    "isPath": false
+                },
+                {
+                    "name": "limit",
+                    "value": "5",
+                    "isPath": false
+                },
+                {
+                    "name": "user",
+                    "value": "",
+                    "isPath": false
+                },
+                {
+                    "name": "created",
+                    "value": "YYYYescape%202023-05-23T06%3A35%3A12%2B03%3A00Z",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "c00c634c-5587-4763-b4f4-8b9644f0eabe",
+            "colId": "e77ffc50-da3c-456d-b06c-47039c46d466",
+            "containerId": "",
+            "name": "get_custom_posts Copy",
+            "url": "http://192.168.0.118:8080/custom_replies?id&depth=1&profile=general&limit=5&user&created=YYYYescape%202023-05-23T06%3A35%3A12%2B03%3A00Z&parent=0t48yuvz30zthba",
+            "method": "GET",
+            "sortNum": 25000,
+            "created": "2023-05-24T12:17:07.931Z",
+            "modified": "2023-05-24T12:18:57.015Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "",
+                    "isPath": false
+                },
+                {
+                    "name": "depth",
+                    "value": "1",
+                    "isPath": false
+                },
+                {
+                    "name": "profile",
+                    "value": "general",
+                    "isPath": false
+                },
+                {
+                    "name": "limit",
+                    "value": "5",
+                    "isPath": false
+                },
+                {
+                    "name": "user",
+                    "value": "",
+                    "isPath": false
+                },
+                {
+                    "name": "created",
+                    "value": "YYYYescape%202023-05-23T06%3A35%3A12%2B03%3A00Z",
+                    "isPath": false
+                },
+                {
+                    "name": "parent",
+                    "value": "0t48yuvz30zthba",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        }
+    ]
+}

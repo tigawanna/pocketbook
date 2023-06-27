@@ -1,6 +1,6 @@
 import jscookie from "js-cookie";
 import { useState } from "react";
-export type LocalCookieKeys = "theme" | "consent";
+export type LocalCookieKeys = "theme" | "consent"|"pb_auth";
 
 export type ConsentList = "theme" | "authentication";
 
@@ -30,7 +30,7 @@ export function setLocalCookie(key: LocalCookieKeys, value: string) {
 export function acceptCookies() {
   const consent_cookie = {
     accepted: true,
-    consent_list: ["theme", "authentication"],
+    consent_list: ["theme", "authentication","pb_auth"],
   };
   setLocalCookie("consent", JSON.stringify(consent_cookie));
 }

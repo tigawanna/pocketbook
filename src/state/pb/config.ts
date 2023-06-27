@@ -29,6 +29,7 @@ export async function loginUser({ user, password }: ILoginUser) {
       .collection(pb_user_collection)
       .authWithPassword<PBUserRecord>(user, password);
     // pb.authStore.exportToCookie({ httpOnly: false });
+    document.cookie = pb.authStore.exportToCookie({ httpOnly: false });
     return authData;
   } catch (error) {
     throw error;
@@ -41,13 +42,13 @@ interface IOuthLogin {
 
 export async function triggerOuathLogin({ provider }: IOuthLogin) {
   try {
-    const authData = await pb
-      .collection(pb_user_collection)
+    const authData = await pb.collection(pb_user_collection)
       .authWithOAuth2<GithubOauthResponse>({ provider });
-    pb.authStore.exportToCookie({ httpOnly: false });
+    // document.cookie = pb.authStore.exportToCookie({ httpOnly: false });
     // console.log("authdata from github  == ",authData);
     return authData;
   } catch (error) {
+    // console.log("erro logging in ",error);
     throw error;
   }
 }
@@ -79,7 +80,9 @@ export async function oauthLogin({ provider }: IOuthLogin) {
       provider,
     });
     // @ts-expect-error
-    return updateUser(authdata);
+    const user =await updateUser(authdata);
+    document.cookie = pb.authStore.exportToCookie({ httpOnly: false });
+    return user
   } catch (error) {
     throw error;
   }

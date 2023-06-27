@@ -7,7 +7,7 @@ export async function server_component_pb() {
   const pb_cookie = await cookies().get("pb_auth")?.value;
   const pb = new PocketBase(pb_url);
 
-  if (pb_cookie) {
+  if (pb_cookie&&pb_cookie!=="") {
     const pb_model = JSON.parse(pb_cookie).model;
     pb.authStore.save(pb_model.token, pb_model);
   }
@@ -19,7 +19,7 @@ export async function getPBCookieUser() {
   try {
     const { cookies } = await server_component_pb();
     const user_string = cookies().get("pb_auth")?.value ?? "{}";
-    const user = JSON.parse(user_string).model as PBUserRecord;
+    const user = user_string!==""?JSON.parse(user_string).model as PBUserRecord:undefined
     return user;
   } catch (error) {
     throw error;

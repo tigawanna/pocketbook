@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useMutationWrapper } from "@/state/hooks/useMutation";
 import { Theme, useThemeHook } from "@/state/hooks/useThemeHook";
 import { Button } from "@/shadcn/ui/button";
+import { setLocalCookie } from "@/state/cookie";
 
 export interface SystemIconsProps {
   user?: PBUserRecord;
@@ -15,11 +16,14 @@ export interface SystemIconsProps {
 
 export function Systemicons({ user, theme }: SystemIconsProps) {
   const { ModeIcon, toggleTheme } = useThemeHook(theme);
+
   const { mutate, isPending } = useMutationWrapper({
     fetcher: logoutUser,
     refresh: true,
     success_message: "Logged out succefully",
+    invalidates: ["user"],
   });
+
   const { countdownValue, start } = useCountdown(3);
 
   return (
@@ -42,7 +46,11 @@ export function Systemicons({ user, theme }: SystemIconsProps) {
             className="border-0 bg-inherit hover:border-accent-foreground"
             onClick={() => {
               start();
-              mutate({});
+              mutate({},{
+                onSuccess(data, variables, context) {
+                  setLocalCookie("pb_auth", "");
+                },
+              });
             }}
             disabled={isPending || countdownValue > 1}
           >
