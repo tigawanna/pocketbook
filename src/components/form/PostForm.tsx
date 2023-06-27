@@ -49,12 +49,12 @@ export function PostMutattionForm({
   const mutation = useMutationWrapper({
     fetcher: createNewPost,
     // refresh: true,
-    invalidates: ["posts"],
+    invalidates: ["custom_posts"],
     success_message: "Post created successfully",
   });
   const update_mutation = useMutationWrapper({
     fetcher: updatePost,
-    invalidates: ["posts"],
+    invalidates: ["custom_posts"],
     refresh: true,
     success_message: "Post updated successfully",
   });

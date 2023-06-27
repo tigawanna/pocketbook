@@ -9,6 +9,7 @@ import React from "react";
 import { Notification } from "./Notification";
 import { appQueryClient } from "../query/queryclient";
 import { Theme } from "@/state/hooks/useThemeHook";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 interface AppWrapperProps {
   children: React.ReactNode;
@@ -37,7 +38,7 @@ export function AppWrapper({ children, user, theme }: AppWrapperProps) {
           <Notification />
         </div>
       </div>
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }
