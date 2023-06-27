@@ -1,6 +1,6 @@
 {
   "name": "pocketbook",
-  "description": "minimal social app",
+  "description": "minimal social app with next13 appDir , shadcn and  pocketbase",
   "version": "0.1.0",
   "private": true,
   "scripts": {
