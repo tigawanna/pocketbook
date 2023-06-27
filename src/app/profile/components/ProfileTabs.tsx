@@ -1,4 +1,5 @@
 "use client"
+import { SidePanel } from "@/components/timeline/SidePanel";
 import { Timeline } from "@/components/timeline/Timeline";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shadcn/ui/tabs";
 import { PB, pb } from "@/state/pb/config";
@@ -23,7 +24,7 @@ return (
             <TabsTrigger value="following" className="w-full">Following</TabsTrigger>
         </TabsList>
 
-          <TabsContent value="posts">
+          <TabsContent value="posts" className="flex">
             <HydrationBoundary state={timelineDehydratedState}>
                 <Timeline
                     user={pb.authStore.model as unknown as PBUserRecord}
@@ -32,10 +33,10 @@ return (
                     is_replies={false}
                 />
             </HydrationBoundary>
-            
-            posts
-   
-        </TabsContent>
+                <div className="hidden lg:flex h-full w-[50%] m-2 p-2 sticky top-[10%]">
+                <SidePanel />
+                </div>
+            </TabsContent>
 
         <TabsContent value="followers">
 followers
