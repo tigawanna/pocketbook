@@ -28,7 +28,7 @@ export function UserSignUpForm({ className, ...props }: UserAuthFormProps) {
   const router = useRouter();
   function pushBacktoInitialOrigin() {
     if (params.get("next")) {
-      console.log("next", params.get("next"));
+      // console.log("next", params.get("next"));
       router.push(params.get("next")!);
     } else {
       router.back();

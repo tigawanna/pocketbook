@@ -1,8 +1,7 @@
 import { SidePanel } from "@/components/timeline/SidePanel";
-import { Timeline } from "@/components/timeline/Timeline";
 import { server_component_pb } from "@/state/pb/server_component_pb";
 import { PBUserRecord } from "@/state/user";
-import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { dehydrate} from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { getServerQueryClient } from "./query/server_query_client";
 import { getPbPaginatedPosts } from "@/state/models/posts/custom_posts";
@@ -39,17 +38,7 @@ export default async function Home() {
   return (
     <main className="w-full h-full flex  items-center justify-center p-2 gap-1">
       <RootTimeline dehydratedState={dehydratedState} timeline_key={key} />
-
-      {/* <HydrationBoundary state={dehydratedState}>
-        <Timeline
-          user={pb.authStore.model as unknown as PBUserRecord}
-          main_key={key[0]}
-          is_replies={false}
-
-        />
-      </HydrationBoundary> */}
-
-      <div className="hidden lg:flex h-full lg:w-[50%] m-2">
+        <div className="hidden lg:flex h-full lg:w-[50%] m-2">
         <SidePanel />
       </div>
     </main>

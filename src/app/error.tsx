@@ -9,12 +9,11 @@ interface ErrorPageprops {
 
 export default function Error({ error, reset }: ErrorPageprops) {
   useEffect(() => {
-    // Log the error to an error reporting service
-    console.error("nextjs error boundary  == ", error);
+   console.error("nextjs error boundary  == ", error);
   }, [error]);
 
   return (
-    <div className="h-full min-h-screen flex items-center justify-center gap-3 ">
+    <div className="h-full min-h-screen flex flex-col  items-center justify-center gap-2 ">
       <h2 className="text-2xl ">Something went wrong!</h2>
       <button
         className="bg-red-900 text-red-200 px-4 py-2 rounded-md"
@@ -25,7 +24,9 @@ export default function Error({ error, reset }: ErrorPageprops) {
       >
         Try again
       </button>
-      <div>{JSON.stringify(error)}</div>
+     {error.name&&<div className="font-bold text-lg">{JSON.stringify(error?.name)}</div>}
+      {error.message&&<div>{JSON.stringify(error?.message)}</div>}
+     <div>{JSON.stringify(error?.cause)}</div>
     </div>
   );
 }

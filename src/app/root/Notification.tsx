@@ -20,12 +20,8 @@ export const Notification = ({}: NotificationProps) => {
         "
       >
         {notification?.type === "success" ? (
-          <div
-            className=" w-[90%] line-clamp-3 p-2 bg-green-100 border-2 border-green-800
-                         text-green-900  rounded-xl 
-                       
-                         "
-          >
+          <div className=" w-fit line-clamp-3 p-3 bg-primary border-2 text-xs 
+          border-green-800 first-line:text-green-900  rounded-xl ">
             {notification.message}
           </div>
         ) : null}
