@@ -25,7 +25,7 @@ export function ProfileUserInfo({ data,logged_in_user }: ProfileUserInfoProps) {
   const profile_user = data;
   return (
     <div
-      className="w-full flex flex-col md:flex-row items-center justify-center bg-secondary p-5 gap-5 
+      className="w-full flex flex-col md:flex-row items-center justify-center bg-secondary p-2 gap-2 
         border border-secondary-foreground shadow shadow-accent-foreground"
     >
       <div className="md:w-[35%] w-[90%] p-2 h-full flex items-center justify-center rounded-2xl">
@@ -33,8 +33,8 @@ export function ProfileUserInfo({ data,logged_in_user }: ProfileUserInfoProps) {
           <Image
             src={profile_user.avatar}
             alt="user image"
-            height={250}
-            width={250}
+            height={150}
+            width={150}
             className="rounded-full h-auto  aspect-square object-cover flex items-center justify-center"
           />
         )}

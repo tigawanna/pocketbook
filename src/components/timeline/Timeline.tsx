@@ -15,7 +15,6 @@ import { pb } from "@/state/pb/config";
 import { ScrollArea } from "@/shadcn/ui/scroll-area";
 import { ErrorOutput } from "../wrappers/ErrorOutput";
 import { getPbPaginatedPosts } from "@/state/models/posts/custom_posts";
-import  AsyncButton  from "../wrappers/AsyncButton";
 
 interface TimelineProps {
   user?: PBUserRecord;
@@ -113,17 +112,22 @@ export function Timeline({
           }
         />
       </div>
-
-      <AsyncButton
+      
+      <button
         ref={ref}
         onClick={() => customPostsQuery.fetchNextPage()}
         disabled={
           !customPostsQuery.hasNextPage || customPostsQuery.isFetchingNextPage
         }
-        is_loading={customPostsQuery.isFetchingNextPage}
       >
-        {customPostsQuery.hasNextPage && !customPostsQuery.isLoading? "load more": null}
-      </AsyncButton>
+        {customPostsQuery.isFetchingNextPage
+          ? "Loading more..."
+          : customPostsQuery.hasNextPage
+          ? ""
+          : !customPostsQuery.isLoading
+          ? ""
+          : null}
+      </button>
     </div>
   );
 }
