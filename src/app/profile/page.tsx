@@ -13,6 +13,7 @@ import dayjs from "dayjs";
 
 interface pageProps {}
 
+export const revalidate = 60
 export default async function ProfilePage({}: pageProps) {
   const { pb } = await server_component_pb();
   const loggedInUser = pb.authStore.model as unknown as PBUserRecord;

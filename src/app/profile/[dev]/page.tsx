@@ -9,6 +9,7 @@ import { getDevprofile } from "@/state/models/profile/server-only";
 import { ProfileTabs } from "../components/ProfileTabs";
 
 import { getPbPaginatedFriends, QueryVariables } from "@/state/models/friends/custom_friends";
+import { Metadata } from "next";
 
 type PageProps = {
   params: { dev: string };
@@ -20,6 +21,20 @@ type PageProps = {
     profile?: string;
   };
 };
+
+
+export async function generateMetadata({searchParams,params}: PageProps): Promise<Metadata> {
+  const { pb } = await server_component_pb();
+  const user_id = params.dev;
+  const dev = await getDevprofile(pb, user_id);
+  return {
+    title: `${dev.username}`,
+    description: `${dev.bio}`
+  };
+}
+
+
+
 
 export default async function page({ params, searchParams }: PageProps) {
   const { pb } = await server_component_pb();
