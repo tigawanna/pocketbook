@@ -7,6 +7,8 @@ import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { getServerQueryClient } from "./query/server_query_client";
 import { getPbPaginatedPosts } from "@/state/models/posts/custom_posts";
+import { RootTimeline } from "./root/RootTimeline";
+
 
 
 export default async function Home() {
@@ -39,14 +41,17 @@ export default async function Home() {
   const dehydratedState = dehydrate(queryClient);
   return (
     <main className="w-full h-full flex  items-center justify-center p-2 gap-1">
-      <HydrationBoundary state={dehydratedState}>
+      <RootTimeline dehydratedState={dehydratedState} timeline_key={key}/>
+       
+      {/* <HydrationBoundary state={dehydratedState}>
         <Timeline
           user={pb.authStore.model as unknown as PBUserRecord}
           main_key={key[0]}
           is_replies={false}
-          
+
         />
-      </HydrationBoundary>
+      </HydrationBoundary> */}
+
       <div className="hidden lg:flex h-full lg:w-[50%] m-2">
         <SidePanel />
       </div>

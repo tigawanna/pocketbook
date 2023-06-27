@@ -15,6 +15,7 @@ import { pb } from "@/state/pb/config";
 import { ScrollArea } from "@/shadcn/ui/scroll-area";
 import { ErrorOutput } from "../wrappers/ErrorOutput";
 import { getPbPaginatedPosts } from "@/state/models/posts/custom_posts";
+import  AsyncButton  from "../wrappers/AsyncButton";
 
 interface TimelineProps {
   user?: PBUserRecord;
@@ -47,7 +48,7 @@ export function Timeline({
         { depth: 0, post_id, profile, user_id: user?.id ?? "", key: main_key },
         pageParam
       ),
-    getNextPageParam: (lastPage, allPages) => {
+     getNextPageParam: (lastPage, allPages) => {
       if (lastPage && lastPage[lastPage.length - 1]) {
         return {
           created: lastPage[lastPage?.length - 1]?.created_at,
@@ -88,11 +89,11 @@ export function Timeline({
           data.pages.map((group, i) => (
             <React.Fragment key={i}>
                 <div className="h-full w-full flex flex-col gap-3 p-3">
-                <SuspenseList revealOrder="forwards" tail="collapsed">
+                {/* <SuspenseList revealOrder="forwards" tail="collapsed"> */}
                 {group.map((post) => (
                   <PostsCard key={post.post_id} item={post} user={user} is_reply={is_replies}/>
                   ))}
-                  </SuspenseList>
+                  {/* </SuspenseList> */}
               </div>
             </React.Fragment>
           ))}
@@ -103,8 +104,7 @@ export function Timeline({
       onClick={(e) =>e.stopPropagation()}
       className="fixed bottom-16 right-[3%]">
         <PostMutationDialog
-        
-          user={user}
+        user={user}
           icon={
             <Plus
               className="h-12 w-12 p-1 rounded-full border-2 hover:border-accent-foreground
@@ -113,21 +113,17 @@ export function Timeline({
           }
         />
       </div>
-      <button
+
+      <AsyncButton
         ref={ref}
         onClick={() => customPostsQuery.fetchNextPage()}
         disabled={
           !customPostsQuery.hasNextPage || customPostsQuery.isFetchingNextPage
         }
+        is_loading={customPostsQuery.isFetchingNextPage}
       >
-        {customPostsQuery.isFetchingNextPage
-          ? "Loading more..."
-          : customPostsQuery.hasNextPage
-          ? ""
-          : !customPostsQuery.isLoading
-          ? ""
-          : null}
-      </button>
+        {customPostsQuery.hasNextPage && !customPostsQuery.isLoading? "load more": null}
+      </AsyncButton>
     </div>
   );
 }

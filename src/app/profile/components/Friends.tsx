@@ -1,6 +1,6 @@
 import { ErrorOutput } from "@/components/wrappers/ErrorOutput";
 import { ListResult,Record } from "pocketbase";
-import { finished } from "stream";
+
 
 interface FriendsProps {
     freinds:ListResult<Record> | Error

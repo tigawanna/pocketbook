@@ -34,12 +34,12 @@ export function AppWrapper({ children, user, theme }: AppWrapperProps) {
         <div className="w-full h-screen overflow-y-scroll scroll-bar">
           {children}
         </div>
-        <CookieDisclaimer />
+        {/* <CookieDisclaimer /> */}
         <div className="w-full fixed bottom-3 flex items-center justify-center">
           <Notification />
         </div>
       </div>
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
 
     </QueryClientProvider>
   );

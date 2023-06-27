@@ -179,5 +179,41 @@
       }
     ],
     "tests": []
+  },
+  {
+    "_id": "294a36a3-5ae7-4f07-b776-2e50c0a29e5b",
+    "colId": "4f6b278c-391c-4059-bed9-02dc438184f9",
+    "containerId": "",
+    "name": " http://127.0.0.1:8090/api/collections/followers/records?page=1&perPage=20&filter=user_a%3D%22undefined%22",
+    "url": "127.0.0.1:8090/api/collections/followers/records?page=1&perPage=20&filter=user_a%3D%222gbkpq07uqvgdvv%22",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2023-06-23T10:26:35.817Z",
+    "modified": "2023-06-23T10:57:39.750Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "filter",
+        "value": "user_a%3D%22undefined%22",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "page",
+        "value": "1",
+        "isPath": false
+      },
+      {
+        "name": "perPage",
+        "value": "20",
+        "isPath": false
+      },
+      {
+        "name": "filter",
+        "value": "user_a%3D%222gbkpq07uqvgdvv%22",
+        "isPath": false
+      }
+    ],
+    "tests": []
   }
 ]
