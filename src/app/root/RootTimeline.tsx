@@ -6,16 +6,19 @@ import { DehydratedState, HydrationBoundary } from "@tanstack/react-query";
 interface rootTimelineProps {
   dehydratedState: DehydratedState;
   timeline_key: readonly ["custom_posts"];
+  user:PBUserRecord
 }
 
 export function RootTimeline({
   dehydratedState,
+  user,
   timeline_key,
 }: rootTimelineProps) {
+  // console.log("user  === ",user)
   return (
     <HydrationBoundary state={dehydratedState}>
       <Timeline
-        user={pb.authStore.model as unknown as PBUserRecord}
+        user={user}
         main_key={timeline_key[0]}
         is_replies={false}
       />

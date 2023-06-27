@@ -127,13 +127,13 @@ export const PostReactionsCard = ({ user, item }: PostReactionsCardProps) => {
   const newReactionMutation = useMutationWrapper({
     fetcher: createReactionToPost,
     // refresh:true,
-    success_message: "added",
+    success_message: "",
     invalidates: ["custom_posts"],
   });
   const updateReactionMutation = useMutationWrapper({
     fetcher: updateReactionToPost,
     //   refresh: true,
-    success_message: "updated",
+    success_message: "",
     invalidates: ["custom_posts"],
     refresh: false,
   });

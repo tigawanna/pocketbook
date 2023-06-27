@@ -33,7 +33,7 @@ export function AppWrapper({ children, user, theme }: AppWrapperProps) {
           {children}
         </div>
         {/* <CookieDisclaimer /> */}
-        <div className="w-full fixed bottom-3 flex items-center justify-center">
+        <div className="w-full fixed bottom-[3%] right-[10%] flex items-end justify-center md:justify-end">
           <Notification />
         </div>
       </div>

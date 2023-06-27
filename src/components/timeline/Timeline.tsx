@@ -16,7 +16,7 @@ import { ErrorOutput } from "../wrappers/ErrorOutput";
 import { getPbPaginatedPosts } from "@/state/models/posts/custom_posts";
 
 interface TimelineProps {
-  user?: PBUserRecord;
+  user: PBUserRecord;
   profile?: "general";
   main_key: "custom_posts" | "custom_one_post" | "custom_replies";
   extra_keys?: string[];

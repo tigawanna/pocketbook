@@ -37,7 +37,7 @@ export default async function Home() {
   const dehydratedState = dehydrate(queryClient);
   return (
     <main className="w-full h-full flex  items-center justify-center p-2 gap-1">
-      <RootTimeline dehydratedState={dehydratedState} timeline_key={key} />
+      <RootTimeline dehydratedState={dehydratedState} timeline_key={key} user={user}/>
         <div className="hidden lg:flex h-full lg:w-[50%] m-2">
         <SidePanel />
       </div>
