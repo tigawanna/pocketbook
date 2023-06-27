@@ -26,6 +26,7 @@ export function InfiniteFriends({ type, user, logged_in }: InfiniteFriendsProps)
     type,
     user_id: user.id,
   };
+
   const query_key = [`custom_${type}`, params];
   
   const query = useInfiniteQuery({
@@ -54,58 +55,63 @@ export function InfiniteFriends({ type, user, logged_in }: InfiniteFriendsProps)
     }
   }, [inView]);
 
-  if (query.isPending) {
-    return (
-      <div className="w-full h-full flex flex-col items-center justify-center bg-red-900 text-red-300 rounded-lg p-5">
-        loading following
-      </div>
-    );
-  }
+//   if (query.isPending) {
+//     return (
+//       <div className="w-full h-full flex flex-col items-center justify-center bg-red-900 text-red-300 rounded-lg p-5">
+//         loading following
+//       </div>
+//     );
+//   }
 
-  if (query.error) {
-    return (
-      <div
-        className="w-full h-full flex flex-col items-center justify-center bg-red-900 text-red-300
-rounded-lg p-5
-">
-        error loading following {query.error?.message}
-      </div>
-    );
-  }
+//   if (query.error) {
+//     return (
+//       <div
+//         className="w-full h-full flex flex-col items-center justify-center bg-red-900 text-red-300
+// rounded-lg p-5
+// ">
+//         error loading following {query.error?.message}
+//       </div>
+//     );
+//   }
 
-  if (!query.data) {
-    return (
-      <div
-        className="w-full h-full flex flex-col items-center justify-center text-lg
-rounded-lg p-5
-">
-        no following
-      </div>
-    );
-  }
+//   if (!query.data) {
+//     return (
+//       <div
+//         className="w-full h-full flex flex-col items-center justify-center text-lg
+// rounded-lg p-5
+// ">
+//         no following
+//       </div>
+//     );
+//   }
 
   return (
     <div className="w-full h-full flex items-center justify-center animate-in fade-in">
       {query.data &&
         query.data.pages.map((page, idx) => {
           return (
-            <div key={idx} className="flex flex-col gap-2 items-center justify-center">
+            <div key={idx} className="w-full flex flex-wrap gap-2 items-center justify-center">
               {page.map((profile) => {
                 return <Friend friend={profile} me={user} key={profile.friendship_id} />;
               })}
             </div>
           );
         })}
-      <AsyncButton
+      <button
         ref={ref}
         onClick={() => query.fetchNextPage()}
         disabled={
           !query.hasNextPage || query.isFetchingNextPage
         }
-        is_loading={query.isFetchingNextPage}
       >
-        {query.hasNextPage && !query.isLoading ? "load more" : null}
-      </AsyncButton>
+        {query.isFetchingNextPage
+          ? "Loading more..."
+          : query.hasNextPage
+            ? ""
+            : !query.isLoading
+              ? ""
+              : null}
+      </button>
     </div>
   );
 }

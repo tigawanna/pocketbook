@@ -1,16 +1,14 @@
 import { getServerQueryClient } from "@/app/query/server_query_client";
-import { SidePanel } from "@/components/timeline/SidePanel";
-import { Timeline } from "@/components/timeline/Timeline";
 import { server_component_pb } from "@/state/pb/server_component_pb";
 import { PBUserRecord } from "@/state/user";
-import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { dehydrate } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { ProfileUserInfo } from "../components/ProfileUserInfo";
 import { getPbPaginatedPosts } from "@/state/models/posts/custom_posts";
 import { getDevprofile } from "@/state/models/profile/server-only";
 import { ProfileTabs } from "../components/ProfileTabs";
-import { InfiniteFriends } from "../components/friends/InfiniteFriends";
-import { DevProfileTabs } from "../components/DevProfileTabs";
+
+import { getPbPaginatedFriends, QueryVariables } from "@/state/models/friends/custom_friends";
 
 
 
@@ -38,6 +36,8 @@ export default async function page({ params, searchParams }: PageProps) {
   const profile_user = dev;
   
   const profile_posts_key = ["custom_posts", profile_user.id] as const;
+
+
   
   await queryClient.prefetchInfiniteQuery({
     queryKey: profile_posts_key,
@@ -58,7 +58,50 @@ export default async function page({ params, searchParams }: PageProps) {
       id: "",
     },
   });
-  const timelineDehydratedState = dehydrate(queryClient);
+
+
+
+  const follower_params: QueryVariables = {
+    created: currentdate,
+    limit: "5",
+    logged_in: loggedInUser.id,
+    type: "followers",
+    user_id: dev.id,
+  };
+  const profile_followers_key = ["followers", follower_params];
+
+await queryClient.prefetchInfiniteQuery({
+  queryKey: profile_followers_key,
+    queryFn: ({ queryKey, pageParam }) => getPbPaginatedFriends(pb, follower_params, pageParam),
+    defaultPageParam: {
+      created: currentdate,
+      id: "",
+    },
+
+  });
+
+  const following_params: QueryVariables = {
+    created: currentdate,
+    limit: "5",
+    logged_in: loggedInUser.id,
+    type: "following",
+    user_id: dev.id,
+  };
+  const profile_following_key = ["following", follower_params];
+
+  await queryClient.prefetchInfiniteQuery({
+    queryKey: profile_following_key,
+    queryFn: ({ queryKey, pageParam }) => getPbPaginatedFriends(pb, following_params, pageParam),
+    defaultPageParam: {
+      created: currentdate,
+      id: "",
+    },
+
+  });
+
+  const dehydratedState = dehydrate(queryClient);
+
+
 
 
   return (
@@ -87,8 +130,7 @@ export default async function page({ params, searchParams }: PageProps) {
 
       
         <ProfileTabs
-       
-          timelineDehydratedState={timelineDehydratedState}
+          dehydratedState={dehydratedState}
           profile_posts_key={profile_posts_key} 
           />  
 

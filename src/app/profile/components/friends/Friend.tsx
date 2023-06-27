@@ -17,10 +17,10 @@ interface FriendProps {
 export function Friend({friend,me}:FriendProps){
 
 return (
-    <div className="w-full flex items-center  gap-2 p-2 bg-secondary
-            rounded-lg border border-accent shadow">
+    <div className="w-full lg:w-[45%] flex items-center  gap-2 p-2 bg-secondary
+            rounded-lg border border-accent shadow ">
 
-        <div className="w-[30%]   h-full flex items-center justify-center rounded-2xl">
+        <div className="w-[25%]  h-full flex items-center justify-center rounded-2xl">
             {friend.friend_avatar !== "" && (
                 <Image
                     src={friend.friend_avatar}
@@ -44,7 +44,7 @@ return (
 
             {/* <h2>joined: {relativeDate(profile.created)}</h2> */}
             </div>
-            <div className="text-red-400">
+            <div className="text-red-400 hover:bg-accent-foreground">
                  <FollowButton friendship={friend} me={me}/>
             </div>
     </div>
