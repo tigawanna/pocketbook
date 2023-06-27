@@ -1,6 +1,5 @@
 import { PageLoading } from "@/components/shared/loaders/PageLoading";
 
-
 interface loadingProps {}
 
 export default function Loading({}: loadingProps) {

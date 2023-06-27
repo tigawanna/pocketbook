@@ -1,6 +1,5 @@
 "use client";
 
-
 import { useFormHook } from "./useFormHook";
 import { Button } from "./components/Button";
 import { ErrorOutput } from "../wrappers/ErrorOutput";
@@ -11,7 +10,11 @@ import { X } from "lucide-react";
 import { PBUserRecord } from "@/state/user";
 import { useMutationWrapper } from "@/state/hooks/useMutation";
 import { SetStateAction } from "react";
-import { PostMutationInput, createNewPost, updatePost } from "@/state/models/posts/posts";
+import {
+  PostMutationInput,
+  createNewPost,
+  updatePost,
+} from "@/state/models/posts/posts";
 import { CustomPostType } from "@/state/models/posts/types";
 
 interface PostMutattionFormProps {
@@ -97,9 +100,10 @@ export function PostMutattionForm({
   const disable_submit = input.body === "" && !input.media;
 
   return (
-    <div 
-    onClick={(e) => e.stopPropagation()}
-    className="w-full h-full flex flex-col  items-center justify-center gap-4 ">
+    <div
+      onClick={(e) => e.stopPropagation()}
+      className="w-full h-full flex flex-col  items-center justify-center gap-4 "
+    >
       {error.message !== "" && <ErrorOutput error={error} />}
       <form
         onSubmit={handleSubmit}

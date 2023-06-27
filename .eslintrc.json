@@ -4,7 +4,8 @@
   "rules": {
 
     "eslint-disable react-hooks/exhaustive-deps": "off",
-    "react/display-name":"off"
+    "react/display-name":"off",
+    "react-hooks/exhaustive-deps": "off"
 
   }
 }

@@ -1,4 +1,3 @@
-
 import { SidePanel } from "@/components/timeline/SidePanel";
 import { Timeline } from "@/components/timeline/Timeline";
 import { server_component_pb } from "@/state/pb/server_component_pb";
@@ -8,8 +7,6 @@ import dayjs from "dayjs";
 import { getServerQueryClient } from "./query/server_query_client";
 import { getPbPaginatedPosts } from "@/state/models/posts/custom_posts";
 import { RootTimeline } from "./root/RootTimeline";
-
-
 
 export default async function Home() {
   const { pb } = await server_component_pb();
@@ -41,8 +38,8 @@ export default async function Home() {
   const dehydratedState = dehydrate(queryClient);
   return (
     <main className="w-full h-full flex  items-center justify-center p-2 gap-1">
-      <RootTimeline dehydratedState={dehydratedState} timeline_key={key}/>
-       
+      <RootTimeline dehydratedState={dehydratedState} timeline_key={key} />
+
       {/* <HydrationBoundary state={dehydratedState}>
         <Timeline
           user={pb.authStore.model as unknown as PBUserRecord}

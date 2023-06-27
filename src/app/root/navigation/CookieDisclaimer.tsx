@@ -9,10 +9,12 @@ export function CookieDisclaimer({}: CookieDisclaimerProps) {
   const consentCookie = getSavedCookies();
   const [open, setOpen] = useState(consentCookie.consent?.accepted);
 
-if (!open) {
+  if (!open) {
     return (
-      <div className="bg-primary/70 shadow-secondary animate-in fade-in text-sm w-full
-    flex flex-col md:flex-row gap-2 md:gap-5 items-center justify-center fixed bottom-0 p-5 rounded">
+      <div
+        className="bg-primary/70 shadow-secondary animate-in fade-in text-sm w-full
+    flex flex-col md:flex-row gap-2 md:gap-5 items-center justify-center fixed bottom-0 p-5 rounded"
+      >
         <span className="mr-2 ">We use cookies to enhance your experience</span>
         <Popover>
           <PopoverTrigger>
@@ -24,8 +26,8 @@ if (!open) {
             </h2>
             <ul className="list-disc flex flex-col gap-1 p-2">
               <li className="text-xs">
-                Disabling cookies might require you to sign in multiple times per session ,
-                We wiil not even remember your choice
+                Disabling cookies might require you to sign in multiple times
+                per session , We wiil not even remember your choice
               </li>
               <li className="text-xs">We do not use any third party cookies</li>
             </ul>
@@ -35,31 +37,31 @@ if (!open) {
         <div className="flex gap-2">
           <button
             onClick={() => {
-              acceptCookies()
-              setOpen(true)
+              acceptCookies();
+              setOpen(true);
             }}
             className="bg-accent hover:text-accent-foreground px-3 py-1 
             rounded-sm focus:outline-none"
             type="button"
-            aria-label="Accept cookies">
+            aria-label="Accept cookies"
+          >
             Accept
           </button>
           <button
             onClick={() => {
-              rejectCookies(); 
-              setOpen(true)
+              rejectCookies();
+              setOpen(true);
             }}
             className="bg-destructive hover:text-destructive px-3 py-1 
             rounded-sm focus:outline-none"
             type="button"
-            aria-label="Reject cookies">
+            aria-label="Reject cookies"
+          >
             Reject
           </button>
         </div>
-
-
       </div>
     );
   }
-  return null
+  return null;
 }

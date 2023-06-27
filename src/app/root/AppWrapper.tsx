@@ -10,7 +10,6 @@ import { Notification } from "./Notification";
 import { appQueryClient } from "../query/queryclient";
 import { Theme } from "@/state/hooks/useThemeHook";
 
-
 interface AppWrapperProps {
   children: React.ReactNode;
   user: PBUserRecord;
@@ -39,7 +38,6 @@ export function AppWrapper({ children, user, theme }: AppWrapperProps) {
         </div>
       </div>
       {/* <ReactQueryDevtools initialIsOpen={false} /> */}
-
     </QueryClientProvider>
   );
 }

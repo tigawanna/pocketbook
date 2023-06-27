@@ -8,7 +8,6 @@ import { useMutationWrapper } from "@/state/hooks/useMutation";
 import { Theme, useThemeHook } from "@/state/hooks/useThemeHook";
 import { Button } from "@/shadcn/ui/button";
 
-
 export interface SystemIconsProps {
   user?: PBUserRecord;
   theme?: Theme;

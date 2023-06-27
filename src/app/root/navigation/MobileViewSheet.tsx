@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  SheetTrigger,
-  SheetContent,
-  Sheet,
-
-} from "@/shadcn/ui/sheet";
+import { SheetTrigger, SheetContent, Sheet } from "@/shadcn/ui/sheet";
 import { Menu } from "lucide-react";
 import Link from "next/link";
 import { RouteLinks } from "./RouteLinks";
@@ -33,7 +28,7 @@ export function MobileViewSheet({ user, theme }: MobileViewSheetProps) {
         className="w-[80%] flex flex-col items-center text-sm 
        shadow-secondary-foreground bg-secondary "
       >
-        <Logo/>
+        <Logo />
         <RouteLinks mobile={true} user={user} />
         <Systemicons user={user} theme={theme} />
       </SheetContent>

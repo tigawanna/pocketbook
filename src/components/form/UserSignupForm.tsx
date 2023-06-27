@@ -28,12 +28,11 @@ export function UserSignUpForm({ className, ...props }: UserAuthFormProps) {
   const router = useRouter();
   function pushBacktoInitialOrigin() {
     if (params.get("next")) {
-      console.log("next", params.get("next"))
-      router.push(params.get("next")!)
+      console.log("next", params.get("next"));
+      router.push(params.get("next")!);
     } else {
-      router.back()
+      router.back();
     }
-
   }
 
   interface FormInputs {
@@ -101,11 +100,14 @@ export function UserSignUpForm({ className, ...props }: UserAuthFormProps) {
 
   async function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
-    mutate({ user: input },{
-      onSuccess(data, variables, context) {
-        pushBacktoInitialOrigin()
-      },
-    });
+    mutate(
+      { user: input },
+      {
+        onSuccess(data, variables, context) {
+          pushBacktoInitialOrigin();
+        },
+      }
+    );
   }
   const is_error = error.message !== "";
 

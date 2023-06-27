@@ -15,7 +15,7 @@ export function checkIfEmpty<T = unknown>(obj: T, skipKeys: (keyof T)[] = []) {
 
     if (
       Array.isArray(obj[key as keyof T]) &&
-          // @ts-expect-error
+      // @ts-expect-error
       obj[key as keyof T].length === 0
     ) {
       return { empty: true, value: `${key} field of type File [] is empty` };

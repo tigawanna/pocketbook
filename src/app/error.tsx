@@ -10,7 +10,7 @@ interface ErrorPageprops {
 export default function Error({ error, reset }: ErrorPageprops) {
   useEffect(() => {
     // Log the error to an error reporting service
-    console.error("nextjs error boundary  == ",error);
+    console.error("nextjs error boundary  == ", error);
   }, [error]);
 
   return (

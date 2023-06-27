@@ -8,7 +8,10 @@ import { getPbPaginatedPosts } from "@/state/models/posts/custom_posts";
 import { getDevprofile } from "@/state/models/profile/server-only";
 import { ProfileTabs } from "../components/ProfileTabs";
 
-import { getPbPaginatedFriends, QueryVariables } from "@/state/models/friends/custom_friends";
+import {
+  getPbPaginatedFriends,
+  QueryVariables,
+} from "@/state/models/friends/custom_friends";
 import { Metadata } from "next";
 
 type PageProps = {
@@ -22,19 +25,18 @@ type PageProps = {
   };
 };
 
-
-export async function generateMetadata({searchParams,params}: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  searchParams,
+  params,
+}: PageProps): Promise<Metadata> {
   const { pb } = await server_component_pb();
   const user_id = params.dev;
   const dev = await getDevprofile(pb, user_id);
   return {
     title: `${dev.username}`,
-    description: `${dev.bio}`
+    description: `${dev.bio}`,
   };
 }
-
-
-
 
 export default async function page({ params, searchParams }: PageProps) {
   const { pb } = await server_component_pb();
@@ -79,7 +81,8 @@ export default async function page({ params, searchParams }: PageProps) {
 
   await queryClient.prefetchInfiniteQuery({
     queryKey: profile_followers_key,
-    queryFn: ({ queryKey, pageParam }) => getPbPaginatedFriends(pb, follower_params, pageParam),
+    queryFn: ({ queryKey, pageParam }) =>
+      getPbPaginatedFriends(pb, follower_params, pageParam),
     defaultPageParam: {
       created: currentdate,
       id: "",
@@ -97,7 +100,8 @@ export default async function page({ params, searchParams }: PageProps) {
 
   await queryClient.prefetchInfiniteQuery({
     queryKey: profile_following_key,
-    queryFn: ({ queryKey, pageParam }) => getPbPaginatedFriends(pb, following_params, pageParam),
+    queryFn: ({ queryKey, pageParam }) =>
+      getPbPaginatedFriends(pb, following_params, pageParam),
     defaultPageParam: {
       created: currentdate,
       id: "",
@@ -110,7 +114,10 @@ export default async function page({ params, searchParams }: PageProps) {
     <main className="w-full h-full min-h-screen flex flex-col items-center gap-1">
       <ProfileUserInfo data={dev} logged_in_user={loggedInUser} />
       <div className="w-full md:w-[90%] flex  items-start  gap-1">
-        <ProfileTabs dehydratedState={dehydratedState} profile_posts_key={profile_posts_key} />
+        <ProfileTabs
+          dehydratedState={dehydratedState}
+          profile_posts_key={profile_posts_key}
+        />
       </div>
     </main>
   );

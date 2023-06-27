@@ -1,11 +1,15 @@
-
 import { PostMutattionForm } from "../form/PostForm";
 import { PBUserRecord } from "@/state/user";
 import Link from "next/link";
-import { Close} from "@radix-ui/react-dialog";
+import { Close } from "@radix-ui/react-dialog";
 
 import { useState } from "react";
-import { DialogFooter, DialogTrigger, Dialog, DialogContent } from "@/shadcn/ui/dialog";
+import {
+  DialogFooter,
+  DialogTrigger,
+  Dialog,
+  DialogContent,
+} from "@/shadcn/ui/dialog";
 import { CustomPostType } from "@/state/models/posts/types";
 
 interface PostMutationDialogProps {
@@ -27,12 +31,13 @@ export function PostMutationDialog({
 }: PostMutationDialogProps) {
   const [open, setOpen] = useState<boolean | undefined>(undefined);
   return (
-    <Dialog open={open} >
+    <Dialog open={open}>
       <DialogTrigger asChild>{icon}</DialogTrigger>
 
-      <DialogContent 
+      <DialogContent
         onClick={(e) => e.stopPropagation()}
-          className="h-fit w-full border-none">
+        className="h-fit w-full border-none"
+      >
         {user ? (
           <PostMutattionForm
             depth={depth}

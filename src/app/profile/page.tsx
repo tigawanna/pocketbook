@@ -4,7 +4,6 @@ import { SidePanel } from "@/components/timeline/SidePanel";
 import { Timeline } from "@/components/timeline/Timeline";
 import { getPbPaginatedPosts } from "@/state/models/posts/custom_posts";
 
-
 import { server_component_pb } from "@/state/pb/server_component_pb";
 import { PBUserRecord } from "@/state/user";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
@@ -13,7 +12,7 @@ import dayjs from "dayjs";
 
 interface pageProps {}
 
-export const revalidate = 60
+export const revalidate = 60;
 export default async function ProfilePage({}: pageProps) {
   const { pb } = await server_component_pb();
   const loggedInUser = pb.authStore.model as unknown as PBUserRecord;
@@ -45,7 +44,7 @@ export default async function ProfilePage({}: pageProps) {
 
   return (
     <section className="w-full h-full min-h-screen flex flex-col items-center">
-      <ProfileUserInfo data={loggedInUser} logged_in_user={loggedInUser}/>
+      <ProfileUserInfo data={loggedInUser} logged_in_user={loggedInUser} />
       <div className="w-full md:w-[90%] flex items-center justify-center">
         <HydrationBoundary state={dehydratedState}>
           <Timeline

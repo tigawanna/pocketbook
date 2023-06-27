@@ -9,7 +9,7 @@ import { PBUserRecord } from "@/state/user";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { ArrowLeft } from "lucide-react";
-import {  Metadata } from "next";
+import { Metadata } from "next";
 import Client from "pocketbase";
 
 type PageProps = {
@@ -32,8 +32,7 @@ export async function generateMetadata({
   };
 }
 
-
-export const revalidate = 60
+export const revalidate = 60;
 export default async function OnePostPage(props: PageProps) {
   const { pb } = await server_component_pb();
 
@@ -49,11 +48,15 @@ export default async function OnePostPage(props: PageProps) {
         <div className="w-full flex flex-col items-center justify-start gap-2 p-2 sticky top-1">
           <div className="w-full  flex gap-2 items-center ">
             <ClientLink to={-1}>
-              <ArrowLeft className="h-7 w-7 hover:text-accent-foreground" size={10}/>
+              <ArrowLeft
+                className="h-7 w-7 hover:text-accent-foreground"
+                size={10}
+              />
             </ClientLink>
 
-          <h2 className="text-2xl font-bold w-full">{one_post[0].creator_name}</h2>
-
+            <h2 className="text-2xl font-bold w-full">
+              {one_post[0].creator_name}
+            </h2>
           </div>
           <div className="w-full ">
             <PostsCard

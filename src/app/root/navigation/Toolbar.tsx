@@ -2,7 +2,6 @@ import { PBUserRecord } from "@/state/user";
 import { MobileViewSheet } from "./MobileViewSheet";
 import { Theme } from "@/state/hooks/useThemeHook";
 
-
 interface ToolbarProps {
   user: PBUserRecord;
   theme?: Theme;
@@ -15,7 +14,6 @@ export function Toolbar({ user, theme }: ToolbarProps) {
         <div className="bg-secondary">
           <MobileViewSheet user={user} theme={theme} />
         </div>
-   
       </div>
     </div>
   );

@@ -71,7 +71,10 @@ const defaultCofig: Partial<Config> = {
           to: { opacity: "1" },
         },
         contentShow: {
-          from: { opacity: " 0", transform: "translate(-50%, -48%) scale(0.96)" },
+          from: {
+            opacity: " 0",
+            transform: "translate(-50%, -48%) scale(0.96)",
+          },
           to: { opacity: "1", transform: "translate(-50%, -50%) scale(1)" },
         },
       },
@@ -83,6 +86,4 @@ const defaultCofig: Partial<Config> = {
     },
   },
 };
-export default plugin(function ({ }) {
-
-}, defaultCofig);
+export default plugin(function ({}) {}, defaultCofig);

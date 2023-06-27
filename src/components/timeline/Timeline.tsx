@@ -2,7 +2,6 @@
 
 "use client";
 
-
 import { useInfiniteQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { PostMutationDialog } from "./PostMutationDialog";
@@ -47,7 +46,7 @@ export function Timeline({
         { depth: 0, post_id, profile, user_id: user?.id ?? "", key: main_key },
         pageParam
       ),
-     getNextPageParam: (lastPage, allPages) => {
+    getNextPageParam: (lastPage, allPages) => {
       if (lastPage && lastPage[lastPage.length - 1]) {
         return {
           created: lastPage[lastPage?.length - 1]?.created_at,
@@ -72,38 +71,41 @@ export function Timeline({
     }
   }, [inView]);
 
-
   return (
     <div className="w-full h-full flex flex-col  items-center justify-center">
-      {customPostsQuery?.error && <ErrorOutput error={customPostsQuery.error} />}
-      {
-      (data?.pages&&data?.pages?.length<1)&&
-      <div className="p-5 bg-secondary">Nothing to show for now
-      </div>
-      }
+      {customPostsQuery?.error && (
+        <ErrorOutput error={customPostsQuery.error} />
+      )}
+      {data?.pages && data?.pages?.length < 1 && (
+        <div className="p-5 bg-secondary">Nothing to show for now</div>
+      )}
 
       <ScrollArea className="h-full w-full flex flex-col ">
-
         {data &&
           data.pages.map((group, i) => (
             <React.Fragment key={i}>
-                <div className="h-full w-full flex flex-col gap-3 p-3">
+              <div className="h-full w-full flex flex-col gap-3 p-3">
                 {/* <SuspenseList revealOrder="forwards" tail="collapsed"> */}
                 {group.map((post) => (
-                  <PostsCard key={post.post_id} item={post} user={user} is_reply={is_replies}/>
-                  ))}
-                  {/* </SuspenseList> */}
+                  <PostsCard
+                    key={post.post_id}
+                    item={post}
+                    user={user}
+                    is_reply={is_replies}
+                  />
+                ))}
+                {/* </SuspenseList> */}
               </div>
             </React.Fragment>
           ))}
- 
       </ScrollArea>
 
-      <div 
-      onClick={(e) =>e.stopPropagation()}
-      className="fixed bottom-16 right-[3%]">
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="fixed bottom-16 right-[3%]"
+      >
         <PostMutationDialog
-        user={user}
+          user={user}
           icon={
             <Plus
               className="h-12 w-12 p-1 rounded-full border-2 hover:border-accent-foreground
@@ -112,7 +114,7 @@ export function Timeline({
           }
         />
       </div>
-      
+
       <button
         ref={ref}
         onClick={() => customPostsQuery.fetchNextPage()}

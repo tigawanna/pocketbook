@@ -1,4 +1,3 @@
-
 import { PB, pb } from "@/state/pb/config";
 import { IPostRecord } from "./types";
 

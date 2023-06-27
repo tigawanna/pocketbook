@@ -19,7 +19,8 @@ export function Friend({ friend, me }: FriendProps) {
   return (
     <div
       className="w-full lg:w-[45%] flex items-center  gap-2 p-2 bg-secondary
-            rounded-lg border border-accent shadow ">
+            rounded-lg border border-accent shadow "
+    >
       <div className="w-[25%]  h-full flex items-center justify-center rounded-2xl">
         {friend.friend_avatar !== "" && (
           <Image
@@ -60,18 +61,29 @@ export function FollowButton({ friendship, me }: FollowButtonProps) {
   type UseMutReturn = Awaited<ReturnType<typeof updateFriendship>>;
   type UseMutParams = Awaited<Parameters<typeof updateFriendship>>[0];
 
-  const follow_mutation = useMutation<UseMutReturn, Error, UseMutParams, unknown>({
+  const follow_mutation = useMutation<
+    UseMutReturn,
+    Error,
+    UseMutParams,
+    unknown
+  >({
     mutationFn: (vars) => updateFriendship(vars),
     meta: {
-      invalidates: ["custom_follower","custom_following"],
-    }
+      invalidates: ["custom_follower", "custom_following"],
+    },
   });
 
   const am_user_a = me.id === friendship.user_a;
-  const follow_user = am_user_a ? { user_a_follow_user_b: "yes" } : { user_b_follow_user_a: "yes" };
-  const unfollow_user = am_user_a ? { user_a_follow_user_b: "no" } : { user_b_follow_user_a: "no" };
+  const follow_user = am_user_a
+    ? { user_a_follow_user_b: "yes" }
+    : { user_b_follow_user_a: "yes" };
+  const unfollow_user = am_user_a
+    ? { user_a_follow_user_b: "no" }
+    : { user_b_follow_user_a: "no" };
 
-  const [am_following,setFollowing]=useState(friendship.followed_by_me !== "no");
+  const [am_following, setFollowing] = useState(
+    friendship.followed_by_me !== "no"
+  );
 
   if (friendship.followed_by_me === "no") {
     return (
@@ -79,16 +91,15 @@ export function FollowButton({ friendship, me }: FollowButtonProps) {
         is_loading={follow_mutation.isPending}
         disabled={follow_mutation.isPending}
         className="text-red-400"
-        onClick={() =>{
+        onClick={() => {
           follow_mutation.mutate({
             pb,
             friendship: follow_user,
             friendship_id: friendship.friendship_id,
-          })
-            setFollowing(!am_following)
-        }
-
-        }>
+          });
+          setFollowing(!am_following);
+        }}
+      >
         {am_following ? "Unfollow" : "Follow back"}
       </AsyncButton>
     );
@@ -98,15 +109,15 @@ export function FollowButton({ friendship, me }: FollowButtonProps) {
         is_loading={follow_mutation.isPending}
         disabled={follow_mutation.isPending}
         className="text-red-400"
-        onClick={() =>{
+        onClick={() => {
           follow_mutation.mutate({
             pb,
             friendship: unfollow_user,
             friendship_id: friendship.friendship_id,
-          })
-            setFollowing(!am_following)
-        }
-        }>
+          });
+          setFollowing(!am_following);
+        }}
+      >
         {am_following ? "Unfollow" : "follow"}
       </AsyncButton>
     );
