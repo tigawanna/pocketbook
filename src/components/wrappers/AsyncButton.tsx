@@ -11,7 +11,7 @@ const AsyncButton: ForwardRefRenderFunction<HTMLButtonElement, AsyncButtonProps>
     { is_loading, ...props },
     ref
 ) => {
-    const default_styles = 'p-1 px-2 text-xs shadow hover:shadow-lg shadow-accent-foreground';
+    const default_styles = 'p-1 px-2 text-xs shadow hover:bg-accent hover:shadow-lg shadow-accent-foreground';
     const className = twMerge(
         props.className,
         props.disabled ? default_styles + ' opacity-50 hover:opacity-70' : default_styles
