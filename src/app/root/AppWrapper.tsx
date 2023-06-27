@@ -12,7 +12,7 @@ import { Theme } from "@/state/hooks/useThemeHook";
 
 interface AppWrapperProps {
   children: React.ReactNode;
-  user: PBUserRecord;
+  user?: PBUserRecord;
   theme?: Theme;
 }
 

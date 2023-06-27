@@ -3,7 +3,7 @@ import { MobileViewSheet } from "./MobileViewSheet";
 import { Theme } from "@/state/hooks/useThemeHook";
 
 interface ToolbarProps {
-  user: PBUserRecord;
+  user?: PBUserRecord;
   theme?: Theme;
 }
 
