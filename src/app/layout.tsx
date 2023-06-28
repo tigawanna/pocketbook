@@ -6,7 +6,7 @@ import { cookies } from "next/headers";
 import { AppWrapper } from "./root/AppWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
-
+export const revalidate = 60
 export const metadata = {
   title: "pocketbook",
   description:

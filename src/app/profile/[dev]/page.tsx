@@ -13,7 +13,6 @@ import {
   QueryVariables,
 } from "@/state/models/friends/custom_friends";
 import { Metadata } from "next";
-import { CustomFriendsType } from "@/state/models/friends/types";
 import { getFollowerscount, getFollowingCount } from "@/state/models/friends/friends";
 
 type PageProps = {
