@@ -38,7 +38,7 @@ export function AppWrapper({ children, user, theme }: AppWrapperProps) {
           <Notification />
         </div>
       </div>
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>
   );
 }

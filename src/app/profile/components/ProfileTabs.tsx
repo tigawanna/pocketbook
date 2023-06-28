@@ -4,31 +4,34 @@ import { Timeline } from "@/components/timeline/Timeline";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shadcn/ui/tabs";
 import { pb } from "@/state/pb/config";
 import { PBUserRecord } from "@/state/user";
-import { DehydratedState, HydrationBoundary } from "@tanstack/react-query";
+
 import { InfiniteFriends } from "./friends/InfiniteFriends";
 
 interface ProfileTabsProps {
-  dehydratedState: DehydratedState;
-  profile_posts_key: readonly ["custom_posts", string];
+profile_posts_key: readonly ["custom_posts", string];
+followers_count: number | undefined
+following_count: number | undefined
 }
 
 export function ProfileTabs({
-  dehydratedState,
   profile_posts_key,
+  followers_count,
+  following_count
 }: ProfileTabsProps) {
   return (
     <Tabs defaultValue="posts" className="w-full">
-      <HydrationBoundary state={dehydratedState}>
+
         <TabsList className="w-full flex sticky top-2 z-50">
           <TabsTrigger value="posts" className="w-full">
             Posts
           </TabsTrigger>
-          <TabsTrigger value="followers" className="w-full">
-            Followers
+              <TabsTrigger value="following" className="w-full flex gap-1">
+          Following {following_count && <div className="text-xs">{following_count}</div>}
           </TabsTrigger>
-          <TabsTrigger value="following" className="w-full">
-            Following
+          <TabsTrigger value="followers" className="w-full flex gap-1">
+          Followers {followers_count && <div className="text-xs">{followers_count}</div>}
           </TabsTrigger>
+
         </TabsList>
 
         <TabsContent value="posts" className="flex">
@@ -59,7 +62,7 @@ export function ProfileTabs({
             logged_in={pb.authStore.model as unknown as PBUserRecord}
           />
         </TabsContent>
-      </HydrationBoundary>
+ 
     </Tabs>
   );
 }

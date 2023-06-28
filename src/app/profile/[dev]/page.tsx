@@ -1,7 +1,7 @@
 import { getServerQueryClient } from "@/app/query/server_query_client";
 import { server_component_pb } from "@/state/pb/server_component_pb";
 import { PBUserRecord } from "@/state/user";
-import { dehydrate } from "@tanstack/react-query";
+import { dehydrate, HydrationBoundary, InfiniteData } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { ProfileUserInfo } from "../components/ProfileUserInfo";
 import { getPbPaginatedPosts } from "@/state/models/posts/custom_posts";
@@ -13,6 +13,8 @@ import {
   QueryVariables,
 } from "@/state/models/friends/custom_friends";
 import { Metadata } from "next";
+import { CustomFriendsType } from "@/state/models/friends/types";
+import { getFollowerscount, getFollowingCount } from "@/state/models/friends/friends";
 
 type PageProps = {
   params: { dev: string };
@@ -107,17 +109,33 @@ export default async function page({ params, searchParams }: PageProps) {
       id: "",
     },
   });
+  const follower_count_key = ["followers",dev.id];
+  const following_count_key = ["following",dev.id];
+
+  await queryClient.prefetchQuery({
+    queryKey:follower_count_key,
+    queryFn:()=>getFollowerscount(pb,dev.id),
+  })
+  await queryClient.prefetchQuery({
+    queryKey:following_count_key,
+    queryFn:()=>getFollowingCount(pb,dev.id),
+  })
 
   const dehydratedState = dehydrate(queryClient);
-
+  const followers_count = queryClient.getQueryData<number>(follower_count_key); 
+  const following_count = queryClient.getQueryData<number>(following_count_key); 
+  
   return (
     <main className="w-full h-full min-h-screen flex flex-col items-center gap-1">
       <ProfileUserInfo data={dev} logged_in_user={loggedInUser} />
       <div className="w-full md:w-[90%] flex  items-start  gap-1">
-        <ProfileTabs
-          dehydratedState={dehydratedState}
+        <HydrationBoundary state={dehydratedState}>
+        <ProfileTabs 
           profile_posts_key={profile_posts_key}
+          followers_count={followers_count}
+          following_count={following_count}
         />
+        </HydrationBoundary>
       </div>
     </main>
   );

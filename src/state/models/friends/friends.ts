@@ -5,12 +5,12 @@ import {
   UpdateFriendShipMutationProps,
 } from "./types";
 
-export async function getFollowing(pb: PB, user_id: string) {
+export async function getFollowingCount(pb: PB, user_id: string) {
   // console.log("user id  == ",user_id)
   try {
     const resultList = await pb
       .collection("friends")
-      .getList<FriendRecord>(1, 20, {
+      .getList<FriendRecord>(1,1, {
         filter: `
             user_a.id="${user_id}"&&user_a_follow_user_b="yes"
             ||
@@ -18,7 +18,7 @@ export async function getFollowing(pb: PB, user_id: string) {
         expand: "user_a,user_b",
       });
 
-    return resultList;
+    return resultList.totalItems;
   } catch (error: any) {
     console.log("error getting following", error);
     // return new Error(error);
@@ -26,12 +26,12 @@ export async function getFollowing(pb: PB, user_id: string) {
   }
 }
 
-export async function getFollowers(pb: PB, user_id: string) {
+export async function getFollowerscount(pb: PB, user_id: string) {
   // console.log("user id  == ",user_id)
   try {
     const resultList = await pb
       .collection("friends")
-      .getList<FriendRecord>(1, 20, {
+      .getList<FriendRecord>(1,1, {
         filter: `
             user_a.id="${user_id}"&&user_b_follow_user_a="yes"
             ||
@@ -39,7 +39,7 @@ export async function getFollowers(pb: PB, user_id: string) {
         expand: "user_a,user_b",
       });
 
-    return resultList;
+    return resultList.totalItems;
   } catch (error: any) {
     console.log("error getting followers", error);
     // return new Error(error);
