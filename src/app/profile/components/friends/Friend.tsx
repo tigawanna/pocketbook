@@ -9,6 +9,7 @@ import { updateFriendship } from "@/state/models/friends/friends";
 import AsyncButton from "@/components/wrappers/AsyncButton";
 import Image from "next/image";
 import { useState } from "react";
+import Link from "next/link";
 
 interface FriendProps {
   friend: CustomFriendsType;
@@ -17,7 +18,8 @@ interface FriendProps {
 
 export function Friend({ friend, me }: FriendProps) {
   return (
-    <div
+    <Link
+      href={`../profile/${friend.friend_id}`}
       className="w-full lg:w-[45%] flex items-center  gap-2 p-2 bg-secondary
             rounded-lg border border-accent shadow "
     >
@@ -48,7 +50,7 @@ export function Friend({ friend, me }: FriendProps) {
       <div className="text-red-400 hover:bg-accent-foreground">
         <FollowButton friendship={friend} me={me} />
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -91,7 +93,9 @@ export function FollowButton({ friendship, me }: FollowButtonProps) {
         is_loading={follow_mutation.isPending}
         disabled={follow_mutation.isPending}
         className="text-red-400"
-        onClick={() => {
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
           follow_mutation.mutate({
             pb,
             friendship: follow_user,
@@ -109,7 +113,9 @@ export function FollowButton({ friendship, me }: FollowButtonProps) {
         is_loading={follow_mutation.isPending}
         disabled={follow_mutation.isPending}
         className="text-red-400"
-        onClick={() => {
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
           follow_mutation.mutate({
             pb,
             friendship: unfollow_user,
