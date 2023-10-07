@@ -46,7 +46,7 @@
     "eslint-config-next": "13.4.7",
     "js-cookie": "^3.0.5",
     "kleur": "^4.1.5",
-    "postcss": "8.4.24",
+    "postcss": "8.4.31",
     "prettier": "^2.8.8",
     "shadcn-fe-cli": "link:C:/Users/denni/Desktop/code/workspace/shadcn-ui-fanedition/packages/cli",
     "tailwind-scrollbar": "^3.0.4",
