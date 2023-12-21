@@ -1,8 +1,7 @@
 // import useSWRMutation from "swr/mutation";
 
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
-import { useNotificationStore } from "../zustand/store";
+
 
 interface IUseMutation<V, R> {
   fetcher: (vars: V) => Promise<R>;
@@ -24,20 +23,22 @@ export function useMutationWrapper<V, R>({
   invalidates,
   success_message,
 }: IUseMutation<V, R>) {
-  const router = useRouter();
-  const { updateNotification } = useNotificationStore();
+
+
   return useMutation({
     mutationFn: fetcher,
     meta: { invalidates },
     onSuccess(data, variables, context) {
       setError && setError({ name: "", message: "" });
-      updateNotification({
-        type: "success",
-        message: success_message ?? "success",
-      });
-      refresh && router.refresh();
+      // toast("success", { type: "success" });
+      // updateNotification({
+      //   type: "success",
+      //   message: success_message ?? "success",
+      // });
+      // refresh && router.refresh();
     },
     onError(error, variables, context) {
+      // toast(error.message, { type: "error" });
       setError && setError({ name: "main", message: error.message });
     },
   });

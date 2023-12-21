@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hide the default scroll bar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  @apply bg-base-content;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  @apply bg-accent-content;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-accent;
+}
+
+@layer base {
+  :root {
+    --popover: theme(colors.base-200);
+    --popover-foreground: theme(colors.base-content);
+
+    --background: theme(colors.base-100);
+    --foreground: theme(colors.base-content);
+
+    --muted: theme(colors.base-100);
+    --muted-foreground: theme(colors.base-content);
+
+    --border: theme(colors.base-300);
+    --input: theme(colors.base-300);
+
+    --card: theme(colors.base-300);
+    --card-foreground: theme(colors.base-content);
+
+    --destructive: theme(colors.error);
+    --destructive-foreground: theme(colors.error-content);
+
+    --ring: theme(colors.accent);
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* 
+        use your editor's find and replace to edit these values
+    primary-foreground -> primary-content
+    secondary-foreground -> secondary-content
+    accent-foreground ->accent-content 
+    
+    */
+
+    --popover: theme(colors.base-200);
+    --popover-foreground: theme(colors.base-content);
+
+    --background: theme(colors.base-100);
+    --foreground: theme(colors.base-content);
+
+    --muted: theme(colors.base-100);
+    --muted-foreground: theme(colors.base-content);
+
+    --border: theme(colors.base-300);
+    --input: theme(colors.base-300);
+
+    --card: theme(colors.base-300);
+    --card-foreground: theme(colors.base-content);
+
+    --destructive: theme(colors.error);
+    --destructive-foreground: theme(colors.error-content);
+
+    --ring: theme(colors.accent);
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
+  }
+}
+
+.skeleton {
+    border-radius: var(--rounded-box, 1rem/* 16px */);
+    --tw-bg-opacity: 1;
+    background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity)));
+    will-change: background-position;
+    animation: skeleton 5s ease-in-out infinite;
+    background-image: linear-gradient(
+    105deg,
+    transparent 0%,
+    transparent 40%,
+    var(--fallback-b1,oklch(var(--b1)/1)) 50%,
+    transparent 60%,
+    transparent 100%
+  );
+    background-size: 200% auto;
+    background-repeat: no-repeat;
+    background-position-x: -50%;
+}
+@media (prefers-reduced-motion) {
+    .skeleton {
+        animation-duration: 15s;
+    }
+}

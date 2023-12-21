@@ -1,5 +1,6 @@
-import { PB } from "@/state/pb/config";
-import { PBUserRecord } from "@/state/user";
+import { PocketBaseClient } from "@/lib/pb/client";
+import { PocketbookFriendsUpdate, PocketbookUserResponse } from "@/lib/pb/db-types";
+
 
 export interface FriendRecord {
   collectionId: string;
@@ -15,28 +16,30 @@ export interface FriendRecord {
 }
 
 export interface Expand {
-  user_a: PBUserRecord;
-  user_b: PBUserRecord;
+  user_a: PocketbookUserResponse;
+  user_b: PocketbookUserResponse;
 }
 
 export interface CreateFrienshipMutaionProps {
-  pb: PB;
+  pb: PocketBaseClient;
   me: string;
   them: string;
 }
 
 export interface UpdateFriendShipMutationProps {
-  pb: PB;
+  pb: PocketBaseClient;
   friendship_id: string;
-  friendship: Partial<
-    Pick<
-      FriendRecord,
-      "user_a" | "user_b" | "user_b_follow_user_a" | "user_a_follow_user_b"
-    >
-  >;
+  friendship: PocketbookFriendsUpdate
+  // friendship: Partial<
+  //   Pick<
+  //     FriendRecord,
+  //     "user_a" | "user_b" | "user_b_follow_user_a" | "user_a_follow_user_b"
+  //   >
+  // >;
 }
 
-export interface CustomFriendsType {
+
+export interface PocketbookFriendType {
   friendship_id: string;
   created: string;
   updated: string;
@@ -54,3 +57,8 @@ export interface CustomFriendsType {
   friend_verified: string;
   friend_github_login: string;
 }
+
+export interface PocketbookFriendsResponse {
+  result:PocketbookFriendType[]
+}
+

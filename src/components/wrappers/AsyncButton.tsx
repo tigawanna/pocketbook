@@ -1,5 +1,5 @@
 import React, { forwardRef, ForwardRefRenderFunction } from "react";
-import { Button, ButtonProps } from "@/shadcn/ui/button";
+import { Button, ButtonProps } from "@/components/shadcn/ui/button";
 import { Loader } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 

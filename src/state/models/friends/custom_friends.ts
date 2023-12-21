@@ -1,16 +1,19 @@
 import dayjs from "dayjs";
-import { PB } from "@/state/pb/config";
-import { CustomFriendsType } from "./types";
+import { PocketBaseClient } from "@/lib/pb/client";
+import { CustomPocketbookFriend, CustomPocketbookRoutesEndpoints } from "@/lib/pb/models/custom_routes/types";
+
+
+
 
 const currentdate = dayjs(new Date()).format(
-  "[YYYYescape] YYYY-MM-DDTHH:mm:ssZ[Z]"
+  "[YYYYescape] YYYY-MM-DDTHH:mm:ssZ[Z]",
 );
 
 export interface QueryVariables {
-  user_id?: string;
+  last_id?: string;
   logged_in: string;
   type: "followers" | "following";
-  id?: string;
+  profile_id:string;
   limit: string;
   created: string;
 }
@@ -21,14 +24,14 @@ interface Pagination_params {
 }
 
 export async function getPbPaginatedFriends(
-  pb: PB,
+  pb: PocketBaseClient,
   query_vars: QueryVariables,
-  pagination_params?: Partial<Pagination_params>
+  pagination_params?: Partial<Pagination_params>,
 ) {
-  const { user_id, logged_in, type } = query_vars;
+  const { profile_id, logged_in, type } = query_vars;
   const params: QueryVariables = {
-    id: pagination_params?.id,
-    user_id,
+    last_id: pagination_params?.id,
+    profile_id,
     logged_in,
     type,
     limit: "5",
@@ -36,18 +39,22 @@ export async function getPbPaginatedFriends(
   };
 
   try {
-    const posts = await pb.send<CustomFriendsType[]>("custom_friends", {
-      params,
-      headers: {
-        Accept: "*/*",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${pb.authStore.token}`,
+    const friends = await pb.send<{ result: CustomPocketbookFriend[] }>(
+      type==="followers"?CustomPocketbookRoutesEndpoints.CustomPocketbookFollowers:
+      CustomPocketbookRoutesEndpoints.CustomPocketbookFollowing,
+      {
+        params,
+        headers: {
+          Accept: "*/*",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${pb.authStore.token}`,
+        },
       },
-    });
-    // logSuccess(kleur.red("paginated posts === "), posts);
-    return posts;
+    );
+
+    return friends.result;
   } catch (error) {
-    console.log("error getting paginated posts ==== ", error);
+    console.log("error getting paginated friends ==== ", error);
     throw error;
   }
 }

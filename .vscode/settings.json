@@ -1,7 +1,3 @@
 {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "prettier.printWidth": 100,
-    "conventionalCommits.scopes": [
-        "AppWrapper"
-    ]
+    "svg.preview.background": "dark-transparent"
 }

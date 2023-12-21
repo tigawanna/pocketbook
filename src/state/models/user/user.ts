@@ -1,12 +1,15 @@
-import { pb_user_collection } from "@/state/consts";
-import { pb } from "@/state/pb/config";
+
+import { PocketBaseClient } from "@/lib/pb/client";
 import {
   GithubOauthResponse,
   PBUserRecord,
   TUserSignUpFormFields,
 } from "./types";
+import { RAKKAS_PB_AUTH_COLLECTION } from "@/lib/env";
 
-export async function getUser() {
+
+
+export async function getUser(pb:PocketBaseClient) {
   try {
     pb.authStore.loadFromCookie(document?.cookie ?? "");
     return pb.authStore.model;
@@ -16,14 +19,15 @@ export async function getUser() {
 }
 
 interface ILoginUser {
+  pb: PocketBaseClient
   user: string;
   password: string;
 }
 
-export async function loginUser({ user, password }: ILoginUser) {
+export async function loginUser({ pb,user, password }: ILoginUser) {
   try {
     const authData = await pb
-      .collection(pb_user_collection)
+      .collection(RAKKAS_PB_AUTH_COLLECTION)
       .authWithPassword<PBUserRecord>(user, password);
     // pb.authStore.exportToCookie({ httpOnly: false });
     return authData;
@@ -33,13 +37,14 @@ export async function loginUser({ user, password }: ILoginUser) {
 }
 
 interface IOuthLogin {
+  pb: PocketBaseClient
   provider: "google" | "github";
 }
 
-export async function triggerOuathLogin({ provider }: IOuthLogin) {
+export async function triggerOuathLogin({ pb,provider }: IOuthLogin) {
   try {
     const authData = await pb
-      .collection(pb_user_collection)
+      .collection(RAKKAS_PB_AUTH_COLLECTION)
       .authWithOAuth2<GithubOauthResponse>({ provider });
     pb.authStore.exportToCookie({ httpOnly: false });
     // console.log("authdata from github  == ",authData);
@@ -48,7 +53,7 @@ export async function triggerOuathLogin({ provider }: IOuthLogin) {
     throw error;
   }
 }
-export async function updateUser(authData: GithubOauthResponse) {
+export async function updateUser(pb: PocketBaseClient,authData: GithubOauthResponse) {
   try {
     const dev = authData.record;
     const data = {
@@ -60,7 +65,7 @@ export async function updateUser(authData: GithubOauthResponse) {
       emailVisibility: true,
     };
     const new_dev = await pb
-      .collection(pb_user_collection)
+      .collection(RAKKAS_PB_AUTH_COLLECTION)
       .update(dev.id, data);
 
     // console.log("new dev === ", new_dev);
@@ -70,9 +75,10 @@ export async function updateUser(authData: GithubOauthResponse) {
   }
 }
 
-export async function oauthLogin({ provider }: IOuthLogin) {
+export async function oauthLogin({ pb,provider }: IOuthLogin) {
   try {
     const authdata = await triggerOuathLogin({
+      pb,
       provider,
     });
     // @ts-expect-error
@@ -83,13 +89,15 @@ export async function oauthLogin({ provider }: IOuthLogin) {
 }
 
 export interface ISignupuser {
+  pb: PocketBaseClient
   user: TUserSignUpFormFields;
 }
 
-export async function createUser({ user }: ISignupuser) {
+export async function createUser({ pb,user }: ISignupuser) {
   try {
-    await pb.collection(pb_user_collection).create(user);
+    await pb.collection(RAKKAS_PB_AUTH_COLLECTION).create(user);
     const logged_in_user = await loginUser({
+      pb,
       user: user.email,
       password: user.password,
     });
@@ -99,7 +107,7 @@ export async function createUser({ user }: ISignupuser) {
   }
 }
 
-export async function logoutUser() {
+export async function logoutUser(pb: PocketBaseClient) {
   try {
     pb.authStore.clear();
     pb.authStore.loadFromCookie(document.cookie);

@@ -1,0 +1,13 @@
+{
+  "root_dir": "./src",
+  "root_file": "./src/routes/layout.tsx",
+  "root_styles": "./src/routes/index.css",
+  "framework": "Rakkasjs",
+  "tailwind": {
+    "tw_config": "tailwind.config.js",
+    "tw_plugins": [
+      "daisyui",
+      "tailwindcss-animate"
+    ]
+  }
+}
