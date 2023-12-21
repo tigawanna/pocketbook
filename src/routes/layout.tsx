@@ -14,9 +14,7 @@ import { Sidebar } from "@/components/navigation/bars/sidebar";
 
 function Layout({ children }: LayoutProps) {
   const location = useLocation();
-  const BreadCrumbs = React.lazy(
-    () => import("@/components/navigation/BreadCrumbs"),
-  );
+
   // console.log(" page ctx ==== ",page_ctx.locals.pb)
   return (
     <div className="w-full min-h-screen h-full flex flex-col items-center ">
@@ -34,7 +32,10 @@ function Layout({ children }: LayoutProps) {
               <BreadCrumbs />
             </ClientSuspense>
           </div> */}
-          {children}
+          {/* {children} */}
+          <div className="w-full h-full text-9xl font-bold">
+            Hlloe
+          </div>
         </div>
       </div>
       <ToastContainer
