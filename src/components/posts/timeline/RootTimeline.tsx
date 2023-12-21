@@ -72,11 +72,13 @@ export function RootTimeline({ profile = "general" }: RootTimelineProps) {
 
   const data = customPostsQuery.data;
   const all_data = data?.pages.flatMap((page) => page.data?.result);
+  const all_error = data?.pages[0].error
 
   const show_load_more =
     (!customPostsQuery.isLoading || !customPostsQuery.isRefetching) &&
     all_data &&
-    all_data?.length > 0;
+    all_data?.length > 0
+    && !all_error
 
   useEffect(() => {
     if (inView && !customPostsQuery.isFetching) {
@@ -111,6 +113,23 @@ export function RootTimeline({ profile = "general" }: RootTimelineProps) {
     );
   }
 
+  if(customPostsQuery.isError){
+    return  (
+    <div className="w-full h-full flex justify-center items-center">
+        <ErrorOutput error={customPostsQuery.error} />
+    </div>
+)
+}
+
+  if (all_error) {
+    return (
+      <div className="w-full h-full flex justify-center items-center">
+        <ErrorOutput
+          error={{ name: all_error?.name, message: all_error?.message }}
+        />
+      </div>
+    );
+  }
   return (
     <div className="w-full h-full flex flex-col  items-center justify-center gap-2 pb-3">
       {/* {(customPostsQuery?.isPending) && (
@@ -135,12 +154,10 @@ export function RootTimeline({ profile = "general" }: RootTimelineProps) {
           })}
         </ScrollArea>
       )} */}
-      {customPostsQuery?.error && (
-        <ErrorOutput error={customPostsQuery.error} />
-      )}
-      {customPostsQuery?.error && (
-        <ErrorOutput error={customPostsQuery.error} />
-      )}
+
+
+
+
       {data?.pages && data?.pages?.length < 1 && (
         <div className="p-5 bg-base-200">Nothing to show for now</div>
       )}
