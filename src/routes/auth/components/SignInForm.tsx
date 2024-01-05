@@ -16,7 +16,7 @@ export function SignInForm({}: SignInFormProps) {
   const page_ctx = usePageContext();
   const [show, setShow] = useState(false);
   const qc = useQueryClient();
-  const show_form = true;
+
   const { handleChange, input, setError, setInput, validateInputs } =
     useFormHook<{ usernameOrEmail: string; password: string }>({
       initialValues: {
@@ -38,7 +38,8 @@ export function SignInForm({}: SignInFormProps) {
         toast("Welcome back " + data?.data?.record?.username, {
           type: "success",
         });
-        navigate("/dashboard");
+      const navigate_to = page_ctx.url.searchParams.get("redirect");
+      navigate(navigate_to ?? "/");
       }
       if (data && data?.error) {
         toast(data.error.message, { type: "error", autoClose: false });
@@ -84,15 +85,16 @@ export function SignInForm({}: SignInFormProps) {
     mutation.mutate(input);
   }
   return (
-    <div className="w-full min-h-screen h-full flex flex-col items-center justify-center p-5 gap-5">
-      <div className="w-full h-full md:w-[60%] lg:w-[40%] flex flex-col gap-4">
-        {show_form && (
+    <div className="w-full min-h-screen h-full flex flex-col items-center justify-center py-5 gap-5">
+      <div className="w-full h-full md:w-[60%] lg:w-[50%] flex flex-col gap-4">
+     
           <form
-            className="w-full h-full  flex flex-col items-center justify-center gap-4"
+            className="w-full h-full p-3 flex flex-col items-center justify-center gap-4 
+            rounded-xl bg-base-200 px-10"
             // method="POST"
             onSubmit={handleSubmit}
           >
-            <h1 className="text-2xl font-bold">Sign In</h1>
+            <h1 className="text-3xl font-bold">Sign In</h1>
 
             <PBTheTextInput
               field_key={"usernameOrEmail"}
@@ -118,7 +120,7 @@ export function SignInForm({}: SignInFormProps) {
               field_name={"show password"}
               onChange={(e) => setShow(e.target.checked)}
               type="checkbox"
-              className="checkbox"
+              className="checkbox p-2"
               container_classname="border-none flex flex-row-reverse gap-3 items-center justify-end "
               label_classname="min-w-fit text-sm"
             />
@@ -132,8 +134,7 @@ export function SignInForm({}: SignInFormProps) {
               {mutation.isPending && <Loader className="animate-spin" />}
             </Button>
           </form>
-        )}
-        {show_form && (
+      
           <div className="w-full flex items-center justify-center">
             <span className="w-full border-t" />
             <span className="bg-background px-2 text-muted-foreground min-w-fit">
@@ -141,11 +142,11 @@ export function SignInForm({}: SignInFormProps) {
             </span>
             <span className="w-full border-t" />
           </div>
-        )}
+  
         <OAuthproviders />
       </div>
-      {show_form && (
-        <div className="flex flex-col gap-2">
+   
+        <div className="flex flex-col gap-5 pb-5">
           <p className=" text-sm">
             New here ? Create an account ?{" "}
             <Link href="/auth/signup" className="text-accent">
@@ -166,7 +167,7 @@ export function SignInForm({}: SignInFormProps) {
             )}
           </button>
         </div>
-      )}
+      
     </div>
   );
 }

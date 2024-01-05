@@ -49,7 +49,8 @@ export function SignUpForm({}: SignupFormProps) {
         toast("Welcome" + data?.data?.username, {
           type: "success",
         });
-        navigate("/dashboard");
+        const navigate_to = page_ctx.url.searchParams.get("redirect");
+        navigate(navigate_to ?? "/");
       }
       if (data && data?.error) {
         toast(data.error.message, { type: "error", autoClose: false });
@@ -79,11 +80,11 @@ export function SignUpForm({}: SignupFormProps) {
       <div className="w-full h-full md:w-[60%] lg:w-[40%] flex flex-col gap-4">
         {show_form && (
           <form
-            className="w-full h-full  flex flex-col items-center justify-center gap-4"
+            className="w-full h-full  flex flex-col items-center justify-center gap-4 rounded-xl bg-base-200 px-10"
             // method="POST"
             onSubmit={handleSubmit}
           >
-            <h1 className="text-2xl font-bold">Sign Up</h1>
+            <h1 className="text-3xl font-bold">Sign Up</h1>
             <PBTheTextInput
               field_key={"email"}
               field_name="Email"

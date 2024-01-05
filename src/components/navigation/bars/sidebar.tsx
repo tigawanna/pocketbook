@@ -9,7 +9,6 @@ interface SidebarProps {}
 export function Sidebar({}: SidebarProps) {
   const {user} = useUser()
 
-  console.log({user})
   const routes = [
     { name: "home", url: "/", icon: <Home /> },
     { name: "profile", url: "/profile", icon: <User2Icon /> },
@@ -37,7 +36,7 @@ export function Sidebar({}: SidebarProps) {
               rounded-lg p-2 lg:p-4 tooltip hover:tooltip-top"
             >
               {route.icon}
-              <div className="hidden lg:flex text-2xl fornt-bold">
+              <div className="hidden lg:flex text-xl font-bold">
                 {route.name}
               </div>
             </Link>
