@@ -25,7 +25,7 @@ export function ProfileFireindshipButton({
 }: profileFireindshipButtonProps) {
   const { user, pb } = useUser();
   const query = useQuery({
-    queryKey: ["profile", "friendship", profile_user.id],
+    queryKey: ["profile", "friendship", profile_user?.id],
     queryFn: () =>
       tryCatchWrapper(
         pb
@@ -33,12 +33,12 @@ export function ProfileFireindshipButton({
           .getFirstListItem(
             or(
               and(
-                ["user_a.id", "=", user.id],
-                ["user_b.id", "=", profile_user.id],
+                ["user_a.id", "=", user?.id],
+                ["user_b.id", "=", profile_user?.id],
               ),
               and(
-                ["user_b.id", "=", user.id],
-                ["user_a.id", "=", profile_user.id],
+                ["user_b.id", "=", user?.id],
+                ["user_a.id", "=", profile_user?.id],
               ),
             ),
             {},
@@ -50,8 +50,8 @@ export function ProfileFireindshipButton({
     mutationFn: (vars) =>
       createFriendship({
         pb,
-        me: user.id,
-        them: profile_user.id,
+        me: user?.id,
+        them: profile_user?.id,
       }),
     onError(error, variables, context) {
       toast("Error following: " + error.message, { type: "error" });
@@ -97,8 +97,8 @@ export function ProfileFireindshipButton({
   }
   const type = shouldFollowUnfollowOrFollowBack({
     frenship: data,
-    logged_in_id: user.id,
-    profile_id: profile_user.id,
+    logged_in_id: user?.id,
+    profile_id: profile_user?.id,
   });
 
   return (
@@ -110,8 +110,8 @@ export function ProfileFireindshipButton({
             friendship: data,
             method: "update",
             type,
-            logged_in_id: user.id,
-            profile_id: profile_user.id,
+            logged_in_id: user?.id,
+            profile_id: profile_user?.id,
           })
         }
         className="border  hover:border-accent-foreground hover:text-accent-foreground"

@@ -43,7 +43,7 @@ export function useUser() {
     ? getFileURL({
         collection_id_or_name: "pocketbook_user",
         file_name: user.avatar,
-        record_id: user.id,
+        record_id: user?.id,
       })
     : usericon;
 

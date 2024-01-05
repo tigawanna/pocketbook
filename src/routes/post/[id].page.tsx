@@ -27,7 +27,7 @@ export default function OnePostPage({ params, url }: PageProps) {
       tryCatchWrapper(
         getOnePocketbookCustomPost({
           pb,
-          query_params: { id: params.id, user: user.id },
+          query_params: { id: params.id, user: user?.id },
         }),
       ),
   });

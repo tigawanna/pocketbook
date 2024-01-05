@@ -55,7 +55,7 @@ export function ProfileForm({ user }: ProfileFormProps) {
 
   async function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
-    mutate({ id: user.id, input });
+    mutate({ id: user?.id, input });
   }
 
   return (

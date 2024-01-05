@@ -76,10 +76,10 @@ export function ProfileUserInfo({
           <p className="border-t my-1 py-2 ">bio: {profile_user.bio}</p>
         )}
         {import.meta.env.DEV && (
-          <p className="border-t my-1 py-2 ">{profile_user.id}</p>
+          <p className="border-t my-1 py-2 ">{profile_user?.id}</p>
         )}
       </div>
-      {profile_user && profile_user.id === logged_in_user.id ? (
+      {profile_user && profile_user?.id === logged_in_user?.id ? (
         <DialogWrapper>
           <ProfileForm user={profile_user} />
         </DialogWrapper>

@@ -182,7 +182,7 @@ export const PostReactionsCard = ({ pb,user, item,list_item }: PostReactionsCard
                   newReactionMutation.mutate({
                     pb,
                     post_id: item.post_id,
-                    user_id: user.id,
+                    user_id: user?.id,
                   });
                   setLiked((prev) => !prev);
                 }

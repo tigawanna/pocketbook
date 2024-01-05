@@ -1,4 +1,4 @@
-import { Link } from "rakkasjs";
+import { Link, useQueryClient } from "rakkasjs";
 import { Home, User2Icon } from "lucide-react";
 import { MiniSettingsModal } from "../mini-settings/MiniSettings";
 import { useUser } from "@/lib/rakkas/hooks/useUser";
@@ -8,9 +8,11 @@ interface SidebarProps {}
 
 export function Sidebar({}: SidebarProps) {
   const {user} = useUser()
+
+  console.log({user})
   const routes = [
     { name: "home", url: "/", icon: <Home /> },
-    { name: "profile", url: "/profile/"+user.id, icon: <User2Icon /> },
+    { name: "profile", url: "/profile", icon: <User2Icon /> },
   ];
   return (
     <header
