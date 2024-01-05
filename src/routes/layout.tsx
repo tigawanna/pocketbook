@@ -32,10 +32,7 @@ function Layout({ children }: LayoutProps) {
               <BreadCrumbs />
             </ClientSuspense>
           </div> */}
-          {/* {children} */}
-          <div className="w-full h-full text-9xl font-bold">
-            Hlloe
-          </div>
+          {children}
         </div>
       </div>
       <ToastContainer
