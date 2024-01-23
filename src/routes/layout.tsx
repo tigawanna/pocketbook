@@ -11,7 +11,7 @@ import "./index.css";
 import React from "react";
 import { Sidebar } from "@/components/navigation/bars/sidebar";
 import ErrorBoundaryComponent from "@/components/wrappers/ErrorBoundaryComponent";
-import Toaster from "../components/wrappers/DefaltExportedToaster"
+import Toaster from "@/components/wrappers/DefaltExportedToaster"
 
 function Layout({ children }: LayoutProps) {
   const location = useLocation();
