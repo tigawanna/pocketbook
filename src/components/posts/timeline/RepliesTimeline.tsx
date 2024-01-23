@@ -41,7 +41,7 @@ export function RepliesTimeline({
         getCustomPocketbookPostReplies({
           pb,
           query_vars: {
-            depth,
+            depth:depth+1,
             user_id: pb?.authStore?.model?.id,
             parent,
             limit,
@@ -168,6 +168,7 @@ export function RepliesTimeline({
         className="fixed bottom-16 right-[3%]"
       >
         <PostMutationDialog
+          parent={parent}
           user={user}
           depth={depth+1}
           icon={

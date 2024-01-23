@@ -8,7 +8,7 @@ interface ToolbarProps {}
 export function Toolbar({}: ToolbarProps) {
   return (
     <header
-      className="min-h-[80vh] flex flex-col  justify-between items-center  
+      className="h-screen flex flex-col  justify-between items-center  
       sticky top-0 z-30 gap-1 "
     >
       <div className="w-full h-full flex flex-col justify-between  bg-primary p-2 pb-12 pt-3">

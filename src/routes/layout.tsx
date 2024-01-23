@@ -17,13 +17,13 @@ function Layout({ children }: LayoutProps) {
 
   // console.log(" page ctx ==== ",page_ctx.locals.pb)
   return (
-    <div className="w-full min-h-screen h-full flex flex-col items-center ">
+    <div className="w-full h-screen  flex flex-col items-center ">
       {/* <Head description={"Resume building assistant"} /> */}
       <ClientSuspense fallback={<div></div>}>
         <Nprogress isAnimating={location && location?.pending ? true : false} />
       </ClientSuspense>
       <div className="w-full flex h-full gap-2">
-        <div className="min-w-[5%] w-fit flex h-full gap-2">
+        <div className="h-screen min-w-[5%] w-fit flex gap-2">
           <Sidebar />
         </div>
         <div className="w-full flex flex-col gap-2 pt-2">

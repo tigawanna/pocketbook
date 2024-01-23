@@ -31,7 +31,7 @@ export default function OnePostPage({ params, url }: PageProps) {
         }),
       ),
   });
-  const depth = url.searchParams.get("depth") ?? "1";
+  const depth = url.searchParams.get("depth") ?? "0";
   const one_post = query.data?.data?.result;
 
 

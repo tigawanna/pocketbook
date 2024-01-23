@@ -39,7 +39,7 @@ export const PostsCard = ({
   const one_post_url = new URL(current)
   one_post_url.pathname="/post/"+item?.post_id
   one_post_url.searchParams.set("author", item?.creator_id);
-  one_post_url.searchParams.set("depth", (parseInt(item?.post_depth) + 1).toString());
+  one_post_url.searchParams.set("depth", (parseInt(item?.post_depth)).toString());
 
   const profile_url= new URL(current)
   profile_url.pathname="/profile/"+item?.creator_id
