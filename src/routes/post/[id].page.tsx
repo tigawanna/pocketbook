@@ -1,5 +1,8 @@
 import { PostsCard } from "@/components/posts/timeline/PostCard";
-import { RepliesTimeline } from "@/components/posts/timeline/RepliesTimeline";
+import {
+  RepliesTimeline,
+  RepliesTimelineSuspenseFallback,
+} from "@/components/posts/timeline/RepliesTimeline";
 import { SidePanel } from "@/components/posts/timeline/SidePanel";
 import { getOnePocketbookCustomPost } from "@/lib/pb/models/custom_routes/posts";
 import { CustomPocketbookRoutesEndpoints } from "@/lib/pb/models/custom_routes/types";
@@ -7,17 +10,17 @@ import { useUser } from "@/lib/rakkas/hooks/useUser";
 import { tryCatchWrapper } from "@/utils/helpers/async";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ChevronLeft } from "lucide-react";
-import { PageProps,usePageContext } from "rakkasjs";
-
+import { PageProps, usePageContext } from "rakkasjs";
+import { Suspense } from "react";
 
 export default function OnePostPage({ params, url }: PageProps) {
   const page_ctx = usePageContext();
   const pb = page_ctx.locals.pb;
   const { user } = useUser();
-  
+
   const post_id = params.id as string;
   const one_post_key = [
-    CustomPocketbookRoutesEndpoints.CustomPocketbookPostReplies,
+    CustomPocketbookRoutesEndpoints.CustomPocketbookPosts,
     post_id,
   ] as const;
 
@@ -34,10 +37,8 @@ export default function OnePostPage({ params, url }: PageProps) {
   const depth = url.searchParams.get("depth") ?? "0";
   const one_post = query.data?.data?.result;
 
-
   return (
     <main className="flex items-center justify-center h-[99vh] w-full  gap-3 overflow-y-scroll ">
-
       <div className="w-full h-full flex flex-col items-center justify-start gap-2 p-2 ">
         <div className="w-full  flex gap-2 items-center sticky top-0  ">
           {/* <Link href="-1"> */}
@@ -63,11 +64,13 @@ export default function OnePostPage({ params, url }: PageProps) {
         </div>
 
         {one_post && (
-          <RepliesTimeline
-            depth={parseInt(depth)}
-            parent={one_post?.post_id}
-            key={depth}
-          />
+          <Suspense fallback={<RepliesTimelineSuspenseFallback />}>
+            <RepliesTimeline
+              depth={parseInt(depth)}
+              parent={one_post?.post_id}
+              key={depth}
+            />
+          </Suspense>
         )}
       </div>
 

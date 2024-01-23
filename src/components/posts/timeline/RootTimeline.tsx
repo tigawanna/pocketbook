@@ -28,7 +28,7 @@ export function RootTimeline({ profile = "general" }: RootTimelineProps) {
   // console.log("key in tineline  ==== ",key)
   const currentdate = dayjs(new Date()).format("YYYY-MM-DDTHH:mm:ssZ[Z]");
 
-  const customPostsQuery = useInfiniteQuery({
+  const customPostsQuery = useSuspenseInfiniteQuery({
     queryKey: [CustomPocketbookRoutesEndpoints.CustomPocketbookPosts,profile],
     queryFn: ({ queryKey, pageParam }) =>
       tryCatchWrapper(
@@ -113,7 +113,7 @@ export function RootTimeline({ profile = "general" }: RootTimelineProps) {
     );
   }
 
-  if(customPostsQuery.isError){
+  if(customPostsQuery.isError && customPostsQuery.error){
     return  (
     <div className="w-full h-full flex justify-center items-center">
         <ErrorOutput error={customPostsQuery.error} />
@@ -132,33 +132,7 @@ export function RootTimeline({ profile = "general" }: RootTimelineProps) {
   }
   return (
     <div className="w-full h-full flex flex-col  items-center justify-center gap-2 pb-3">
-      {/* {(customPostsQuery?.isPending) && (
-        <ScrollArea className="h-full w-[90%] flex flex-col gap-5">
-          {Array.from({ length: 5 }).map((_, index) => {
-            return (
-            <div key={index} className="px-5 flex flex-col  w-full">
-              <div className="w-full  flex justify-start items-center  gap-1">
-                <div className="bg-flex h-10 aspect-square rounded-full bg-base-300"></div>
-                <div className="p-5  flex flex-col  gap-2 w-[40%]">
-                  <div className="w-full h-4 bg-base-300"></div>
-                  <div className="w-full h-4 bg-base-300"></div>
-                </div>
-              </div>
-              <div key={index} className="flex flex-col  w-full gap-1">
-                <div className="w-full h-[200px] bg-base-300 skeleton"></div>
-                <div className="w-full h-4 bg-base-300"></div>
-                <div className="w-full h-4 bg-base-300"></div>
-              </div>
-            </div>
-            );
-          })}
-        </ScrollArea>
-      )} */}
-
-
-
-
-      {data?.pages && data?.pages?.length < 1 && (
+    {data?.pages && data?.pages?.length < 1 && (
         <div className="p-5 bg-base-200">Nothing to show for now</div>
       )}
 
@@ -218,4 +192,34 @@ export function RootTimeline({ profile = "general" }: RootTimelineProps) {
       </div>
     </div>
   );
+}
+
+
+
+
+export function RootTimelinesuspenseFallback(){
+return (
+  <ScrollArea className="h-full w-[90%] flex flex-col gap-1">
+    <div className="w-full flex flex-col gap-5">
+      {Array.from({ length: 5 }).map((_, index) => {
+        return (
+          <div key={index} className="px-5 flex flex-col  w-full">
+            <div className="w-full  flex justify-start items-center  gap-1">
+              <div className="bg-flex h-10 aspect-square rounded-full bg-base-300"></div>
+              <div className="p-5  flex flex-col  gap-2 w-[40%]">
+                <div className="w-full h-4 bg-base-300"></div>
+                <div className="w-full h-4 bg-base-300"></div>
+              </div>
+            </div>
+            <div key={index} className="flex flex-col  w-full gap-1">
+              <div className="w-full h-[200px] bg-base-300 skeleton"></div>
+              <div className="w-full h-4 bg-base-300"></div>
+              <div className="w-[70%] h-4 bg-base-300"></div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </ScrollArea>
+);
 }

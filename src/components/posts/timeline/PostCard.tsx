@@ -1,6 +1,6 @@
 "use client";
 import { useMutationWrapper } from "@/state/hooks/useMutation";
-import { Heart,MessageSquare } from "lucide-react";
+import { Heart, MessageSquare } from "lucide-react";
 import React from "react";
 import { PostMutationDialog } from "./PostMutationDialog";
 import { twMerge } from "tailwind-merge";
@@ -8,11 +8,14 @@ import { TimeCompponent } from "../../wrappers/TimeCompponent";
 import {
   createReactionToPost,
   updateReactionToPost,
-} from "@/lib/pb/models/custom_routes/posts"
+} from "@/lib/pb/models/custom_routes/posts";
 import { PocketbookUserResponse } from "@/lib/pb/db-types";
 import { PocketBaseClient, getFileURL } from "@/lib/pb/client";
 import { Head, Link, navigate, useLocation } from "rakkasjs";
-import { CustomPocketbookPost, CustomPocketbookRoutesEndpoints } from "@/lib/pb/models/custom_routes/types";
+import {
+  CustomPocketbookPost,
+  CustomPocketbookRoutesEndpoints,
+} from "@/lib/pb/models/custom_routes/types";
 
 interface PostCardProps extends React.HTMLAttributes<HTMLDivElement> {
   pb: PocketBaseClient;
@@ -35,19 +38,17 @@ export const PostsCard = ({
     record_id: item?.post_id,
     file_name: item?.post_media,
   });
-  const {current}=  useLocation()
-  const one_post_url = new URL(current)
-  one_post_url.pathname="/post/"+item?.post_id
+  const { current } = useLocation();
+  const one_post_url = new URL(current);
+  one_post_url.pathname = "/post/" + item?.post_id;
   one_post_url.searchParams.set("author", item?.creator_id);
-  one_post_url.searchParams.set("depth", (parseInt(item?.post_depth)).toString());
+  one_post_url.searchParams.set("depth", parseInt(item?.post_depth).toString());
 
-  const profile_url= new URL(current)
-  profile_url.pathname="/profile/"+item?.creator_id
+  const profile_url = new URL(current);
+  profile_url.pathname = "/profile/" + item?.creator_id;
   profile_url.searchParams.forEach((value, key) => {
     profile_url.searchParams.delete(key);
-  })
-  
-
+  });
 
   const card_styles = twMerge(
     `w-full h-full p-1 flex flex-col hover:shadow-sm hover:shadow-accent-foreground
@@ -56,11 +57,13 @@ export const PostsCard = ({
   );
   return (
     <div {...props} className={card_styles}>
-   {!list_item&&<Head
-        title={"Post"}
-        description={item?.post_body?.slice(0, 100) ?? ""}
-        og:image={post_img_url ?? ""}
-      />}
+      {!list_item && (
+        <Head
+          title={"Post"}
+          description={item?.post_body?.slice(0, 100) ?? ""}
+          og:image={post_img_url ?? ""}
+        />
+      )}
       <div
         className="w-full "
         onClick={(e) => {
@@ -127,6 +130,7 @@ export const PostsCard = ({
           item={item}
           pb={pb}
           list_item={list_item}
+          is_reply={is_reply}
         />
       </div>
     </div>
@@ -138,21 +142,32 @@ interface PostReactionsCardProps {
   user?: PocketbookUserResponse;
   item: CustomPocketbookPost;
   list_item: boolean;
+  is_reply: boolean;
 }
 
-export const PostReactionsCard = ({ pb,user, item,list_item }: PostReactionsCardProps) => {
+export const PostReactionsCard = ({
+  pb,
+  user,
+  is_reply,
+  item,
+  list_item,
+}: PostReactionsCardProps) => {
   const [liked, setLiked] = React.useState(item?.mylike === "yes");
+  const query_invalidation_key = is_reply
+    ? [CustomPocketbookRoutesEndpoints.CustomPocketbookPostReplies]
+    : [CustomPocketbookRoutesEndpoints.CustomPocketbookPosts];
+  console.log(" query invalidation key ==== ", query_invalidation_key);
   const newReactionMutation = useMutationWrapper({
     fetcher: createReactionToPost,
     // refresh:true,
     success_message: "",
-    invalidates: [CustomPocketbookRoutesEndpoints.CustomPocketbookPosts],
+    invalidates: query_invalidation_key,
   });
   const updateReactionMutation = useMutationWrapper({
     fetcher: updateReactionToPost,
     //   refresh: true,
     success_message: "",
-    invalidates: [CustomPocketbookRoutesEndpoints.CustomPocketbookPosts],
+    invalidates: query_invalidation_key,
     refresh: false,
   });
 

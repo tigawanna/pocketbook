@@ -35,13 +35,17 @@ export function RepliesTimeline({
   const currentdate = dayjs(new Date()).format("YYYY-MM-DDTHH:mm:ssZ[Z]");
 
   const customPostsQuery = useInfiniteQuery({
-    queryKey: [CustomPocketbookRoutesEndpoints.CustomPocketbookPosts, parent,depth],
+    queryKey: [
+      CustomPocketbookRoutesEndpoints.CustomPocketbookPostReplies,
+      parent,
+      depth,
+    ],
     queryFn: ({ queryKey, pageParam }) =>
       tryCatchWrapper(
         getCustomPocketbookPostReplies({
           pb,
           query_vars: {
-            depth:depth+1,
+            depth: depth + 1,
             user_id: pb?.authStore?.model?.id,
             parent,
             limit,
@@ -56,9 +60,8 @@ export function RepliesTimeline({
           lastPage?.data?.result[lastPage?.data?.result?.length - 1]
         ) {
           return {
-            created:
-              lastPage.data?.result[lastPage.data?.result?.length - 1]
-                ?.created_at,
+            created: lastPage.data?.result[lastPage.data?.result?.length - 1]
+              ?.created_at,
             id: lastPage.data?.result[lastPage.data?.result?.length - 1]
               ?.post_id,
           };
@@ -78,7 +81,8 @@ export function RepliesTimeline({
   const all_data = data?.pages.flatMap((page) => page.data?.result);
 
   const show_load_more =
-    (!customPostsQuery.isLoading || !customPostsQuery.isRefetching)&& (all_data&&all_data?.length>0)
+    (!customPostsQuery.isLoading || !customPostsQuery.isRefetching) &&
+    (all_data && all_data?.length > 0);
 
   useEffect(() => {
     if (inView && !customPostsQuery.isFetching) {
@@ -86,37 +90,12 @@ export function RepliesTimeline({
     }
   }, [inView]);
 
-    if (customPostsQuery.isPending) {
-      return (
-        <ScrollArea className="h-full w-[90%] flex flex-col gap-1">
-          <div className="w-full flex flex-col gap-5">
-            {Array.from({ length: 5 }).map((_, index) => {
-              return (
-                <div key={index} className="px-5 flex flex-col  w-full">
-                  <div className="w-full  flex justify-start items-center  gap-1">
-                    <div className="bg-flex h-10 aspect-square rounded-full bg-base-300"></div>
-                    <div className="p-5  flex flex-col  gap-2 w-[40%]">
-                      <div className="w-full h-4 bg-base-300"></div>
-                      <div className="w-full h-4 bg-base-300"></div>
-                    </div>
-                  </div>
-                  <div key={index} className="flex flex-col  w-full gap-1">
-                    <div className="w-full h-[200px] bg-base-300 skeleton"></div>
-                    <div className="w-full h-4 bg-base-300"></div>
-                    <div className="w-full h-4 bg-base-300"></div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </ScrollArea>
-      );
-    }
+
   return (
     <div className="w-full h-full flex flex-col  items-center ">
-      {customPostsQuery?.error && (
-        <ErrorOutput error={customPostsQuery.error} />
-      )}
+      {customPostsQuery?.error && <ErrorOutput
+        error={customPostsQuery.error}
+      />}
       {data?.pages && data?.pages?.length < 1 && (
         <div className="p-5 bg-base-200">Nothing to show for now</div>
       )}
@@ -134,7 +113,7 @@ export function RepliesTimeline({
                       key={post.post_id}
                       item={post}
                       user={user}
-                      is_reply={false}
+                      is_reply={true}
                     />
                   ))}
                   {/* </SuspenseList> */}
@@ -147,17 +126,15 @@ export function RepliesTimeline({
             <button
               ref={ref}
               onClick={() => customPostsQuery.fetchNextPage()}
-              disabled={
-                !customPostsQuery.hasNextPage ||
-                customPostsQuery.isFetchingNextPage
-              }
+              disabled={!customPostsQuery.hasNextPage ||
+                customPostsQuery.isFetchingNextPage}
               className="btn btn-sm btn-wide bg-base-accent"
             >
               {customPostsQuery.isFetchingNextPage
                 ? "Loading more..."
                 : customPostsQuery.hasNextPage
-                  ? "Load More"
-                  : "No more replies"}
+                ? "Load More"
+                : "No more replies"}
             </button>
           )}
         </div>
@@ -170,31 +147,42 @@ export function RepliesTimeline({
         <PostMutationDialog
           parent={parent}
           user={user}
-          depth={depth+1}
+          depth={depth + 1}
           icon={
-            <Plus
-              className="h-12 w-12 p-1 rounded-full border-2 hover:border-accent-foreground
-              hover:shadow-sm hover:shadow-accent-foreground hover:text-accent-foreground"
-            />
+            <Plus className="h-12 w-12 p-1 rounded-full border-2 hover:border-accent-foreground
+              hover:shadow-sm hover:shadow-accent-foreground hover:text-accent-foreground" />
           }
         />
       </div>
-
-      {/* <button
-        ref={ref}
-        onClick={() => customPostsQuery.fetchNextPage()}
-        disabled={
-          !customPostsQuery.hasNextPage || customPostsQuery.isFetchingNextPage
-        }
-      >
-        {customPostsQuery.isFetchingNextPage
-          ? "Loading more..."
-          : customPostsQuery.hasNextPage
-            ? ""
-            : !customPostsQuery.isLoading
-              ? ""
-              : null}
-      </button> */}
     </div>
   );
+}
+
+
+
+export function RepliesTimelineSuspenseFallback(){
+return (
+  <ScrollArea className="h-full w-[90%] flex flex-col gap-1">
+    <div className="w-full flex flex-col gap-5">
+      {Array.from({ length: 5 }).map((_, index) => {
+        return (
+          <div key={index} className="px-5 flex flex-col  w-full">
+            <div className="w-full  flex justify-start items-center  gap-1">
+              <div className="bg-flex h-10 aspect-square rounded-full bg-base-300"></div>
+              <div className="p-5  flex flex-col  gap-2 w-[40%]">
+                <div className="w-full h-4 bg-base-300"></div>
+                <div className="w-full h-4 bg-base-300"></div>
+              </div>
+            </div>
+            <div key={index} className="flex flex-col  w-full gap-1">
+              <div className="w-full h-[200px] bg-base-300 skeleton"></div>
+              <div className="w-full h-4 bg-base-300"></div>
+              <div className="w-full h-4 bg-base-300"></div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </ScrollArea>
+);
 }

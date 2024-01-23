@@ -24,7 +24,7 @@ export function useMutationWrapper<V, R>({
   success_message,
 }: IUseMutation<V, R>) {
 
-
+console.log(" ===== Invalidates  ===== ",invalidates);
   return useMutation({
     mutationFn: fetcher,
     meta: { invalidates },
