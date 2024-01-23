@@ -13,6 +13,7 @@ export default function NotFoundPage({}: PageProps) {
              That page could not be found
             </p>
         
+        
           </div>
           <div className="space-x-1">
             <Link
