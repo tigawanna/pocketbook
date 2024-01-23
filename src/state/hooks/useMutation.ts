@@ -2,7 +2,6 @@
 
 import { useMutation } from "@tanstack/react-query";
 
-
 interface IUseMutation<V, R> {
   fetcher: (vars: V) => Promise<R>;
   invalidates?: string[];
@@ -13,9 +12,6 @@ interface IUseMutation<V, R> {
   >;
 }
 
-// export function useMutation<V,R>({fetcher,key}:IUseMutation<V,R>){
-//   return useSWRMutation<R, any,string, V>(key, (key, { arg:vars }) => fetcher(vars))
-
 export function useMutationWrapper<V, R>({
   fetcher,
   setError,
@@ -23,8 +19,6 @@ export function useMutationWrapper<V, R>({
   invalidates,
   success_message,
 }: IUseMutation<V, R>) {
-
-console.log(" ===== Invalidates  ===== ",invalidates);
   return useMutation({
     mutationFn: fetcher,
     meta: { invalidates },

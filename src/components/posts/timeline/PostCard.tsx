@@ -156,7 +156,7 @@ export const PostReactionsCard = ({
   const query_invalidation_key = is_reply
     ? [CustomPocketbookRoutesEndpoints.CustomPocketbookPostReplies]
     : [CustomPocketbookRoutesEndpoints.CustomPocketbookPosts];
-  console.log(" query invalidation key ==== ", query_invalidation_key);
+
   const newReactionMutation = useMutationWrapper({
     fetcher: createReactionToPost,
     // refresh:true,
