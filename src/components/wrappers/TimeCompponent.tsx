@@ -6,7 +6,7 @@ dayjs.extend(relativeTime);
 dayjs.extend(localizedFormat);
 
 interface TimeCompponentProps extends React.HTMLAttributes<HTMLDivElement> {
-  time: string;
+  time: string|number;
   relative?: boolean;
   format?: string;
 }
@@ -27,7 +27,7 @@ export function TimeCompponent({
     <div
       {...props}
       className={twMerge(
-        "text-xs font-bold text-secondary-foreground p-1",
+        "text-xs  p-1",
         props.className
       )}
     >

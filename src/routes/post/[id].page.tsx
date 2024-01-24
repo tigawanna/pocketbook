@@ -3,7 +3,7 @@ import {
   RepliesTimeline,
   RepliesTimelineSuspenseFallback,
 } from "@/components/posts/timeline/RepliesTimeline";
-import { SidePanel } from "@/components/posts/timeline/SidePanel";
+import { SidePanel, SidePanelSuspenseBoundary } from "@/components/posts/timeline/SidePanel";
 import { getOnePocketbookCustomPost } from "@/lib/pb/models/custom_routes/posts";
 import { CustomPocketbookRoutesEndpoints } from "@/lib/pb/models/custom_routes/types";
 import { useUser } from "@/lib/rakkas/hooks/useUser";
@@ -75,7 +75,9 @@ export default function OnePostPage({ params, url }: PageProps) {
       </div>
 
       <div className="hidden lg:flex min-h-[200px] h-full w-[50%] p-2 sticky top-0">
-        <SidePanel />
+        <Suspense fallback={<SidePanelSuspenseBoundary />}>
+          <SidePanel />
+        </Suspense>
       </div>
     </main>
   );

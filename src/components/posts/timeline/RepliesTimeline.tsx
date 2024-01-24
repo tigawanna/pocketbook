@@ -4,7 +4,7 @@ import { ScrollArea } from "@/components/shadcn/ui/scroll-area";
 import { ErrorOutput } from "@/components/wrappers/ErrorOutput";
 import {
   getCustomPocketbookPostReplies,
-  getCustomPocketbookPosts,
+
 } from "@/lib/pb/models/custom_routes/posts";
 import { CustomPocketbookRoutesEndpoints } from "@/lib/pb/models/custom_routes/types";
 import { useUser } from "@/lib/rakkas/hooks/useUser";

@@ -1,9 +1,10 @@
 "use client";
-import { SidePanel } from "@/components/posts/timeline/SidePanel";
+import { SidePanel, SidePanelSuspenseBoundary } from "@/components/posts/timeline/SidePanel";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/shadcn/ui/tabs";
 import { RootTimeline } from "@/components/posts/timeline/RootTimeline";
 import { InfiniteFriends } from "./friends/InfiniteFriends";
 import { navigate, useLocation } from "rakkasjs";
+import { Suspense } from "react";
 
 
 interface ProfileTabsProps {
@@ -28,11 +29,13 @@ function setTabparam(tab: string) {
   navigate(url.toString());
 }
   return (
-    <Tabs defaultValue={tab ?? "posts"} 
+    <Tabs
+      defaultValue={tab ?? "posts"}
       onValueChange={(value) => {
-      setTabparam(value);
-    }}
-    className="w-[95%] max-h-screen" >
+        setTabparam(value);
+      }}
+      className="w-[95%] max-h-screen"
+    >
       <TabsList className="w-[95%] flex sticky top-[6%] z-50 bg-base-200">
         <TabsTrigger value="posts" className="w-full">
           Posts
@@ -52,8 +55,10 @@ function setTabparam(tab: string) {
         className="flex   max-h-screen overflow-y-scroll"
       >
         <RootTimeline profile={profile_id} />
-        <div className="hidden lg:flex min-h-[200px] h-full w-[40%] p-2 sticky top-[12%]">
-          <SidePanel />
+        <div className="hidden lg:flex min-h-[200px] h-full w-[40%] p-2 sticky top-[1%]">
+          <Suspense fallback={<SidePanelSuspenseBoundary />}>
+            <SidePanel />
+          </Suspense>
         </div>
       </TabsContent>
 
